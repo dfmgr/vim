@@ -1,0 +1,50 @@
+# Global snippets
+
+# time
+snippet dte "date"
+	`strftime("%m/%d/%Y")`
+endsnippet
+
+snippet tme "time"
+	`strftime("%H:%M")`
+endsnippet
+
+snippet now
+	`strftime("%m%d%Y%H%M")`
+endsnippet
+
+# attentions
+snippet todo
+	TODO: ${1}
+endsnippet
+
+snippet fixme
+	FIXME: ${1}
+endsnippet
+
+snippet xxx
+	XXX: ${1}
+endsnippet
+
+snippet hack
+	HACK: ${1}
+endsnippet
+
+snippet note
+	NOTE: ${1}
+endsnippet
+
+snippet bug
+	BUG: ${1}
+endsnippet
+
+snippet wip
+	WIP: ${1}
+endsnippet
+
+snippet box2 "Box"
+	`!p snip.rv = '┌' + '─' * (len(t[1]) + 2) + '┐'`
+	│ $1 │
+	`!p snip.rv = '└' + '─' * (len(t[1]) + 2) + '┘'`
+	$0
+endsnippet
