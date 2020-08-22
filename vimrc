@@ -639,10 +639,7 @@ let g:header_auto_add_header = 0
 " => templates
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-augroup templates
-  au!
-  autocmd BufNewFile installer.sh silent! execute '0r ~/.config/vim/templates/installer.sh("<afile>:e")
-augroup END
+autocmd bufnewfile installer.sh so ~/.config/vim/templates/skeleton/installer.sh
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => overwrite
