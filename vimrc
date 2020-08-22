@@ -114,11 +114,21 @@ if has('gui_running')
      colorscheme dracula
 endif
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Global ignore
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set wildignore+=*node_modules/**
+set wildignore+=*vendor/** 
+set wildignore+=.git
+set wildignore+=*~,*.swp,*.swo,*.tmp
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => leader mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let mapleader='\'
+let mapleader=','
 let mapleader=' '
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
