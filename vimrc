@@ -586,9 +586,12 @@ augroup END
 " => templates
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-augroup templates
-    au BufNewFile * silent! 0r ~/.config/vim/templates/skeleton/%:e.template
-augroup END
+function! NewFile()
+    silent! 0r $HOME/.config/vim/templates/skeleton/%:e.template
+    s/FILENAME/\=expand("%:t:r")
+endfunction
+
+autocmd BufNewFile * call NewFile()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => snipmate : Specify this in your ~/.config/local/vimrc.local file
