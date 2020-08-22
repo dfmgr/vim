@@ -589,7 +589,7 @@ nn <Leader>rs <esc>:exec ReloadAllSnippets()<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:BASH_InsertFileHeader  = 'no'
-let g:BASH_AlsoBash = [ '*.bash' , 'rc.*' ]
+"let g:BASH_AlsoBash = [ '*.bash' , 'rc.*' ]
 "let g:BASH_MapLeader  = ','
 
 "let g:BASH_AuthorName   = 'Name'
