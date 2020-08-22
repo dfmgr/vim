@@ -601,8 +601,8 @@ let g:BASH_AlsoBash = [ '*.bash' , 'rc.*' ]
 " => vim-templates : Specify this in your ~/.config/local/vimrc.local file
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:today             = strftime('%a, %b %d, %Y, %H:%M')
 let g:tmpl_search_paths = ['~/.config/vim/templates/custom']
+let g:today             = '%a, %b %d, %Y, %H:%M'
 let g:tmpl_license = 'WTFPL'
 "let g:tmpl_license_file = ''
 "let g:tmpl_author_name = ''
@@ -614,13 +614,14 @@ let g:tmpl_license = 'WTFPL'
 " => vim-header : Specify this in your ~/.config/local/vimrc.local file
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:header_auto_add_header = 0
-let g:header_field_timestamp_format = '%a, %b %d, %Y, %H:%M'
-let g:header_field_license_id = 'WTFPL'
+"let g:header_auto_add_header = 0
+"let g:header_field_timestamp_format = '%a, %b %d, %Y, %H:%M'
+"let g:header_field_license_id = 'WTFPL'
+"let g:header_field_timestamp = 1
+"let g:header_field_modified_by = 1
 "let g:header_field_author = 'Your Name'
 "let g:header_field_author_email = 'your@mail'
 "let g:header_field_copyright = ''
-"let g:header_field_modified_by = 0
 
 augroup templates
     au BufNewFile * silent! 0r ~/.config/vim/templates/skeleton/%:e.template
