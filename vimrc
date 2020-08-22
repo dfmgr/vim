@@ -624,7 +624,7 @@ let g:header_auto_add_header = 0
 "let g:header_field_copyright = ''
 
 augroup templates
-    au BufNewFile * silent! 0r ~/.config/vim/templates/skeleton/%:e.template
+    au BufNewFile * silent! 0r ~/.config/vim/templates/skeleton/%:e-template
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
