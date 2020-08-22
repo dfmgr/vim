@@ -611,14 +611,16 @@ let g:BASH_InsertFileHeader  = 'no'
 " => vim-templates : Specify this in your ~/.config/local/vimrc.local file
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:tmpl_search_paths     = ['~/.config/vim/templates/custom', '~/.config/vim/templates/skeleton/%:e-template']
-"let g:today                =  strftime('%a, %b %d, %Y, %H:%M')
-"let g:tmpl_license         = 'WTFPL'
-"let g:tmpl_license_file    = ''
-"let g:tmpl_author_name     = ''
-"let g:tmpl_author_email    = ''
-"let g:tmpl_company         = ''
-"let g:tmpl_author_hostname = ''
+let g:tmpl_auto_initialize = 1
+let g:tmpl_search_paths    = [ '~/.config/vim/templates' ]
+let g:today                =  strftime('%a, %b %d, %Y, %H:%M')
+let g:tmpl_license         = 'WTFPL'
+let g:tmpl_license_file    = 'LICENSE.md'
+let g:tmpl_author_name     = ''
+let g:tmpl_author_email    = ''
+let g:tmpl_company         = ''
+let g:tmpl_author_hostname = ''
+let g:tmpl_copyright       = ''
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim-header : Specify this in your ~/.config/local/vimrc.local file
@@ -634,7 +636,7 @@ let g:header_auto_add_header = 0
 "let g:header_field_copyright = ''
 
 augroup templates
-    au BufNewFile * silent! 0r ~/.config/vim/templates/skeleton/%:e-template
+    au BufNewFile * silent! 0r ~/.config/vim/templates/skeleton/%:e.template
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
