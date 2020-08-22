@@ -639,7 +639,10 @@ let g:header_auto_add_header = 0
 " => templates
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-autocmd BufNewFile * silent! 0r $HOME/.config/vim/templates/skeleton/%:e.tpl
+augroup templates
+  au!
+  autocmd BufNewFile *.* silent! execute '0r ~/.config/vim/templates/skeleton.'.expand("<afile>:e")
+augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => overwrite
