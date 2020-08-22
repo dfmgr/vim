@@ -583,17 +583,6 @@ augroup status
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => templates
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-function! NewFile()
-    silent! 0r $HOME/.config/vim/templates/skeleton/%:e.template
-    s/FILENAME/\=expand("%:t:r")
-endfunction
-
-autocmd BufNewFile * call NewFile()
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => snipmate : Specify this in your ~/.config/local/vimrc.local file
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -645,6 +634,12 @@ let g:header_auto_add_header = 0
 "let g:header_field_author = 'Your Name'
 "let g:header_field_author_email = 'your@mail'
 "let g:header_field_copyright = ''
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => templates
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+autocmd BufNewFile * silent! 0r $HOME/.config/vim/templates/skeleton/%:e.tpl
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => overwrite
