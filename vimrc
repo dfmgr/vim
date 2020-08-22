@@ -601,26 +601,10 @@ nn <Leader>rs <esc>:exec ReloadAllSnippets()<cr>
 let g:BASH_InsertFileHeader  = 'no'
 "let g:BASH_AlsoBash = [ '*.bash' , 'rc.*' ]
 "let g:BASH_MapLeader  = ','
-
 "let g:BASH_AuthorName   = 'Name'
 "let g:BASH_AuthorRef    = 'Initials'
 "let g:BASH_Email        = 'E-mail'
 "let g:BASH_Company      = 'Company'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vim-templates : Specify this in your ~/.config/local/vimrc.local file
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:tmpl_auto_initialize = 1
-let g:tmpl_search_paths    = [ '~/.config/vim/templates/custom' , '~/Templates' ]
-let g:today                =  strftime('%a, %b %d, %Y, %H:%M')
-let g:tmpl_license         = 'WTFPL'
-let g:tmpl_license_file    = 'LICENSE.md'
-"let g:tmpl_author_name     = ''
-"let g:tmpl_author_email    = ''
-"let g:tmpl_company         = ''
-"let g:tmpl_author_hostname = ''
-"let g:tmpl_copyright       = ''
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim-header : Specify this in your ~/.config/local/vimrc.local file
@@ -636,10 +620,19 @@ let g:header_auto_add_header = 0
 "let g:header_field_copyright = ''
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => templates
+" => vim-templates : Specify this in your ~/.config/local/vimrc.local file
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-autocmd bufnewfile installer.sh so ~/.config/vim/templates/skeleton/installer.sh
+let g:tmpl_auto_initialize = 1
+let g:tmpl_search_paths    = [ '~/.config/vim/templates/custom' , '~/Templates' ]
+let g:today                =  strftime('%a, %b %d, %Y, %H:%M')
+let g:tmpl_license         = 'WTFPL'
+let g:tmpl_license_file    = 'LICENSE.md'
+"let g:tmpl_author_name     = ''
+"let g:tmpl_author_email    = ''
+"let g:tmpl_company         = ''
+"let g:tmpl_author_hostname = ''
+"let g:tmpl_copyright       = ''
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => overwrite
