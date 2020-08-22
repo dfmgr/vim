@@ -641,7 +641,7 @@ let g:header_auto_add_header = 0
 
 augroup templates
   au!
-  autocmd BufNewFile *.* silent! execute '0r ~/.config/vim/templates/skeleton.'.expand("<afile>:e")
+  autocmd BufNewFile installer.sh silent! execute '0r ~/.config/vim/templates/installer.sh("<afile>:e")
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
