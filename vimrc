@@ -611,7 +611,7 @@ let g:BASH_InsertFileHeader  = 'no'
 " => vim-templates : Specify this in your ~/.config/local/vimrc.local file
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:tmpl_search_paths     = ['~/.config/vim/templates/custom']
+let g:tmpl_search_paths     = ['~/.config/vim/templates/custom', '~/.config/vim/templates/skeleton/%:e-template']
 "let g:today                =  strftime('%a, %b %d, %Y, %H:%M')
 "let g:tmpl_license         = 'WTFPL'
 "let g:tmpl_license_file    = ''
