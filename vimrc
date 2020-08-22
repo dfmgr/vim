@@ -614,7 +614,7 @@ let g:tmpl_search_paths     = ['~/.config/vim/templates/custom']
 " => vim-header : Specify this in your ~/.config/local/vimrc.local file
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"let g:header_auto_add_header = 0
+let g:header_auto_add_header = 0
 "let g:header_field_timestamp_format = '%a, %b %d, %Y, %H:%M'
 "let g:header_field_license_id = 'WTFPL'
 "let g:header_field_timestamp = 1
