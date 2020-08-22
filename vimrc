@@ -602,7 +602,7 @@ let g:BASH_InsertFileHeader  = 'no'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:tmpl_search_paths     = ['~/.config/vim/templates/custom']
-let g:today                 = '{{DAY}}, {{MONTH}} {{DATE}}, {{YEAR}}, {{TIME}}'
+let g:today                 = '{{DAY}}, {{MONTH_SHORT}} {{DATE}}, {{YEAR}} {{TIME}}'
 let g:tmpl_license          = 'WTFPL'
 "let g:tmpl_license_file    = ''
 "let g:tmpl_author_name     = ''
