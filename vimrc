@@ -602,8 +602,8 @@ let g:BASH_InsertFileHeader  = 'no'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:tmpl_search_paths     = ['~/.config/vim/templates/custom']
-let g:today                 = '%a, %b %d, %Y, %H:%M'
-let g:tmpl_license          = 'WTFPL'
+"let g:today                =  strftime('%a, %b %d, %Y, %H:%M')
+"let g:tmpl_license         = 'WTFPL'
 "let g:tmpl_license_file    = ''
 "let g:tmpl_author_name     = ''
 "let g:tmpl_author_email    = ''
@@ -614,7 +614,7 @@ let g:tmpl_license          = 'WTFPL'
 " => vim-header : Specify this in your ~/.config/local/vimrc.local file
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:header_auto_add_header = 0
+"let g:header_auto_add_header = 0
 "let g:header_field_timestamp_format = '%a, %b %d, %Y, %H:%M'
 "let g:header_field_license_id = 'WTFPL'
 "let g:header_field_timestamp = 1
@@ -630,7 +630,6 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => overwrite
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
