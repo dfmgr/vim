@@ -247,8 +247,8 @@ let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsNoPythonWarning = 1
 let g:UltiSnipsEnableSnipMate = 1
-let g:UltiSnipsSnippetsDir="~/.config/vim/snippets"
-let g:UltiSnipsSnippetDirectories=["snips", "UltiSnips"]
+let g:UltiSnipsSnippetDirectories = [$HOME.'/.config/vim/UltiSnips']
+"let g:UltiSnipsSnippetDirectories = [$HOME.'/.config/vim/snippets']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  gitgutter
