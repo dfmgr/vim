@@ -81,7 +81,7 @@ Plugin 'mattn/emmet-vim'                    "emmet
 Plugin 'mhinz/vim-startify'                 "The fancy start screen
 Plugin 'mileszs/ack.vim'                    "Vim plugin for the Perl module
 Plugin 'plasticboy/vim-markdown'            "Syntax highlighting, matching rules and mappings
-Plugin 'powerline/powerline'                "statusline plugin
+"Plugin 'powerline/powerline'                "statusline plugin
 Plugin 'prettier/vim-prettier'              "A vim plugin wrapper for prettier
 Plugin 'scrooloose/nerdtree'                "A tree explorer plugin for vim
 Plugin 'scrooloose/syntastic'               "Syntax checking hacks for vim
