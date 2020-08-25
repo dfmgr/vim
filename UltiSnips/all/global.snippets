@@ -50,10 +50,10 @@ snippet box2 "Box"
 endsnippet
 
 
-snippet bashScript
+snippet bashScript "shell"
 #!/usr/bin/env bash
 
-APPNAME="$(basename $0)"
+`APPNAME="$(basename $0)"`
 USER="${SUDO_USER:-${USER}}"
 HOME="${USER_HOME:-${HOME}}"
 
@@ -119,7 +119,7 @@ endsnippet
 snippet app-installer
 #!/usr/bin/env bash
 
-APPNAME="$(basename $0)"
+`APPNAME="$(basename $0)"`
 USER="${SUDO_USER:-${USER}}"
 HOME="${USER_HOME:-${HOME}}"
 
