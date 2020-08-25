@@ -153,8 +153,47 @@ map <C-l> <C-w>l
 " => Startupify configuration
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:startify_enable_special = 10
-let g:startify_files_number = 10
+let g:startify_custom_header = [
+    \'                                                      ',
+    \'   _____          _                 _____             ',
+    \'  / ____|        (_)               |  __ \            ',
+    \' | |     __ _ ___ _  __ _ _   _ ___| |  | | _____   __',
+    \' | |    / _` / __| |/ _` | | | / __| |  | |/ _ \ \ / /',
+    \' | |___| (_| \__ \ | (_| | |_| \__ \ |__| |  __/\ V / ',
+    \'  \_____\__,_|___/ |\__,_|\__, |___/_____/ \___| \_/  ',
+    \'                _/ |       __/ |                      ',
+    \'               |__/       |___/                       ',
+    \'                                                      ',
+    \]
+
+let g:startify_session_autoload = 1
+let g:startify_session_delete_buffers = 1
+let g:startify_change_to_vcs_root = 1
+let g:startify_fortune_use_unicode = 1
+let g:startify_session_persistence = 1
+let g:webdevicons_enable_startify = 1
+let g:startify_enable_special = 0
+let g:startify_session_dir = '~/.config/vim/session'
+
+let g:startify_bookmarks = [
+            \ { 'c': '~/.config/i3/config' },
+            \ { 'i': '~/.config/vim/vimrc' },
+            \ { 'z': '~/.zshrc' },
+            \ { 'b': '~/.bashrc' },
+            \ { 'p': '~/.profile' },
+            \ { 'x': '~/.config/xmonad/xmonad.hs' },
+            \ ]
+            
+let g:startify_lists = [
+          \ { 'type': 'files',     'header': ['   Files']                        },
+          \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
+          \ { 'type': 'sessions',  'header': ['   Sessions']                     },
+          \ { 'type': 'bookmarks', 'header': ['   Bookmarks']                    },
+          \ ]
+
+function! StartifyEntryFormat()
+        return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
+    endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Syntastic configuration
@@ -210,6 +249,197 @@ let g:UltiSnipsNoPythonWarning = 1
 let g:UltiSnipsEnableSnipMate = 1
 let g:UltiSnipsSnippetsDir="~/.config/vim/snippets"
 let g:UltiSnipsSnippetDirectories=["snips", "UltiSnips"]
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" =>  gitgutter
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:gitgutter_sign_added              = '▎'
+let g:gitgutter_sign_modified           = '▎'
+let g:gitgutter_sign_removed            = '契'
+let g:gitgutter_sign_removed_first_line = '契'
+let g:gitgutter_sign_modified_removed   = '▎'
+let g:gitgutter_preview_win_floating = 1
+
+let g:gitgutter_enabled = 1
+
+highlight GitGutterAdd    guifg=#98c379 ctermfg=2
+highlight GitGutterChange guifg=#61afef ctermfg=3
+highlight GitGutterDelete guifg=#e06c75 ctermfg=1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" =>  nerdcommenter
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+vnoremap <silent> <space>/ :Commentary<CR>
+autocmd FileType javascript.jsx setlocal commentstring={/*\ %s\ */}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" =>  commentary
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! Comment()
+  if (mode() == "n" )
+    execute "Commentary"
+  else    
+    execute "'<,'>Commentary"
+  endif
+ endfunction
+vnoremap <silent> <space>/ :call Comment()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" =>  vim-rooter
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:rooter_silent_chdir = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" =>  fzf
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+let g:fzf_buffers_jump = 1
+
+" map <C-f> :Files<CR>
+" map <leader>b :Buffers<CR>
+" nnoremap <leader>g :Rg<CR>
+" nnoremap <leader>t :Tags<CR>
+" nnoremap <leader>m :Marks<CR>
+
+
+let g:fzf_tags_command = 'ctags -R'
+" Border color
+let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
+
+let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
+let $FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/**'"
+"-g '!{node_modules,.git}'
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+"Get Files
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--inline-info']}), <bang>0)
+
+
+" Get text in files with Rg
+" command! -bang -nargs=* Rg
+"   \ call fzf#vim#grep(
+"   \   "rg --column --line-number --no-heading --color=always --smart-case --glob '!.git/**' ".shellescape(<q-args>), 1,
+
+ " Make Ripgrep ONLY search file contents and not filenames
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4.. -e'}, 'right:50%', '?'),
+  \   <bang>0)
+
+" Ripgrep advanced
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+" Git grep
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+  
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" =>  sneak
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:sneak#label = 1
+let g:sneak#use_ic_scs = 1
+let g:sneak#s_next = 1
+map gS <Plug>Sneak_,
+map gs <Plug>Sneak_;
+highlight Sneak guifg=black guibg=#00C7DF ctermfg=black ctermbg=cyan
+highlight SneakScope guifg=red guibg=yellow ctermfg=red ctermbg=yellow
+let g:sneak#prompt = '🔎 '
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" =>  quickscope
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
+highlight QuickScopePrimary guifg='#00C7DF' gui=underline ctermfg=155 cterm=underline
+highlight QuickScopeSecondary guifg='#eF5F70' gui=underline ctermfg=81 cterm=underline
+let g:qs_max_chars=150
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" =>  rainbow
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
+let g:rainbow_conf = {'guis': ['bold']}
+let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
+
+" \	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+let g:rainbow_conf = {
+\	'guifgs': ['#858580', '#8FBCBB', '#D08770', '#A3BE8C', '#EBCB8B', '#B48EAD', '#80a880', '#887070'],
+\	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+\	'guis': [''],
+\	'cterms': [''],
+\	'operators': '_,_',
+\	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+\	'separately': {
+\		'*': {},
+\		'markdown': {
+\			'parentheses_options': 'containedin=markdownCode contained', 
+\		},
+\		'lisp': {
+\	    'guifgs': ['#858580', '#8FBCBB', '#D08770', '#A3BE8C', '#EBCB8B', '#B48EAD', '#80a880', '#887070'],
+\		},
+\		'jsx': {
+\	    'guifgs': ['#858580', '#8FBCBB', '#D08770', '#A3BE8C', '#EBCB8B', '#B48EAD', '#80a880', '#887070'],
+\		},
+\		'haskell': {
+\			'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/\v\{\ze[^-]/ end=/}/ fold'],
+\		},
+\		'vim': {
+\			'parentheses_options': 'containedin=vimFuncBody', 
+\		},
+\		'perl': {
+\			'syn_name_prefix': 'perlBlockFoldRainbow', 
+\		},
+\		'stylus': {
+\			'parentheses': ['start=/{/ end=/}/ fold contains=@colorableGroup'], 
+\		},
+\		'css': 0, 
+\	}
+\}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Copy selected text to system clipboard (requires gvim/nvim/vim-x11 installed):
