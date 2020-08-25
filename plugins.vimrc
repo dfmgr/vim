@@ -97,6 +97,8 @@ Plugin 'tmux-plugins/vim-tmux-focus-events' "
 Plugin 'tomlion/vim-solidity'               "
 Plugin 'tpope/vim-fugitive'                 "
 Plugin 'tpope/vim-surround'                 "
+Plugin 'tpope/vim-commentary'               "Rainbow Parentheses Improved
+Plugin 'luochen1990/rainbow'                "
 Plugin 'vim-airline/vim-airline'            "
 Plugin 'vim-airline/vim-airline-themes'     "
 Plugin 'vim-python/python-syntax'           "
@@ -108,9 +110,8 @@ Plugin 'wolfgangmehner/vim-support'         "
 Plugin 'xolox/vim-misc'                     "
 Plugin 'Xuyuanp/nerdtree-git-plugin'        "
 Plugin 'lifepillar/vim-colortemplate'       " color template
-Plugin 'dracula/vim', { 'name': 'dracula'  }
-Plugin 'MarcWeber/vim-addon-mw-utils'       "
-Plugin 'dbeniamine/cheat.sh-vim'            "
+Plugin 'MarcWeber/vim-addon-mw-utils'       "interpret a file by function
+Plugin 'dbeniamine/cheat.sh-vim'            "access cheat.sh sheets
 Plugin 'honza/vim-snippets'				    "snippets
 Plugin 'roxma/nvim-yarp'                    "required for deoplete
 Plugin 'roxma/vim-hug-neovim-rpc'           "required for deoplete
@@ -119,6 +120,9 @@ Plugin 'chrisbra/unicode.vim'               "Unicode glyphs
 Plugin 'ryanoasis/vim-devicons'             "Adds file type icons to Vim plugins
 Plugin 'baskerville/vim-sxhkdrc'            "syntax for sxhkd's configuration files
 Plugin 'parkr/vim-jekyll'                   "Blogging from the command line
+Plugin 'justinmk/vim-sneak'                 "
+Plugin 'unblevable/quick-scope'             "
+Plugin 'dracula/vim', { 'name': 'dracula'  } "Dracula theme
 
 Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }  "asynchronous completion framework
 
