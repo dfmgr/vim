@@ -112,7 +112,7 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'        "
 Plugin 'lifepillar/vim-colortemplate'       " color template
 Plugin 'MarcWeber/vim-addon-mw-utils'       "interpret a file by function
 Plugin 'dbeniamine/cheat.sh-vim'            "access cheat.sh sheets
-Plugin 'honza/vim-snippets'				    "snippets
+Plugin 'honza/vim-snippets'	                "snippets
 Plugin 'roxma/nvim-yarp'                    "required for deoplete
 Plugin 'roxma/vim-hug-neovim-rpc'           "required for deoplete
 Plugin 'vitalk/vim-shebang'                 "set shebang line
