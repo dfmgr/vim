@@ -15,13 +15,10 @@ if (has('python3') || has('pythonx'))
     let g:UltiSnipsUsePythonVersion = 3"
     let g:powerline_pycmd="py3"
     let g:python3_host_prog = "/usr/bin/python3"
-    set pyxversion=3
-    set pyx=3
 elseif has('python')
     let g:UltiSnipsUsePythonVersion = 2"
     let g:powerline_pycmd="py"
     let g:python_host_prog = "/usr/bin/python2"
-    set pyx=2
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
