@@ -340,6 +340,31 @@ let g:rooter_silent_chdir = 1
 " =>  fzf
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" . = location of current file
+nnoremap '.  :exe ":FZF " . expand("%:h")<CR>
+" / = /
+"nnoremap '/  :e /<C-d>
+" b = buffers
+"nnoremap 'b  :Buffers<cr>
+" d = documents
+"nnoremap 'd  :FZF ~/Documents/<cr>
+" f = fzf
+"nnoremap 'f  :FZF<cr>
+" g = grep (ripgrep)
+"nnoremap 'g  :Rg 
+" h = home
+"nnoremap 'h  :FZF ~/<cr>
+" n = notes
+"nnoremap 'n  :FZF ~/Documents/Notes/<cr>
+" t = tags
+"nnoremap 't  :Tags<cr>
+" r = bashrc
+"nnoremap 'r  :e ~/.bashrc<cr>
+" v = vimrc
+"nnoremap 'v  :e $MYVIMRC<cr>
+" toggle last buffer
+"nnoremap ''  :b#<cr>
+
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
