@@ -206,6 +206,7 @@ failexitcode
 
 run_postinst() {
   dfmgr_run_post
+  ln_sf "$APPDIR" "$HOME/.vim"
   ln_sf "$APPDIR/vimrc" "$HOME/.vimrc"
 }
 
