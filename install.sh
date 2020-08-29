@@ -207,7 +207,8 @@ failexitcode
 run_postinst() {
   dfmgr_run_post
   ln_sf "$APPDIR/vimrc" "$HOME/.vimrc"
-  vim "+BundleInstall" +qall </dev/null >/dev/null 2>&1
+  vim "+BundleInstall" +qall < /dev/null > /dev/null 2>&1
+  vim "+PluginInstall" +qall < /dev/null > /dev/null 2>&1
 }
 
 execute \
