@@ -209,6 +209,7 @@ run_postinst() {
   ln_sf "$APPDIR/vimrc" "$HOME/.vimrc"
   devnull2 vim -u "$APPDIR/plugins.vimrc" "+BundleInstall" +qall < /dev/null
   devnull2 vim -u "$APPDIR/plugins.vimrc" "+PluginInstall" +qall < /dev/null
+  devnull2 vim -u "$APPDIR/plugins.vimrc" "+PluginClean" +qall < /dev/null
 }
 
 execute \
