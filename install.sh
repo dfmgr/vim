@@ -206,7 +206,9 @@ failexitcode
 
 run_postinst() {
   dfmgr_run_post
-  ln_sf "$APPDIR/vimrc" "$HOME/.vimrc"
+  if [ ! -L "$HOME/.vimrc" ]; then
+     ln_sf "$APPDIR/vimrc" "$HOME/.vimrc"
+  fi
   devnull2 vim -u "$APPDIR/plugins.vimrc" "+BundleInstall" +qall < /dev/null
   devnull2 vim -u "$APPDIR/plugins.vimrc" "+PluginInstall" +qall < /dev/null
   devnull2 vim -u "$APPDIR/plugins.vimrc" "+PluginClean" +qall < /dev/null
