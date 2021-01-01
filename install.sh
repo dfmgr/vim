@@ -97,7 +97,7 @@ show_optvars "$@"
 APP="$APPNAME ctags "
 PERL=""
 PYTH="pip "
-PIPS="msgpack neovim pynvim "
+PIPS="msgpack neovim pynvim wakatime "
 CPAN=""
 GEMS=""
 
