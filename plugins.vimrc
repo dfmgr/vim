@@ -120,6 +120,7 @@ Plugin 'parkr/vim-jekyll'                   "Blogging from the command line
 Plugin 'justinmk/vim-sneak'                 "
 Plugin 'unblevable/quick-scope'             "
 Plugin 'dracula/vim', { 'name': 'dracula'  } "Dracula theme
+Plugin 'wakatime/vim-wakatime'              "plugin for productivity metrics
 
 Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }  "asynchronous completion framework
 
