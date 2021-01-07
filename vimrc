@@ -274,8 +274,11 @@ let g:snipMate = get(g:, 'snipMate', {})
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => deoplete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:deoplete#enable_at_startup = 1
+if (has('python3') || has('pythonx'))
+    let g:deoplete#enable_at_startup = 1
+elseif has('python')
+    let g:deoplete#enable_at_startup = 1
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  ultisnips
