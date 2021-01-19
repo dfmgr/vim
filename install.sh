@@ -52,7 +52,7 @@ APPNAME="${APPNAME:-vim}"
 APPDIR="${APPDIR:-$HOME/.config/$APPNAME}"
 REPO="${DFMGRREPO:-https://github.com/dfmgr}/${APPNAME}"
 REPORAW="${REPORAW:-$REPO/raw}"
-APPVERSION="$(curl -LSs $REPORAW/master/version.txt)"
+APPVERSION="$(__appversion)"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -137,15 +137,15 @@ ensure_perms
 
 # Main progam
 
-if [ -d "$APPDIR/.git" ]; then
+if [ -d "$DOWNLOADED_TO/.git" ]; then
   execute \
-  "git_update $APPDIR" \
-  "Updating $APPNAME configurations"
+    "git_update $APPDIR" \
+    "Updating $APPNAME configurations"
 else
   execute \
-  "backupapp && \
+    "backupapp && \
         git_clone -q $REPO/$APPNAME $APPDIR" \
-  "Installing $APPNAME configurations"
+    "Installing $APPNAME configurations"
 fi
 
 # exit on fail
@@ -158,43 +158,43 @@ failexitcode
 if [ "$PLUGNAMES" != "" ]; then
   if [ -d "$PLUGDIR"/Vundle.vim/.git ]; then
     execute \
-    "git_update $PLUGDIR/Vundle.vim" \
-    "Updating plugin Vundle.vim"
+      "git_update $PLUGDIR/Vundle.vim" \
+      "Updating plugin Vundle.vim"
   else
     execute \
-    "git_clone https://github.com/VundleVim/Vundle.vim.git $PLUGDIR/Vundle.vim" \
-    "Installing plugin Vundle.vim"
+      "git_clone https://github.com/VundleVim/Vundle.vim.git $PLUGDIR/Vundle.vim" \
+      "Installing plugin Vundle.vim"
   fi
 fi
 
 if [ -d "$PLUGDIR/vim-fugitive/.git" ]; then
   execute \
-  "git_update $PLUGDIR/vim-fugitive" \
-  "Updating vim-fugitive"
+    "git_update $PLUGDIR/vim-fugitive" \
+    "Updating vim-fugitive"
 else
   execute \
-  "git_clone https://github.com/tpope/vim-fugitive $PLUGDIR/vim-fugitive" \
-  "Installing vim-fugitive"
+    "git_clone https://github.com/tpope/vim-fugitive $PLUGDIR/vim-fugitive" \
+    "Installing vim-fugitive"
 fi
 
 if [ -d "$PLUGDIR/vim-airline/.git" ]; then
   execute \
-  "git_update $PLUGDIR/vim-airline" \
-  "Updating vim-airline"
+    "git_update $PLUGDIR/vim-airline" \
+    "Updating vim-airline"
 else
   execute \
-  "git_clone https://github.com/vim-airline/vim-airline $PLUGDIR/vim-airline" \
-  "Installing vim-airline"
+    "git_clone https://github.com/vim-airline/vim-airline $PLUGDIR/vim-airline" \
+    "Installing vim-airline"
 fi
 
 if [ -d "$PLUGDIR/vim-airline-themes/.git" ]; then
   execute \
-  "git_update $PLUGDIR/vim-airline-themes" \
-  "Updating vim-airline-themes"
+    "git_update $PLUGDIR/vim-airline-themes" \
+    "Updating vim-airline-themes"
 else
   execute \
-  "git_clone https://github.com/vim-airline/vim-airline-themes $PLUGDIR/vim-airline-themes" \
-  "Installing vim-airline-themes"
+    "git_clone https://github.com/vim-airline/vim-airline-themes $PLUGDIR/vim-airline-themes" \
+    "Installing vim-airline-themes"
 fi
 
 # exit on fail
@@ -207,16 +207,16 @@ failexitcode
 run_postinst() {
   dfmgr_run_post
   if [ ! -L "$HOME/.vimrc" ]; then
-     ln_sf "$APPDIR/vimrc" "$HOME/.vimrc"
+    ln_sf "$DOWNLOADED_TO/vimrc" "$HOME/.vimrc"
   fi
-  devnull2 vim -u "$APPDIR/plugins.vimrc" "+BundleInstall" +qall < /dev/null
-  devnull2 vim -u "$APPDIR/plugins.vimrc" "+PluginInstall" +qall < /dev/null
-  devnull2 vim -u "$APPDIR/plugins.vimrc" "+PluginClean" +qall < /dev/null
+  devnull2 vim -u "$DOWNLOADED_TO/plugins.vimrc" "+BundleInstall" +qall </dev/null
+  devnull2 vim -u "$DOWNLOADED_TO/plugins.vimrc" "+PluginInstall" +qall </dev/null
+  devnull2 vim -u "$DOWNLOADED_TO/plugins.vimrc" "+PluginClean" +qall </dev/null
 }
 
 execute \
-"run_postinst" \
-"Running post install scripts"
+  "run_postinst" \
+  "Running post install scripts"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
