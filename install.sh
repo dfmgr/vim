@@ -139,12 +139,12 @@ ensure_perms
 
 if [ -d "$DOWNLOADED_TO/.git" ]; then
   execute \
-    "git_update $APPDIR" \
+    "git_update $DOWNLOADED_TO" \
     "Updating $APPNAME configurations"
 else
   execute \
     "backupapp && \
-        git_clone -q $REPO/$APPNAME $APPDIR" \
+        git_clone -q $REPO/$APPNAME $DOWNLOADED_TO" \
     "Installing $APPNAME configurations"
 fi
 
@@ -207,11 +207,11 @@ failexitcode
 run_postinst() {
   dfmgr_run_post
   if [ ! -L "$HOME/.vimrc" ]; then
-    ln_sf "$DOWNLOADED_TO/vimrc" "$HOME/.vimrc"
+    ln_sf "$APPDIR/vimrc" "$HOME/.vimrc"
   fi
-  devnull2 vim -u "$DOWNLOADED_TO/plugins.vimrc" "+BundleInstall" +qall </dev/null
-  devnull2 vim -u "$DOWNLOADED_TO/plugins.vimrc" "+PluginInstall" +qall </dev/null
-  devnull2 vim -u "$DOWNLOADED_TO/plugins.vimrc" "+PluginClean" +qall </dev/null
+  devnull2 vim -u "$APPDIR/plugins.vimrc" +BundleInstall +qall </dev/null
+  devnull2 vim -u "$APPDIR/plugins.vimrc" +PluginInstall +qall </dev/null
+  devnull2 vim -u "$APPDIR/plugins.vimrc" +PluginClean +qall </dev/null
 }
 
 execute \
