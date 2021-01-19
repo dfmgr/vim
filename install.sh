@@ -155,6 +155,7 @@ failexitcode
 
 # Plugins
 
+if __am_i_online; then
 if [ "$PLUGNAMES" != "" ]; then
   if [ -d "$PLUGDIR"/Vundle.vim/.git ]; then
     execute \
@@ -195,6 +196,7 @@ else
   execute \
     "git_clone https://github.com/vim-airline/vim-airline-themes $PLUGDIR/vim-airline-themes" \
     "Installing vim-airline-themes"
+fi
 fi
 
 # exit on fail
