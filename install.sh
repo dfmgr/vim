@@ -137,14 +137,17 @@ ensure_perms
 
 # Main progam
 
+if [ -d "$APPDIR" ]; then
+  execute "backupapp $APPDIR $APPNAME" "Backing up $APPDIR"
+fi
+
 if [ -d "$DOWNLOADED_TO/.git" ]; then
   execute \
     "git_update $DOWNLOADED_TO" \
     "Updating $APPNAME configurations"
 else
   execute \
-    "backupapp && \
-        git_clone -q $REPO/$APPNAME $DOWNLOADED_TO" \
+    "git_clone -q $REPO/$APPNAME $DOWNLOADED_TO" \
     "Installing $APPNAME configurations"
 fi
 
@@ -156,51 +159,51 @@ failexitcode
 # Plugins
 
 if __am_i_online; then
-if [ "$PLUGNAMES" != "" ]; then
-  if [ -d "$PLUGDIR"/Vundle.vim/.git ]; then
+  if [ "$PLUGNAMES" != "" ]; then
+    if [ -d "$PLUGDIR"/Vundle.vim/.git ]; then
+      execute \
+        "git_update $PLUGDIR/Vundle.vim" \
+        "Updating plugin Vundle.vim"
+    else
+      execute \
+        "git_clone https://github.com/VundleVim/Vundle.vim.git $PLUGDIR/Vundle.vim" \
+        "Installing plugin Vundle.vim"
+    fi
+  fi
+
+  if [ -d "$PLUGDIR/vim-fugitive/.git" ]; then
     execute \
-      "git_update $PLUGDIR/Vundle.vim" \
-      "Updating plugin Vundle.vim"
+      "git_update $PLUGDIR/vim-fugitive" \
+      "Updating vim-fugitive"
   else
     execute \
-      "git_clone https://github.com/VundleVim/Vundle.vim.git $PLUGDIR/Vundle.vim" \
-      "Installing plugin Vundle.vim"
+      "git_clone https://github.com/tpope/vim-fugitive $PLUGDIR/vim-fugitive" \
+      "Installing vim-fugitive"
   fi
-fi
 
-if [ -d "$PLUGDIR/vim-fugitive/.git" ]; then
-  execute \
-    "git_update $PLUGDIR/vim-fugitive" \
-    "Updating vim-fugitive"
-else
-  execute \
-    "git_clone https://github.com/tpope/vim-fugitive $PLUGDIR/vim-fugitive" \
-    "Installing vim-fugitive"
-fi
+  if [ -d "$PLUGDIR/vim-airline/.git" ]; then
+    execute \
+      "git_update $PLUGDIR/vim-airline" \
+      "Updating vim-airline"
+  else
+    execute \
+      "git_clone https://github.com/vim-airline/vim-airline $PLUGDIR/vim-airline" \
+      "Installing vim-airline"
+  fi
 
-if [ -d "$PLUGDIR/vim-airline/.git" ]; then
-  execute \
-    "git_update $PLUGDIR/vim-airline" \
-    "Updating vim-airline"
-else
-  execute \
-    "git_clone https://github.com/vim-airline/vim-airline $PLUGDIR/vim-airline" \
-    "Installing vim-airline"
-fi
+  if [ -d "$PLUGDIR/vim-airline-themes/.git" ]; then
+    execute \
+      "git_update $PLUGDIR/vim-airline-themes" \
+      "Updating vim-airline-themes"
+  else
+    execute \
+      "git_clone https://github.com/vim-airline/vim-airline-themes $PLUGDIR/vim-airline-themes" \
+      "Installing vim-airline-themes"
+  fi
 
-if [ -d "$PLUGDIR/vim-airline-themes/.git" ]; then
-  execute \
-    "git_update $PLUGDIR/vim-airline-themes" \
-    "Updating vim-airline-themes"
-else
-  execute \
-    "git_clone https://github.com/vim-airline/vim-airline-themes $PLUGDIR/vim-airline-themes" \
-    "Installing vim-airline-themes"
+  # exit on fail
+  failexitcode
 fi
-fi
-
-# exit on fail
-failexitcode
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
