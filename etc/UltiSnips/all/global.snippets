@@ -67,7 +67,7 @@ $5
 
 endsnippet
 
-snippet bash.script
+snippet bash.script "shell"
 #!/usr/bin/env bash
 
 APPNAME="{{FILEE}}"
@@ -83,7 +83,7 @@ HOME="${USER_HOME:-${HOME}}"
 # @Created       : {{TIMESTAMP}}
 # @File          : {{FILEE}}
 # @Description   : {{CURSOR}}
-# @Other         : TemplateExpand
+# @Other         :
 #
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -105,7 +105,7 @@ cmd_exists  || exit 1
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 exit $?
 # end
-`:au BufWrite TemplateExpand`
+#vim :TemplateExpand
 endsnippet
 
 

@@ -272,7 +272,6 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsNoPythonWarning = 1
 let g:UltiSnipsEnableSnipMate = 1
 let g:UltiSnipsSnippetDirectories = [$HOME.'/.config/vim/UltiSnips']
-"let g:UltiSnipsSnippetDirectories = [$HOME.'/.config/vim/snippets']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  gitgutter
@@ -583,7 +582,6 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim Markdown
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_override_foldtext = 0
 let g:vim_markdown_toml_frontmatter = 1
@@ -593,7 +591,6 @@ let g:vim_markdown_follow_anchor = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim devicons
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_nerdtree = 1
 let g:webdevicons_enable_unite = 1
@@ -615,7 +612,6 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM-MULTIPLE-CURSORS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 "let g:multi_cursor_use_default_mapping=0
 "let g:multi_cursor_start_word_key      = '<C-a>'
 "let g:multi_cursor_select_all_word_key = '<A-a>'
@@ -629,7 +625,6 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim-prettier
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let g:prettier#config#bracket_spacing = 'true'
 let g:prettier#config#jsx_bracket_same_line = 'false'
 let g:prettier#autoformat = 1
@@ -638,7 +633,6 @@ autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.gra
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => go to last known place
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 if has("autocmd")
     au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
@@ -646,7 +640,6 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vimwiki
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let g:vimwiki_nested_syntaxes = {'ruby': 'ruby', 'python': 'python', 'c++': 'cpp', 'sh': 'sh', 'racket': 'racket'}
 let g:vimwiki_list = [{'path': '~/.local/share/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
 let g:vimwiki_global_ext = 0
@@ -655,7 +648,6 @@ let g:vimwiki_hl_headers = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim-jekyll : Blogging from the command line
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let g:jekyll_post_extension = '.md'
 let g:jekyll_post_filetype = 'markdown'
 let g:jekyll_post_dirs = ['_posts']
@@ -665,20 +657,17 @@ let g:jekyll_build_command = 'jekyll --no-auto --no-server'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => editorconfig
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => tasklist
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 nmap <leader>tl <Plug>TaskList
 let g:tlTokenList = ['FIXME', 'TODO', 'XXX', 'HACK', 'WIP']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Autoformat configuration
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 autocmd FileType php setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120
 autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120
 autocmd FileType php setlocal tabstop=4 shiftwidth=4 softtabstop=4 textwidth=120
@@ -693,9 +682,14 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 "autocmd BufWritePre * if index(blacklist, &ft) < 0 | :Autoformat
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Custom command for expanding templates
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"let noTemplateExpand = [ '' ]
+"autocmd BufWritePre * if index(noTemplateExpand, &ft) < 0 | :TemplateExpand
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Ensure files are read as what I want:
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 autocmd BufRead,BufNewFile,FileType *.ms,*.me,*.mom,*.man set filetype=groff
 autocmd BufRead,BufNewFile,FileType *.tex set filetype=tex
 autocmd BufRead,BufNewFile,FileType *.md set filetype=markdown syntax=markdown
@@ -714,7 +708,6 @@ autocmd BufEnter * if &filetype == "" | setlocal ft=text | endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim Shebang lines
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 augroup shebanglines
     autocmd BufNewFile *.tex 0put =\"%&plain\<nl>\"|$
     autocmd BufNewFile *.rb 0put =\"#!/usr/bin/env ruby\<nl># -*- coding: None -*-\<nl>\"|$
@@ -728,10 +721,8 @@ AddShebangPattern! javascript ^#!.*\s\+node\>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => spell
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 set spelllang=en_us
 set complete+=kspell
-
 map <F7> :setlocal spell! spelllang=en_us<CR>
 
 "vim -c ":mkspell! ~/.config/vim/spell/en.utf-8.add" -c q  # run from shell
@@ -743,13 +734,11 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Save as root
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => create directory on save
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 function s:MkNonExDir(file, buf)
     if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
         let dir=fnamemodify(a:file, ':h')
@@ -766,7 +755,6 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => remove whitespaces on save
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 function! StripTrailingWhitespace()
     " Preparation: save last search, and cursor position.
     let _s=@/
@@ -785,7 +773,6 @@ autocmd BufWritePre * if index(noStripWhiteSpaceTypes, &ft) < 0 | call StripTrai
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => useful functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 autocmd InsertEnter * set colorcolumn=120
 autocmd InsertLeave * set colorcolumn=""
 autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
@@ -794,8 +781,7 @@ autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. B
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  tmuxline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:airline#extensions#tmuxline#enabled = 0
+let g:airline#extensions#tmuxline#enabled = 1
 let g:tmuxline_preset = 'full'
 
 if exists("$TMUX")
@@ -900,7 +886,6 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => snipmate : Specify this in your ~/.config/local/vimrc.local file
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let g:author = expand($USER_FULLNAME)
 let g:email = expand($USER_EMAIL)
 let g:github = expand($USER_GITHUB)
@@ -912,7 +897,6 @@ nn <Leader>rs <esc>:exec ReloadAllSnippets()<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => bash-support.vim : Specify this in your ~/.config/local/vimrc.local file
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let g:BASH_InsertFileHeader  = 'no'
 "let g:BASH_AlsoBash = [ '*.bash' , 'rc.*' ]
 "let g:BASH_MapLeader  = ','
@@ -924,7 +908,6 @@ let g:BASH_InsertFileHeader  = 'no'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim-header : Specify this in your ~/.config/local/vimrc.local file
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let g:header_auto_add_header = 0
 "let g:header_field_timestamp_format = '%a, %b %d, %Y, %H:%M'
 "let g:header_field_license_id = 'WTFPL'
@@ -937,12 +920,12 @@ let g:header_auto_add_header = 0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim-templates : Specify this in your ~/.config/local/vimrc.local file
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:tmpl_auto_initialize = 1
+let g:tmpl_auto_initialize = 0
 let g:tmpl_search_paths    = [ '~/.config/vim/templates/custom' , '~/Templates' ]
-let g:today                =  strftime('%a, %b %d, %Y, %H:%M')
-let g:tmpl_license         = 'WTFPL'
-let g:tmpl_license_file    = 'LICENSE.md'
+let g_tmpl_version         = 'strftime("%Y%m%d%H%M")'
+"let g:today                =  strftime('%a, %b %d, %Y, %H:%M')
+"let g:tmpl_license         = 'WTFPL'
+"let g:tmpl_license_file    = 'LICENSE.md'
 "let g:tmpl_author_name     = ''
 "let g:tmpl_author_email    = ''
 "let g:tmpl_company         = ''
@@ -953,11 +936,9 @@ let g:tmpl_license_file    = 'LICENSE.md'
 " => overwrite
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => if vimrc.local then lets source that
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 if filereadable(glob("~/.config/local/vimrc.local"))
      source ~/.config/local/vimrc.local
 endif
