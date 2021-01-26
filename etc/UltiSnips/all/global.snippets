@@ -13,6 +13,10 @@ snippet now
 	`strftime("%m%d%Y%H%M")`
 endsnippet
 
+snippet version
+	`strftime("%m%d%Y%H%M")`-git
+endsnippet
+
 # attentions
 snippet todo
 	TODO: ${1}
@@ -49,3 +53,16 @@ snippet box2 "Box"
 	$0
 endsnippet
 
+snippet blogpost
+---
+title: $1
+date: "`!v strftime("%Y-%m-%d")`"
+author: "$2"
+tags: [blog]
+categories: [personal, ]
+comments: true
+---
+
+$5
+
+endsnippet
