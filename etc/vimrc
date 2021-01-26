@@ -1,13 +1,12 @@
+"TODO: Slit into individual settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Set vim home
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let s:vimdir = $HOME . '/.config/vim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Python version
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 if (has('python3') || has('pythonx'))
     let g:UltiSnipsUsePythonVersion = 3"
     let g:powerline_pycmd="py3"
@@ -21,7 +20,6 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => create directories
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 if exists("*mkdir")
     for dir in ["templates", "spell", "plugin", "snippets", ".undo", ".backup", ".swp", ".info"]
         if !isdirectory($HOME . "/.config/vim/" . dir)
@@ -33,7 +31,6 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Include plugins and install if needed
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 if filereadable(glob("~/.config/vim/plugins.vimrc"))
      source ~/.config/vim/plugins.vimrc
 endif
@@ -41,17 +38,17 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Defaults
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 set runtimepath+=~/.config/vim/
 set undodir=~/.config/vim/.undo//
 set backupdir=~/.config/vim/.backup//
 set directory=~/.config/vim/.swp//
 set viminfo+=n~/.config/vim/.info/viminfo
-
 set term=xterm-256color
 
 if has('unix')
-    set shell=/bin/bash
+    set shell=/usr/bin/bash
+elseif has('darwin')
+    set shell=/usr/local/bin/bash
 endif
 
 set nocompatible
@@ -60,7 +57,7 @@ syntax on
 set autoindent
 set autoread
 set backup
-set clipboard^=unnamed,unnamedplus
+set clipboard+=unnamed,unnamedplus
 set colorcolumn=+3
 set complete=.,w,b,u,t,i,kspell
 set completeopt=menu,preview,longest
@@ -93,7 +90,6 @@ set wildmenu
 set wildmode=longest,list,full
 set cryptmethod=blowfish2
 
-
 au BufWritePre * let &bex = '-' . strftime("%Y%m%d-%H%M%S") . '.vimbackup'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -117,23 +113,20 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Global ignore
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 set wildignore+=*node_modules/**
-set wildignore+=*vendor/** 
+set wildignore+=*vendor/**
 set wildignore+=.git
 set wildignore+=*~,*.swp,*.swo,*.tmp
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => leader mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let mapleader=','
 let mapleader=' '
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Splits and Tabbed Files
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 set splitbelow splitright
 let g:minimap_highlight='visual'
 let g:python_highlight_all = 0
@@ -141,7 +134,6 @@ let g:python_highlight_all = 0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Remap Keys
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " Shortcutting split navigation, saving a keypress:
 map <C-h> <C-w>h
 map <C-j> <C-w>j
@@ -166,22 +158,16 @@ inoremap <expr> <Left> pumvisible() ? "<C-e>" : "<Left>"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Basic autocommands
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " Auto-resize splits when Vim gets resized.
 autocmd VimResized * wincmd =
-
 " Update a buffer's contents on focus if it changed outside of Vim.
 au FocusGained,BufEnter * :checktime
-
 " Unset paste on InsertLeave.
 autocmd InsertLeave * silent! set nopaste
-
 " Make sure all types of requirements.txt files get syntax highlighting.
 autocmd BufNewFile,BufRead requirements*.txt set syntax=python
-
 " Ensure tabs don't get converted to spaces in Makefiles.
 autocmd FileType make setlocal noexpandtab
-
 " Only show the cursor line in the active buffer.
 augroup CursorLine
     au!
@@ -192,7 +178,6 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Startupify configuration
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let g:startify_custom_header = [
     \'                                                      ',
     \'   _____          _                 _____             ',
@@ -223,7 +208,7 @@ let g:startify_bookmarks = [
             \ { 'p': '~/.profile' },
             \ { 'x': '~/.config/xmonad/xmonad.hs' },
             \ ]
-            
+
 let g:startify_lists = [
           \ { 'type': 'files',     'header': ['   Files']                        },
           \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
@@ -238,7 +223,6 @@ function! StartifyEntryFormat()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Syntastic configuration
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 let g:syntastic_always_populate_loc_list = 1
@@ -254,7 +238,6 @@ let g:syntastic_sh_shellcheck_args="-e SC2059,SC2148,SC2027,SC2034,SC2086"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NERDTree
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " autocmd vimenter * NERDTree
 map <C-z> :NERDTreeToggle<CR>
 let g:NERDTreeDirArrowExpandable = '▸'
@@ -268,7 +251,6 @@ let g:nerdtree_tabs_synchronize_view = 0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => snipMate
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let g:snipMate = get(g:, 'snipMate', {})
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -277,13 +259,12 @@ let g:snipMate = get(g:, 'snipMate', {})
 if (has('python3') || has('pythonx'))
     let g:deoplete#enable_at_startup = 1
 elseif has('python')
-    let g:deoplete#enable_at_startup = 1
+    let g:deoplete#enable_at_startup = 0
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  ultisnips
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsListSnippets = '<c-l>'
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
@@ -296,7 +277,6 @@ let g:UltiSnipsSnippetDirectories = [$HOME.'/.config/vim/UltiSnips']
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  gitgutter
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let g:gitgutter_sign_added              = '▎'
 let g:gitgutter_sign_modified           = '▎'
 let g:gitgutter_sign_removed            = '契'
@@ -313,18 +293,16 @@ highlight GitGutterDelete guifg=#e06c75 ctermfg=1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  nerdcommenter
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 vnoremap <silent> <space>/ :Commentary<CR>
 autocmd FileType javascript.jsx setlocal commentstring={/*\ %s\ */}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  commentary
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 function! Comment()
   if (mode() == "n" )
     execute "Commentary"
-  else    
+  else
     execute "'<,'>Commentary"
   endif
  endfunction
@@ -333,13 +311,11 @@ vnoremap <silent> <space>/ :call Comment()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  vim-rooter
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let g:rooter_silent_chdir = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  fzf
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " . = location of current file
 nnoremap '.  :exe ":FZF " . expand("%:h")<CR>
 " / = /
@@ -351,7 +327,7 @@ nnoremap '.  :exe ":FZF " . expand("%:h")<CR>
 " f = fzf
 "nnoremap 'f  :FZF<cr>
 " g = grep (ripgrep)
-"nnoremap 'g  :Rg 
+"nnoremap 'g  :Rg
 " h = home
 "nnoremap 'h  :FZF ~/<cr>
 " n = notes
@@ -442,7 +418,7 @@ command! -bang -nargs=* GGrep
   \ call fzf#vim#grep(
   \   'git grep --line-number '.shellescape(<q-args>), 0,
   \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
-  
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  sneak
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -485,7 +461,7 @@ let g:rainbow_conf = {
 \	'separately': {
 \		'*': {},
 \		'markdown': {
-\			'parentheses_options': 'containedin=markdownCode contained', 
+\			'parentheses_options': 'containedin=markdownCode contained',
 \		},
 \		'lisp': {
 \	    'guifgs': ['#858580', '#8FBCBB', '#D08770', '#A3BE8C', '#EBCB8B', '#B48EAD', '#80a880', '#887070'],
@@ -497,15 +473,15 @@ let g:rainbow_conf = {
 \			'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/\v\{\ze[^-]/ end=/}/ fold'],
 \		},
 \		'vim': {
-\			'parentheses_options': 'containedin=vimFuncBody', 
+\			'parentheses_options': 'containedin=vimFuncBody',
 \		},
 \		'perl': {
-\			'syn_name_prefix': 'perlBlockFoldRainbow', 
+\			'syn_name_prefix': 'perlBlockFoldRainbow',
 \		},
 \		'stylus': {
-\			'parentheses': ['start=/{/ end=/}/ fold contains=@colorableGroup'], 
+\			'parentheses': ['start=/{/ end=/}/ fold contains=@colorableGroup'],
 \		},
-\		'css': 0, 
+\		'css': 0,
 \	}
 \}
 
@@ -554,7 +530,7 @@ command! -bang -nargs=* Rg
 " => Copy selected text to system clipboard (requires gvim/nvim/vim-x11 installed):
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set mouse=r
+"set mouse=r
 vmap <C-c> "+yi
 vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p

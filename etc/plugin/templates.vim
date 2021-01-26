@@ -52,6 +52,7 @@ function <SID>ExpandTimestampTemplates()
     let l:time              = strftime('%T %Z')
     let l:time_12           = strftime('%r')
     let l:timestamp         = strftime('%A %b %d, %Y %T %Z')
+    let l:git_version       = strftime('%m%d%Y%H%M')
 
     call <SID>ExpandTemplate('DAY', l:day)
     call <SID>ExpandTemplate('DAY_FULL', l:day_full)
@@ -64,6 +65,7 @@ function <SID>ExpandTimestampTemplates()
     call <SID>ExpandTemplate('TIME', l:time)
     call <SID>ExpandTemplate('TIME_12', l:time_12)
     call <SID>ExpandTemplate('TIMESTAMP', l:timestamp)
+    call <SID>ExpandTemplate('VERSION', l:git_version)
 endfunction
 
 function <SID>ExpandAuthoringTemplates()
@@ -170,7 +172,7 @@ endfunction
 function <SID>MoveCursor()
     " go to first line
     normal gg
-    " serach for cursor if it is found then move cursor there
+    " search for cursor if it is found then move cursor there
     if (search('{{CURSOR}}', 'W'))
         let l:lineno = line('.')
         let l:colno = col('.')
@@ -297,3 +299,4 @@ au BufNewFile * TemplateAutoInit
 command -nargs=0 TemplateExpand         :call <SID>ExpandAllTemplates()
 command -nargs=? TemplateInit           :call <SID>InitializeTemplate(<f-args>)
 command -nargs=0 TemplateAutoInit       :call <SID>AutoInitializeTemplate()
+

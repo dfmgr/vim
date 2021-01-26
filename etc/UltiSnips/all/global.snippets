@@ -10,11 +10,11 @@ snippet tme "time"
 endsnippet
 
 snippet now
-	`strftime("%m%d%Y%H%M")`
+	`strftime("%m-%d-%Y %H:%M")`
 endsnippet
 
-snippet version
-	`strftime("%m%d%Y%H%M")`-git
+snippet setver
+    `!v strftime("%m%d%Y%H%M")`-git
 endsnippet
 
 # attentions
@@ -66,3 +66,46 @@ comments: true
 $5
 
 endsnippet
+
+snippet bash.script
+#!/usr/bin/env bash
+
+APPNAME="{{FILEE}}"
+USER="${SUDO_USER:-${USER}}"
+HOME="${USER_HOME:-${HOME}}"
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##@Version       : `!v strftime("%m%d%Y%H%M")`-git
+# @Author        : {{NAME}}
+# @Contact       : {{EMAIL}}
+# @License       : {{LICENSE}}
+# @Copyright     : {{COPYRIGHT}} {{YEAR}}, {{COMPANY}}
+# @Created       : {{TIMESTAMP}}
+# @File          : {{FILEE}}
+# @Description   : {{CURSOR}}
+# @Other         : TemplateExpand
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Set variables
+
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Set functions
+
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# check for needed applications
+cmd_exists  || exit 1
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Main application
+
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+exit $?
+# end
+`:au BufWrite TemplateExpand`
+endsnippet
+
+
