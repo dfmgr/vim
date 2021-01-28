@@ -67,6 +67,22 @@ $5
 
 endsnippet
 
+snippet header
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##@Version       : `!v strftime("%m%d%Y%H%M")`-git
+# @Author        : {{NAME}}
+# @Contact       : {{EMAIL}}
+# @License       : {{LICENSE}}
+# @Copyright     : {{COPYRIGHT}} {{YEAR}}, {{COMPANY}}
+# @Created       : {{TIMESTAMP}}
+# @File          : {{FILEE}}
+# @Description   : {{CURSOR}}
+# @Other         :
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+endsnippet
+
 snippet bash.script "shell"
 #!/usr/bin/env bash
 
@@ -107,5 +123,3 @@ exit $?
 # end
 #vim :TemplateExpand
 endsnippet
-
-
