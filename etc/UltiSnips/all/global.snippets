@@ -78,7 +78,7 @@ snippet header
 # @File          : {{FILEE}}
 # @Description   : {{CURSOR}}
 # @Other         :
-#
+# @Source        :
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 endsnippet
@@ -102,17 +102,31 @@ HOME="${USER_HOME:-${HOME}}"
 # @Other         :
 #
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-# Set variables
-
+# Set functions
+SCRIPTSFUNCTURL="${SCRIPTSAPPFUNCTURL:-https://github.com/dfmgr/installer/raw/master/functions}"
+SCRIPTSFUNCTDIR="${SCRIPTSAPPFUNCTDIR:-/usr/local/share/CasjaysDev/scripts}"
+SCRIPTSFUNCTFILE="${SCRIPTSAPPFUNCTFILE:-testing.bash}"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Set functions
+# Source the functions
+if [ -f "$PWD/functions/$SCRIPTSFUNCTFILE" ]; then
+  . "$PWD/functions/$SCRIPTSFUNCTFILE"
+elif [ -f "$SCRIPTSFUNCTDIR/functions/$SCRIPTSFUNCTFILE" ]; then
+  . "$SCRIPTSFUNCTDIR/functions/$SCRIPTSFUNCTFILE"
+fi
 
-
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+user_install
+__options "$@"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # check for needed applications
-cmd_exists  || exit 1
+__cmd_exists  || exit 1
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Set variables for application
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Functions for application
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Main application
