@@ -46,7 +46,11 @@ set viminfo+=n~/.config/vim/.info/viminfo
 set term=xterm-256color
 
 if has('unix')
+if filereadable(glob("/usr/bin/bash"))
     set shell=/usr/bin/bash
+elseif filereadable(glob("/bin/bash"))
+    set shell=/bin/bash
+endif
 elseif has('darwin')
     set shell=/usr/local/bin/bash
 endif
