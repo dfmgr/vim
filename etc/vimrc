@@ -46,13 +46,13 @@ set viminfo+=n~/.config/vim/.info/viminfo
 set term=xterm-256color
 
 if has('unix')
-if filereadable(glob("/usr/bin/bash"))
+  if filereadable(glob("/usr/bin/bash"))
     set shell=/usr/bin/bash
-elseif filereadable(glob("/bin/bash"))
+  elseif filereadable(glob("/bin/bash"))
     set shell=/bin/bash
-endif
+  endif
 elseif has('darwin')
-    set shell=/usr/local/bin/bash
+  set shell=/usr/local/bin/bash
 endif
 
 set nocompatible
@@ -61,7 +61,7 @@ syntax on
 set autoindent
 set autoread
 set backup
-set clipboard+=unnamed,unnamedplus
+set clipboard+=unnamedplus
 set colorcolumn=+3
 set complete=.,w,b,u,t,i,kspell
 set completeopt=menu,preview,longest
@@ -261,9 +261,9 @@ let g:snipMate = get(g:, 'snipMate', {})
 " => deoplete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if (has('python3') || has('pythonx'))
-    let g:deoplete#enable_at_startup = 1
+  let g:deoplete#enable_at_startup = 1
 elseif has('python')
-    let g:deoplete#enable_at_startup = 0
+  let g:deoplete#enable_at_startup = 0
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -425,7 +425,6 @@ command! -bang -nargs=* GGrep
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  sneak
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let g:sneak#label = 1
 let g:sneak#use_ic_scs = 1
 let g:sneak#s_next = 1
@@ -438,7 +437,6 @@ let g:sneak#prompt = '🔎 '
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  quickscope
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 highlight QuickScopePrimary guifg='#00C7DF' gui=underline ctermfg=155 cterm=underline
@@ -448,7 +446,6 @@ let g:qs_max_chars=150
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  rainbow
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 let g:rainbow_conf = {'guis': ['bold']}
 let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
@@ -532,39 +529,34 @@ command! -bang -nargs=* Rg
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Copy selected text to system clipboard (requires gvim/nvim/vim-x11 installed):
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 "set mouse=r
-vmap <C-c> "+yi
-vmap <C-x> "+c
-vmap <C-v> c<ESC>"+p
-imap <C-v> <ESC>"+pa
-map <leader>c "+y
-map <leader>v "+p
+vmap <C-c> +yi
+vmap <C-x> +c
+vmap <C-v> c<ESC>+p
+imap <C-v> <ESC>+pa
+map <leader>c +y
+map <leader>v +p
 vnoremap <C-C> :w !xclip -i -sel c<CR><CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => When shortcut files are updated, renew bash and vifm configs with new material:
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 autocmd BufWritePost ~/.config/bmdirs,~/.config/bmfiles !shortcuts
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Disables automatic commenting on newline:
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Run xrdb whenever Xdefaults or Xresources are updated.
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Markdown
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 augroup markdown
     autocmd Filetype markdown,rmd map <leader>w yiWi[<esc>Ea](<esc>pa)
     autocmd Filetype markdown,rmd inoremap ,n ---<Enter><Enter>
@@ -760,13 +752,10 @@ augroup END
 " => remove whitespaces on save
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! StripTrailingWhitespace()
-    " Preparation: save last search, and cursor position.
     let _s=@/
     let l = line(".")
     let c = col(".")
-    " do the business:
     %s/\s\+$//e
-    " clean up: restore previous search history, and cursor position
     let @/=_s
     call cursor(l, c)
 endfunction
