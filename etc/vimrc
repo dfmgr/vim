@@ -785,8 +785,8 @@ autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. B
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  tmuxline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:airline#extensions#tmuxline#enabled = 1
-let g:tmuxline_preset = 'full'
+let g:airline#extensions#tmuxline#enabled = 0
+"let g:tmuxline_preset = 'full'
 
 if exists("$TMUX")
     " Get the environment variable
