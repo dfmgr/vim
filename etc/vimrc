@@ -52,7 +52,13 @@ if has('unix')
     set shell=/bin/bash
   endif
 elseif has('darwin')
-  set shell=/usr/local/bin/bash
+    if filereadable(glob("/usr/local/bin/bash"))
+      set shell=/usr/local/bin/bash
+    elseif filereadable(glob("/bin/bash"))
+        set shell=/bin/bash
+    elseif filereadable(glob("/bin/zsh"))
+        set shell=/bin/zsh
+    endif
 endif
 
 set nocompatible
@@ -119,14 +125,14 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set wildignore+=*node_modules/**
 set wildignore+=*vendor/**
-set wildignore+=.git
+set wildignore+=*.git/*
 set wildignore+=*~,*.swp,*.swo,*.tmp
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => leader mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader=','
-let mapleader=' '
+#let mapleader=' '
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Splits and Tabbed Files
@@ -168,7 +174,7 @@ autocmd VimResized * wincmd =
 au FocusGained,BufEnter * :checktime
 " Unset paste on InsertLeave.
 autocmd InsertLeave * silent! set nopaste
-" Make sure all types of requirements.txt files get syntax highlighting.
+"a Make sure all types of requirements.txt files get syntax highlighting.
 autocmd BufNewFile,BufRead requirements*.txt set syntax=python
 " Ensure tabs don't get converted to spaces in Makefiles.
 autocmd FileType make setlocal noexpandtab
@@ -242,7 +248,7 @@ let g:syntastic_sh_shellcheck_args="-e SC2059,SC2148,SC2027,SC2034,SC2086"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NERDTree
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" autocmd vimenter * NERDTree
+autocmd vimenter * NERDTree
 map <C-z> :NERDTreeToggle<CR>
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
@@ -286,7 +292,6 @@ let g:gitgutter_sign_removed            = '契'
 let g:gitgutter_sign_removed_first_line = '契'
 let g:gitgutter_sign_modified_removed   = '▎'
 let g:gitgutter_preview_win_floating = 1
-
 let g:gitgutter_enabled = 1
 
 highlight GitGutterAdd    guifg=#98c379 ctermfg=2
@@ -652,7 +657,9 @@ let g:jekyll_build_command = 'jekyll --no-auto --no-server'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => editorconfig
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+let g:EditorConfig_max_line_indicator = "exceeding"
+let g:EditorConfig_exclude_patterns = ['fugitive://.*','scp://.*']
+let g:EditorConfig_preserve_formatoptions = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => tasklist
