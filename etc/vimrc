@@ -132,7 +132,7 @@ set wildignore+=*~,*.swp,*.swo,*.tmp
 " => leader mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader=','
-#let mapleader=' '
+"let mapleader=' '
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Splits and Tabbed Files
@@ -248,7 +248,7 @@ let g:syntastic_sh_shellcheck_args="-e SC2059,SC2148,SC2027,SC2034,SC2086"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NERDTree
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd vimenter * NERDTree
+"autocmd vimenter * NERDTree       "I like Startupify
 map <C-z> :NERDTreeToggle<CR>
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
