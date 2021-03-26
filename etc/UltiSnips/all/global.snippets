@@ -106,7 +106,7 @@ endsnippet
 snippet bash.script "shell"
 #!/usr/bin/env bash
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-PROG="$(basename \$0)"
+PROG="$(basename "$\0")"
 USER="${SUDO_USER:-${USER}}"
 HOME="${USER_HOME:-${HOME}}"
 SRC_DIR="${BASH_SOURCE%/*}"
@@ -150,7 +150,7 @@ __options "$@"
 __cmd_exists bash || exit 1 # exit 1 if not found
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Set variables
-{{FILE}}_CONFIG_DIR="$HOME/.config/{{FILE}}/settings"
+{{FILE}}_CONFIG_DIR="$HOME/.config/{{FILE}}/settings.conf"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Set functions
@@ -174,7 +174,7 @@ endsnippet
 snippet shell.script "shell"
 #!/usr/bin/env bash
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-PROG="GEN_SCRIPT_REPLACE_FILENAME"
+PROG="{{FILE}}"
 USER="${SUDO_USER:-${USER}}"
 HOME="${USER_HOME:-${HOME}}"
 SRC_DIR="${BASH_SOURCE%/*}"
@@ -199,18 +199,18 @@ SRC_DIR="${BASH_SOURCE%/*}"
 cmd_exists bash || exit 1 # exit if not found
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Set variables
-{{FILE}}_CONFIG_DIR="$HOME/.config/{{FILE}}/settings"
+{{FILE}}_CONFIG_DIR="$HOME/.config/{{FILE}}/settings.conf"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Set functions
 printf_color() { printf "%b" "$(tput setaf "\$1" 2>/dev/null)" "\t\t\$2\n" "$(tput sgr0 2>/dev/null)"; }
 __version() {
-  grep ^"# @" "GEN_SCRIPT_REPLACE_FILENAME"
-  grep ^"##@" "GEN_SCRIPT_REPLACE_FILENAME"
+  grep ^"# @" "{{FILE}}"
+  grep ^"##@" "{{FILE}}"
 }
 __help() {
-  printf_color "4" "$(grep ^"# @Description" "GEN_SCRIPT_REPLACE_FILENAME | grep ' : " || GEN_SCRIPT_REPLACE_FILENAME help)"
-  printf_color "4" "usage: GEN_SCRIPT_REPLACE_FILENAME  |  GEN_SCRIPT_REPLACE_FILENAME --version"
+  printf_color "4" "$(grep ^"# @Description" "{{FILE}} | grep ' : " || {{FILE}} help)"
+  printf_color "4" "usage: {{FILE}}  |  {{FILE}} --version"
   exit
 }
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
