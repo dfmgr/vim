@@ -205,8 +205,9 @@ cmd_exists bash || exit 1 # exit if not found
 # Set functions
 printf_color() { printf "%b" "$(tput setaf "\$1" 2>/dev/null)" "\t\t\$2\n" "$(tput sgr0 2>/dev/null)"; }
 __version() {
-  grep ^"# @" "{{FILE}}"
-  grep ^"##@" "{{FILE}}"
+  command="$(type -P "{{FILE}}")"
+  grep -E '[".#] @[A-Z]' "$command"
+  grep -E '[".#]#@[A-Z]' "$command"
 }
 __help() {
   printf_color "4" "$(grep ^"# @Description" "{{FILE}} | grep ' : " || {{FILE}} help)"
