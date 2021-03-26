@@ -53,6 +53,7 @@ function <SID>ExpandTimestampTemplates()
     let l:time_12           = strftime('%r')
     let l:timestamp         = strftime('%A %b %d, %Y %T %Z')
     let l:version           = strftime('%m%d%Y%H%M')
+    let l:nowdate           = strftime('%m\/%d\/%\/Y %H:%M')
 
     call <SID>ExpandTemplate('DAY', l:day)
     call <SID>ExpandTemplate('DAY_FULL', l:day_full)
@@ -66,6 +67,7 @@ function <SID>ExpandTimestampTemplates()
     call <SID>ExpandTemplate('TIME_12', l:time_12)
     call <SID>ExpandTemplate('TIMESTAMP', l:timestamp)
     call <SID>ExpandTemplate('VERSION', l:version)
+    call <SID>ExpandTemplate('NOWDATE', l:nowdate)
 endfunction
 
 function <SID>ExpandAuthoringTemplates()

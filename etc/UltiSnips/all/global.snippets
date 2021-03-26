@@ -18,7 +18,11 @@ snippet tme "time"
 endsnippet
 
 snippet now
-    `strftime("%m-%d-%Y %H:%M")`
+    `strftime("%A, %b %d, %Y %H:%M %Z")`
+endsnippet
+
+snippet NOWDATE
+	`strftime("%m/%d/%Y %H:%M")`
 endsnippet
 
 snippet setver
@@ -52,6 +56,12 @@ endsnippet
 
 snippet wip
     WIP: ${1}
+endsnippet
+
+snippet vim_comment
+	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	" => ${1}
+	"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 endsnippet
 
 snippet box2 "Box"
@@ -96,7 +106,7 @@ endsnippet
 snippet bash.script "shell"
 #!/usr/bin/env bash
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-PROG="$(basename $0)"
+PROG="$(basename \$0)"
 USER="${SUDO_USER:-${USER}}"
 HOME="${USER_HOME:-${HOME}}"
 SRC_DIR="${BASH_SOURCE%/*}"
@@ -193,7 +203,7 @@ cmd_exists bash || exit 1 # exit if not found
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Set functions
-printf_color() { printf "%b" "$(tput setaf "$1" 2>/dev/null)" "\t\t$2\n" "$(tput sgr0 2>/dev/null)"; }
+printf_color() { printf "%b" "$(tput setaf "\$1" 2>/dev/null)" "\t\t\$2\n" "$(tput sgr0 2>/dev/null)"; }
 __version() {
   grep ^"# @" "GEN_SCRIPT_REPLACE_FILENAME"
   grep ^"##@" "GEN_SCRIPT_REPLACE_FILENAME"
