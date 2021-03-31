@@ -1,12 +1,12 @@
 
 # Question
 snippet printf_question
-printf_read_question "color" "message" "maxLines" "answerVar" "readopts"
+printf_read_question "${1}color" "${2}message" "${3}180" "${4}REPLY" "${5}-s"
 endsnippet
 
 # Answer
 snippet printf_yes
-printf_answer_yes "var" "response"
+printf_answer_yes "${1}REPLY"
 endsnippet
 
 # While
