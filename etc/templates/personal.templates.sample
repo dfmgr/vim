@@ -1,7 +1,7 @@
 § =============================================================
 §  Personal Information
 § =============================================================
-SetMacro( 'SETVER',       '|VERSION|-git' )
+SetMacro( 'VERSION',       '|VERSION|-git' )
 SetMacro( 'AUTHOR',       'YourName' )
 SetMacro( 'AUTHORREF',    'YouInitials' )
 SetMacro( 'EMAIL',        'YourEmail' )
@@ -18,4 +18,4 @@ SetFormat( 'TIME', '%H%M' )
 SetFormat( 'DATE', '%A, %b %d, %Y %H:%M %Z' )
 SetFormat( 'TIME', '%H:%M' )
 SetFormat( 'YEAR', '%Y' )
-
+SetFormat( 'VERSION', '%Y%m%d%H:%M' )

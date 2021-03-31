@@ -54,47 +54,47 @@ set rtp+=~/.local/share/vim/bundle/powerline/powerline/bindings/vim
 
 call vundle#begin('~/.local/share/vim/bundle')
 
-Plugin 'VundleVim/Vundle.vim'               "plugin manager
-Plugin 'airblade/vim-gitgutter'             "shows a git diff in the gutter
-Plugin 'airblade/vim-rooter'                "Changes working directory to project root
-Plugin 'alpertuna/vim-header'               "Easily adds brief author info and license headers
-Plugin 'ap/vim-css-color'                   "Preview colours in source code
-Plugin 'artur-shaik/vim-javacomplete2'      "omni-completion plugin for Java
-Plugin 'chazy/dirsettings'                  "directory tree-specific settings
-Plugin 'Chiel92/vim-autoformat'             "Format code with one button press
-Plugin 'chriskempson/base16-vim'            "base16 theme
-Plugin 'christoomey/vim-tmux-navigator'     "Seamless navigation between tmux panes and vim splits
-Plugin 'ctrlpvim/ctrlp.vim'                 "Fuzzy file, buffer, mru, tag, etc finder
-Plugin 'editorconfig/editorconfig-vim'      "EditorConfig plugin for Vim
-Plugin 'edkolev/tmuxline.vim'               "Simple tmux statusline
-Plugin 'godlygeek/tabular'                  "Vim script for text filtering and alignment
-Plugin 'HerringtonDarkholme/yats.vim'       "TypeScript Syntax Highlighting
-Plugin 'jiangmiao/auto-pairs'               "Insert or delete brackets
-Plugin 'jistr/vim-nerdtree-tabs'            "NERDTree and tabs together
-Plugin 'jreybert/vimagit'                   "Ease your git workflow
-Plugin 'junegunn/fzf'                       "A command-line fuzzy finder
-Plugin 'klen/python-mode'                   "PyLint, Rope, Pydoc, breakpoints
-Plugin 'mattn/emmet-vim'                    "emmet
-Plugin 'mhinz/vim-startify'                 "The fancy start screen
-Plugin 'mileszs/ack.vim'                    "Vim plugin for the Perl module
-Plugin 'plasticboy/vim-markdown'            "Syntax highlighting, matching rules and mappings
+Plugin 'VundleVim/Vundle.vim'               " plugin manager
+Plugin 'airblade/vim-gitgutter'             " shows a git diff in the gutter
+Plugin 'airblade/vim-rooter'                " Changes working directory to project root
+Plugin 'alpertuna/vim-header'               " Easily adds brief author info and license headers
+Plugin 'ap/vim-css-color'                   " Preview colours in source code
+Plugin 'artur-shaik/vim-javacomplete2'      " omni-completion plugin for Java
+Plugin 'chazy/dirsettings'                  " directory tree-specific settings
+Plugin 'Chiel92/vim-autoformat'             " Format code with one button press
+Plugin 'chriskempson/base16-vim'            " base16 theme
+Plugin 'christoomey/vim-tmux-navigator'     " Seamless navigation between tmux panes and vim splits
+Plugin 'ctrlpvim/ctrlp.vim'                 " Fuzzy file, buffer, mru, tag, etc finder
+Plugin 'editorconfig/editorconfig-vim'      " EditorConfig plugin for Vim
+Plugin 'edkolev/tmuxline.vim'               " Simple tmux statusline
+Plugin 'godlygeek/tabular'                  " Vim script for text filtering and alignment
+Plugin 'HerringtonDarkholme/yats.vim'       " TypeScript Syntax Highlighting
+Plugin 'jiangmiao/auto-pairs'               " Insert or delete brackets
+Plugin 'jistr/vim-nerdtree-tabs'            " NERDTree and tabs together
+Plugin 'jreybert/vimagit'                   " Ease your git workflow
+Plugin 'junegunn/fzf'                       " A command-line fuzzy finder
+Plugin 'klen/python-mode'                   " PyLint, Rope, Pydoc, breakpoints
+Plugin 'mattn/emmet-vim'                    " emmet
+Plugin 'mhinz/vim-startify'                 " The fancy start screen
+Plugin 'mileszs/ack.vim'                    " Vim plugin for the Perl module
+Plugin 'plasticboy/vim-markdown'            " Syntax highlighting, matching rules and mappings
 "Plugin 'powerline/powerline'                "statusline plugin
-Plugin 'prettier/vim-prettier'              "A vim plugin wrapper for prettier
-Plugin 'scrooloose/nerdtree'                "A tree explorer plugin for vim
-Plugin 'scrooloose/syntastic'               "Syntax checking hacks for vim
-Plugin 'chauncey-garrett/vim-tasklist'      "based on the eclipse Task List
+Plugin 'prettier/vim-prettier'              " A vim plugin wrapper for prettier
+Plugin 'scrooloose/nerdtree'                " A tree explorer plugin for vim
+Plugin 'scrooloose/syntastic'               " Syntax checking hacks for vim
+Plugin 'chauncey-garrett/vim-tasklist'      " based on the eclipse Task List
 Plugin 'scrooloose/nerdcommenter'           "
 Plugin 'sheerun/vim-polyglot'               "
 Plugin 'shawncplus/phpcomplete.vim'         "
 Plugin 'Shougo/neocomplete.vim'             "
 Plugin 'terryma/vim-multiple-cursors'       "
 Plugin 'tibabit/vim-templates'              "
-Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plugin 'tiagofumo/vim-nerdtree-syntax-highlight' "
 Plugin 'tmux-plugins/vim-tmux-focus-events' "
 Plugin 'tomlion/vim-solidity'               "
 Plugin 'tpope/vim-fugitive'                 "
 Plugin 'tpope/vim-surround'                 "
-Plugin 'tpope/vim-commentary'               "Rainbow Parentheses Improved
+Plugin 'tpope/vim-commentary'               " Rainbow Parentheses Improved
 Plugin 'luochen1990/rainbow'                "
 Plugin 'vim-airline/vim-airline'            "
 Plugin 'vim-airline/vim-airline-themes'     "
@@ -107,20 +107,20 @@ Plugin 'wolfgangmehner/vim-support'         "
 Plugin 'xolox/vim-misc'                     "
 Plugin 'Xuyuanp/nerdtree-git-plugin'        "
 Plugin 'lifepillar/vim-colortemplate'       " color template
-Plugin 'MarcWeber/vim-addon-mw-utils'       "interpret a file by function
-Plugin 'dbeniamine/cheat.sh-vim'            "access cheat.sh sheets
-Plugin 'honza/vim-snippets'	                "snippets
-Plugin 'roxma/nvim-yarp'                    "required for deoplete
-Plugin 'roxma/vim-hug-neovim-rpc'           "required for deoplete
-Plugin 'vitalk/vim-shebang'                 "set shebang line
-Plugin 'chrisbra/unicode.vim'               "Unicode glyphs
-Plugin 'ryanoasis/vim-devicons'             "Adds file type icons to Vim plugins
-Plugin 'baskerville/vim-sxhkdrc'            "syntax for sxhkd's configuration files
-Plugin 'parkr/vim-jekyll'                   "Blogging from the command line
+Plugin 'MarcWeber/vim-addon-mw-utils'       " interpret a file by function
+Plugin 'dbeniamine/cheat.sh-vim'            " access cheat.sh sheets
+Plugin 'honza/vim-snippets'	                " snippets
+Plugin 'roxma/nvim-yarp'                    " required for deoplete
+Plugin 'roxma/vim-hug-neovim-rpc'           " required for deoplete
+Plugin 'vitalk/vim-shebang'                 " set shebang line
+Plugin 'chrisbra/unicode.vim'               " Unicode glyphs
+Plugin 'ryanoasis/vim-devicons'             " Adds file type icons to Vim plugins
+Plugin 'baskerville/vim-sxhkdrc'            " syntax for sxhkd's configuration files
+Plugin 'parkr/vim-jekyll'                   " Blogging from the command line
 Plugin 'justinmk/vim-sneak'                 "
 Plugin 'unblevable/quick-scope'             "
-Plugin 'dracula/vim', { 'name': 'dracula'  } "Dracula theme
-Plugin 'wakatime/vim-wakatime'              "plugin for productivity metrics
+Plugin 'dracula/vim', { 'name': 'dracula'  } " Dracula theme
+Plugin 'wakatime/vim-wakatime'              " plugin for productivity metrics
 
 Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }  "asynchronous completion framework
 
@@ -134,4 +134,3 @@ endif
     Plugin 'garbas/vim-snipmate'
     Plugin 'tomtom/tlib_vim' "required for snipmate
 call vundle#end()
-

@@ -1,0 +1,160 @@
+
+# Question
+snippet printf_question
+printf_read_question "color" "message" "maxLines" "answerVar" "readopts"
+endsnippet
+
+# Answer
+snippet printf_yes
+printf_answer_yes "var" "response"
+endsnippet
+
+# While
+snippet while_do
+while :; do ${1} ${2}; done
+endsnippet
+
+#
+snippet for_loop
+for ${1} in ${2}; ${3}
+endsnippet
+
+snippet bash.script "shell"
+#!/usr/bin/env bash
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+PROG="$(basename "$\0")"
+USER="${SUDO_USER:-${USER}}"
+HOME="${USER_HOME:-${HOME}}"
+SRC_DIR="${BASH_SOURCE%/*}"
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#set opts
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##@Version       : `!v strftime("%Y%m%d%H%M")`-git
+# @Author        : {{NAME}}
+# @Contact       : {{EMAIL}}
+# @License       : {{LICENSE}}
+# @ReadME        : {{FILE}} --help
+# @Copyright     : {{COPYRIGHT}} {{YEAR}}, {{COMPANY}}
+# @Created       : {{TIMESTAMP}}
+# @File          : {{FILE}}
+# @Description   : {{CURSOR}}
+# @TODO          :
+# @Other         :
+# @Resource      :
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Import functions
+CASJAYSDEVDIR="${CASJAYSDEVDIR:-/usr/local/share/CasjaysDev/scripts}"
+SCRIPTSFUNCTDIR="${CASJAYSDEVDIR:-/usr/local/share/CasjaysDev/scripts}/functions"
+SCRIPTSFUNCTFILE="${SCRIPTSAPPFUNCTFILE:-testing.bash}"
+SCRIPTSFUNCTURL="${SCRIPTSAPPFUNCTURL:-https://github.com/dfmgr/installer/raw/master/functions}"
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+if [ -f "$PWD/$SCRIPTSFUNCTFILE" ]; then
+  . "$PWD/$SCRIPTSFUNCTFILE"
+elif [ -f "$SCRIPTSFUNCTDIR/$SCRIPTSFUNCTFILE" ]; then
+  . "$SCRIPTSFUNCTDIR/$SCRIPTSFUNCTFILE"
+else
+  echo "Can not load the functions file: $SCRIPTSFUNCTDIR/$SCRIPTSFUNCTFILE" 1>&2
+  exit 1
+fi
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# user system devenv dfmgr dockermgr fontmgr iconmgr pkmgr systemmgr thememgr wallpapermgr
+user_install
+__options "$@"
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Check for needed applications
+__cmd_exists bash || exit 1 # exit 1 if not found
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Set variables
+{{FILE}}_CONFIG_DIR="$HOME/.config/{{FILE}}/settings.conf"
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Set functions
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Set additional variables
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# bring in user config
+[ -f "{{FILE}}_CONFIG_DIR/settings.conf" ] && . "{{FILE}}_CONFIG_DIR/settings.conf"
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Main application
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+exit $?
+# end
+#vim :TemplateExpand
+
+endsnippet
+
+snippet shell.script "shell"
+#!/usr/bin/env bash
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+PROG="{{FILE}}"
+USER="${SUDO_USER:-${USER}}"
+HOME="${USER_HOME:-${HOME}}"
+SRC_DIR="${BASH_SOURCE%/*}"
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#set opts
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##@Version       : `!v strftime("%Y%m%d%H%M")`-git
+# @Author        : {{NAME}}
+# @Contact       : {{EMAIL}}
+# @License       : {{LICENSE}}
+# @ReadME        : {{FILE}} --help
+# @Copyright     : {{COPYRIGHT}} {{YEAR}}, {{COMPANY}}
+# @Created       : {{TIMESTAMP}}
+# @File          : {{FILE}}
+# @Description   : {{CURSOR}}
+# @TODO          :
+# @Other         :
+# @Resource      :
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Check for needed applications
+cmd_exists bash || exit 1 # exit if not found
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Set variables
+{{FILE}}_CONFIG_DIR="$HOME/.config/{{FILE}}/settings.conf"
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Set functions
+printf_color() { printf "%b" "$(tput setaf "\$1" 2>/dev/null)" "\t\t\$2\n" "$(tput sgr0 2>/dev/null)"; }
+__version() {
+  command="$(type -P "{{FILE}}")"
+  grep -E '[".#] @[A-Z]' "$command"
+  grep -E '[".#]#@[A-Z]' "$command"
+}
+__help() {
+  printf_color "4" "$(grep ^"# @Description" "{{FILE}} | grep ' : " || {{FILE}} help)"
+  printf_color "4" "usage: {{FILE}}  |  {{FILE}} --version"
+  exit
+}
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Set additional variables
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# bring in user config
+[ -f "{{FILE}}_CONFIG_DIR/settings.conf" ] && . "{{FILE}}_CONFIG_DIR/settings.conf"
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Main application
+case "$1" in
+--help)
+  shift 1
+  __help
+  ;;
+--version)
+  shift 1
+  __version
+  ;;
+*)
+  exec ""
+  ;;
+esac
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+exit $?
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# end
+
+endsnippet

@@ -52,8 +52,8 @@ function <SID>ExpandTimestampTemplates()
     let l:time              = strftime('%T %Z')
     let l:time_12           = strftime('%r')
     let l:timestamp         = strftime('%A %b %d, %Y %T %Z')
-    let l:version           = strftime('%m%d%Y%H%M')
-    let l:nowdate           = strftime('%m\/%d\/%\/Y %H:%M')
+    let l:setversion        = strftime('%m%d%Y%H%M')
+    let l:setnowdate           = strftime('%m/%d/%/Y %H:%M')
 
     call <SID>ExpandTemplate('DAY', l:day)
     call <SID>ExpandTemplate('DAY_FULL', l:day_full)
@@ -66,8 +66,9 @@ function <SID>ExpandTimestampTemplates()
     call <SID>ExpandTemplate('TIME', l:time)
     call <SID>ExpandTemplate('TIME_12', l:time_12)
     call <SID>ExpandTemplate('TIMESTAMP', l:timestamp)
-    call <SID>ExpandTemplate('VERSION', l:version)
-    call <SID>ExpandTemplate('NOWDATE', l:nowdate)
+    call <SID>ExpandTemplate('SETVER', l:setversion)
+    call <SID>ExpandTemplate('VERSION', l:setversion)
+    call <SID>ExpandTemplate('NOWDATE', l:setnowdate)
 endfunction
 
 function <SID>ExpandAuthoringTemplates()
@@ -108,7 +109,7 @@ function <SID>ExpandLicenseFile()
 
     let l:lineno = line('.')
     let l:colno = col('.')
-     " remove license file
+    " remove license file
     s/{{LICENSE_FILE}}//
     call cursor(l:lineno, l:colno)
 
@@ -301,4 +302,3 @@ au BufNewFile * TemplateAutoInit
 command -nargs=0 TemplateExpand         :call <SID>ExpandAllTemplates()
 command -nargs=? TemplateInit           :call <SID>InitializeTemplate(<f-args>)
 command -nargs=0 TemplateAutoInit       :call <SID>AutoInitializeTemplate()
-

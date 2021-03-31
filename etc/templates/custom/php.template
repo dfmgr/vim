@@ -4,7 +4,7 @@
 
 <!--
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-##@Version       : `!v strftime("%Y%m%d%H%M")`-git
+##@Version       : {{CURSOR}}
 # @Author        : {{NAME}}
 # @Contact       : {{EMAIL}}
 # @License       : {{LICENSE}}
@@ -12,7 +12,7 @@
 # @Copyright     : {{COPYRIGHT}} {{YEAR}}, {{COMPANY}}
 # @Created       : {{TIMESTAMP}}
 # @File          : {{FILE}}
-# @Description   : {{CURSOR}}
+# @Description   :
 # @TODO          :
 # @Other         :
 # @Resource      :
@@ -196,4 +196,3 @@ This site is powered by an <a href="https://github.com/casjay-templates" target=
 </body>
 <!-- End Site -->
 </html>
-
