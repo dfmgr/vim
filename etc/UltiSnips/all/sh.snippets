@@ -19,6 +19,13 @@ snippet for_loop
 for ${1} in ${2}; ${3}
 endsnippet
 
+snippet case_add
+-${1} | --${2})
+  shift 1
+  ${3}
+  ;;
+endsnippet
+
 snippet bash.script "shell"
 #!/usr/bin/env bash
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
