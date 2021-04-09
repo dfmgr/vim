@@ -53,7 +53,7 @@ function <SID>ExpandTimestampTemplates()
     let l:time_12           = strftime('%r')
     let l:timestamp         = strftime('%A %b %d, %Y %T %Z')
     let l:setversion        = strftime('%m%d%Y%H%M')
-    let l:setnowdate           = strftime('%m/%d/%/Y %H:%M')
+    let l:setnowdate        = strftime('%m/%d/%Y %H:%M')
 
     call <SID>ExpandTemplate('DAY', l:day)
     call <SID>ExpandTemplate('DAY_FULL', l:day_full)
