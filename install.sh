@@ -164,9 +164,9 @@ run_postinst() {
     ln_sf "$APPDIR/vimrc" "$HOME/.vimrc"
   fi
   if __am_i_online; then
-    devnull2 vim -u "$APPDIR/plugins.vimrc" +BundleInstall +qall </dev/null
-    devnull2 vim -u "$APPDIR/plugins.vimrc" +PluginInstall +qall </dev/null
-    devnull2 vim -u "$APPDIR/plugins.vimrc" +PluginClean +qall </dev/null
+    vim -u "$APPDIR/plugins.vimrc" +BundleInstall +qall #</dev/null >/dev/null
+    vim -u "$APPDIR/plugins.vimrc" +PluginInstall +qall #</dev/null >/dev/null
+    vim -u "$APPDIR/plugins.vimrc" +PluginClean +qall #</dev/null >/dev/null
   fi
 }
 #
