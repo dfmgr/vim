@@ -166,7 +166,7 @@ run_postinst() {
   if __am_i_online; then
     vim -u "$APPDIR/plugins.vimrc" +BundleInstall +qall </dev/null &>/dev/null
     vim -u "$APPDIR/plugins.vimrc" +PluginInstall +qall </dev/null &>/dev/null
-    vim -u "$APPDIR/plugins.vimrc" +PluginClean +qall </dev/null &>/dev/null
+    vim -u "$APPDIR/plugins.vimrc" +PluginClean +qall </dev/null &>/dev/null || true
   fi
 }
 #
