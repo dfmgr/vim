@@ -1,3 +1,24 @@
+"# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+"##@Version       : 202103260355-git
+"# @Author        : Jason
+"# @Contact       : jason@casjaysdev.com
+"# @License       : WTFPL
+"# @ReadME        : vim --help
+"# @Copyright     : Copyright (c) 2021, Casjays Developments
+"# @Created       : Friday Mar 26, 2021 03:55:55 EDT
+"# @File          : vimrc
+"# @Description   :
+"# @TODO          : Slit into individual settings
+"# @Other         :
+"# @Resource      :
+"# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugin settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set rtp+=~/.local/share/vim/bundle
+set rtp+=~/.local/share/vim/bundle/Vundle.vim
+set rtp+=~/.local/share/vim/bundle/powerline/powerline/bindings/vim
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Set Defaults
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -24,6 +45,12 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Check plugins and install if needed
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if ! filereadable(expand('~/.local/share/vim/bundle/Vundle.vim/.gitignore'))
+    echo "Downloading Vundle to manage plugins..."
+    silent !git clone -q "https://github.com/VundleVim/Vundle.vim" ~/.local/share/vim/bundle/Vundle.vim
+    silent !vim +PluginInstall +qall
+endif
+
 if ! filereadable(expand('~/.local/share/vim/bundle/vim-fugitive/.gitignore'))
     echo "installing vim-fugitive..."
     silent !git clone -q "https://github.com/tpope/vim-fugitive" ~/.local/share/vim/bundle/vim-fugitive
@@ -39,21 +66,10 @@ if ! filereadable(expand('~/.local/share/vim/bundle/vim-airline-themes/.gitignor
     silent !git clone -q "https://github.com/vim-airline/vim-airline-themes" ~/.local/share/vim/bundle/vim-airline-themes
 endif
 
-if ! filereadable(expand('~/.local/share/vim/bundle/Vundle.vim/.gitignore'))
-    echo "Downloading Vundle to manage plugins..."
-    silent !git clone -q "https://github.com/VundleVim/Vundle.vim" ~/.local/share/vim/bundle/Vundle.vim
-    silent !vim +PluginInstall +qall
-endif
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vundle
+" => Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set rtp+=~/.local/share/vim/bundle
-set rtp+=~/.local/share/vim/bundle/Vundle.vim
-set rtp+=~/.local/share/vim/bundle/powerline/powerline/bindings/vim
-
 call vundle#begin('~/.local/share/vim/bundle')
-
 Plugin 'VundleVim/Vundle.vim'               " plugin manager
 Plugin 'airblade/vim-gitgutter'             " shows a git diff in the gutter
 Plugin 'airblade/vim-rooter'                " Changes working directory to project root
@@ -78,7 +94,6 @@ Plugin 'mattn/emmet-vim'                    " emmet
 Plugin 'mhinz/vim-startify'                 " The fancy start screen
 Plugin 'mileszs/ack.vim'                    " Vim plugin for the Perl module
 Plugin 'plasticboy/vim-markdown'            " Syntax highlighting, matching rules and mappings
-"Plugin 'powerline/powerline'                "statusline plugin
 Plugin 'prettier/vim-prettier'              " A vim plugin wrapper for prettier
 Plugin 'scrooloose/nerdtree'                " A tree explorer plugin for vim
 Plugin 'scrooloose/syntastic'               " Syntax checking hacks for vim
@@ -100,6 +115,7 @@ Plugin 'vim-airline/vim-airline'            "
 Plugin 'vim-airline/vim-airline-themes'     "
 Plugin 'vim-python/python-syntax'           "
 Plugin 'vim-scripts/bash-support.vim'       "
+Plugin 'jvanja/vim-bootstrap4-snippets'     "
 Plugin 'vim-scripts/taglist.vim'            "
 Plugin 'vim-scripts/TaskList.vim'           "
 Plugin 'vimwiki/vimwiki'                    "
@@ -109,7 +125,7 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'        "
 Plugin 'lifepillar/vim-colortemplate'       " color template
 Plugin 'MarcWeber/vim-addon-mw-utils'       " interpret a file by function
 Plugin 'dbeniamine/cheat.sh-vim'            " access cheat.sh sheets
-Plugin 'honza/vim-snippets'	                " snippets
+Plugin 'honza/vim-snippets'                 " snippets
 Plugin 'roxma/nvim-yarp'                    " required for deoplete
 Plugin 'roxma/vim-hug-neovim-rpc'           " required for deoplete
 Plugin 'vitalk/vim-shebang'                 " set shebang line
