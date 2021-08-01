@@ -5,7 +5,7 @@ A highly configurable text editor
 Automatic install/update:
 
 ```shell
-bash -c "$(curl -LSs https://github.com/dfmgr/vim/raw/master/install.sh)"
+bash -c "$(curl -LSs https://github.com/dfmgr/vim/raw/main/install.sh)"
 ```
 
 Manual install:
