@@ -7,8 +7,8 @@
 "# @Copyright     : Copyright (c) 2021, Casjays Developments
 "# @Created       : Friday Mar 26, 2021 03:55:55 EDT
 "# @File          : vimrc
-"# @Description   :
-"# @TODO          : Slit into individual settings
+"# @Description   : VIM Plugin settings
+"# @TODO          : Split into individual settings
 "# @Other         :
 "# @Resource      :
 "# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -18,17 +18,14 @@
 set rtp+=~/.local/share/vim/bundle
 set rtp+=~/.local/share/vim/bundle/Vundle.vim
 set rtp+=~/.local/share/vim/bundle/powerline/powerline/bindings/vim
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Set Defaults
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
 filetype off
-
 if has('unix')
     set shell=/bin/bash
 endif
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Python version
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -41,7 +38,6 @@ elseif has('python')
     let g:powerline_pycmd="py"
     let g:python_host_prog = "/usr/bin/python2"
 endif
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Check plugins and install if needed
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -65,7 +61,6 @@ if ! filereadable(expand('~/.local/share/vim/bundle/vim-airline-themes/.gitignor
     echo "installing vim-airline-themes..."
     silent !git clone -q "https://github.com/vim-airline/vim-airline-themes" ~/.local/share/vim/bundle/vim-airline-themes
 endif
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -137,7 +132,7 @@ Plugin 'justinmk/vim-sneak'                 "
 Plugin 'unblevable/quick-scope'             "
 Plugin 'dracula/vim', { 'name': 'dracula'  } " Dracula theme
 Plugin 'wakatime/vim-wakatime'              " plugin for productivity metrics
-
+Plugin 'w0rp/ale'                           " ALE is an engine for running linters
 Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }  "asynchronous completion framework
 
 if (has('python') || has('python3'))
@@ -150,3 +145,4 @@ endif
     Plugin 'garbas/vim-snipmate'
     Plugin 'tomtom/tlib_vim' "required for snipmate
 call vundle#end()
+

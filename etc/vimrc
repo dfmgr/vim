@@ -7,8 +7,8 @@
 "# @Copyright     : Copyright (c) 2021, Casjays Developments
 "# @Created       : Friday Mar 26, 2021 03:55:55 EDT
 "# @File          : vimrc
-"# @Description   :
-"# @TODO          : Slit into individual settings
+"# @Description   : VIM configuration file
+"# @TODO          : Split into individual settings
 "# @Other         :
 "# @Resource      :
 "# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -16,7 +16,6 @@
 " => Set vim home
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let s:vimdir = $HOME . '/.config/vim'
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Python version
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -29,7 +28,6 @@ elseif has('python')
     let g:powerline_pycmd="py"
     let g:python_host_prog = "/usr/bin/python2"
 endif
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => create directories
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -40,14 +38,12 @@ if exists("*mkdir")
         endif
     endfor
 endif
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Include plugins and install if needed
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if filereadable(glob("~/.config/vim/plugins.vimrc"))
     source ~/.config/vim/plugins.vimrc
 endif
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Defaults
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -112,9 +108,8 @@ set undofile
 set wildmenu
 set wildmode=longest,list,full
 set cryptmethod=blowfish2
-
+set eol
 au BufWritePre * let &bex = '-' . strftime("%Y%m%d-%H%M%S") . '.vimbackup'
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -123,7 +118,6 @@ set background=dark
 highlight Whitespace cterm=underline gui=underline ctermbg=NONE guibg=NONE ctermfg=yellow guifg=yellow
 highlight SpecialKey ctermfg=grey guifg=grey70
 highlight link javascriptType Keyword
-
 "hi LineNr ctermfg=242
 "hi CursorLineNr ctermfg=242
 set guifont=Hack\ Nerd\ Font\ 10
@@ -131,8 +125,6 @@ set guifont=Hack\ Nerd\ Font\ 10
 if has('gui_running')
     colorscheme dracula
 endif
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Global ignore
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -140,20 +132,17 @@ set wildignore+=*node_modules/**
 set wildignore+=*vendor/**
 set wildignore+=*.git/*
 set wildignore+=*~,*.swp,*.swo,*.tmp
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => leader mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader=','
 "let mapleader=' '
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Splits and Tabbed Files
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set splitbelow splitright
 let g:minimap_highlight='visual'
 let g:python_highlight_all = 0
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Remap Keys
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -170,14 +159,11 @@ xnoremap <Leader>rc :s///gc<Left><Left><Left>
 nnoremap <silent> s* :let @/='\<'.expand('<cword>').'\>'<CR>cgn
 xnoremap <silent> s* "sy:let @/=@s<CR>cgn
 nnoremap <leader>sp :normal! mz[s1z=`z<CR>
-
 inoremap <expr> <Down> pumvisible() ? "<C-n>" :"<Down>"
 inoremap <expr> <Up> pumvisible() ? "<C-p>" : "<Up>"
 inoremap <expr> <Right> pumvisible() ? "<C-y>" : "<Right>"
 inoremap <expr> <CR> pumvisible() ? "<C-y>" :"<CR>"
 inoremap <expr> <Left> pumvisible() ? "<C-e>" : "<Left>"
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Basic autocommands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -197,7 +183,6 @@ augroup CursorLine
     au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
     au WinLeave * setlocal nocursorline
 augroup END
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Startupify configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -213,7 +198,6 @@ let g:startify_custom_header = [
 \    '               |__/       |___/                       ',
 \    '                                                      ',
 \    ]
-
 let g:startify_session_autoload = 1
 let g:startify_session_delete_buffers = 1
 let g:startify_change_to_vcs_root = 1
@@ -222,7 +206,6 @@ let g:startify_session_persistence = 1
 let g:webdevicons_enable_startify = 1
 let g:startify_enable_special = 0
 let g:startify_session_dir = '~/.config/vim/session'
-
 let g:startify_bookmarks = [
 \     { 'f': '~/.config/fish/config.fish' },
 \     { 'z': '~/.zshrc' },
@@ -241,7 +224,6 @@ let g:startify_lists = [
 function! StartifyEntryFormat()
     return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
 endfunction
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Syntastic configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -256,7 +238,6 @@ let g:syntastic_ocaml_checkers = ['merlin']
 let g:syntastic_python_checkers = ['pylint']
 let g:syntastic_shell_checkers = ['shellcheck']
 let g:syntastic_sh_shellcheck_args="-e SC2059,SC2148,SC2027,SC2034,SC2086"
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NERDTree
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -269,7 +250,6 @@ let NERDTreeShowHidden=1
 let NERDTreeMinimalUI = 0
 let g:nerdtree_tabs_open_on_console_startup = 0
 let g:nerdtree_tabs_synchronize_view = 0
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => snipMate
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -283,7 +263,6 @@ if (has('python3') || has('pythonx'))
 elseif has('python')
     let g:deoplete#enable_at_startup = 0
 endif
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  ultisnips
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -294,7 +273,6 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsNoPythonWarning = 1
 let g:UltiSnipsEnableSnipMate = 1
 let g:UltiSnipsSnippetDirectories = [$HOME.'/.config/vim/UltiSnips']
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  gitgutter
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -305,17 +283,14 @@ let g:gitgutter_sign_removed_first_line = '契'
 let g:gitgutter_sign_modified_removed   = '▎'
 let g:gitgutter_preview_win_floating = 1
 let g:gitgutter_enabled = 1
-
 highlight GitGutterAdd    guifg=#98c379 ctermfg=2
 highlight GitGutterChange guifg=#61afef ctermfg=3
 highlight GitGutterDelete guifg=#e06c75 ctermfg=1
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  nerdcommenter
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 vnoremap <silent> <space>/ :Commentary<CR>
 autocmd FileType javascript.jsx setlocal commentstring={/*\ %s\ */}
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  commentary
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -327,17 +302,14 @@ function! Comment()
     endif
 endfunction
 vnoremap <silent> <space>/ :call Comment()
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  vim-rooter
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:rooter_silent_chdir = 1
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  fzf
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
-
 " Customize fzf colors to match your color scheme.
 let g:fzf_colors =
 \     { 'fg':      ['fg', 'Normal'],
@@ -352,27 +324,22 @@ let g:fzf_colors =
 \     'marker':  ['fg', 'Keyword'],
 \     'spinner': ['fg', 'Label'],
 \     'header':  ['fg', 'Comment'] }
-
 let g:fzf_action = {
 \     'ctrl-t': 'tab split',
 \     'ctrl-x': 'split',
 \     'ctrl-v': 'vsplit',
 \     'ctrl-y': {lines -> setreg('*', join(lines, "\n"))}}
-
 " Launch fzf with CTRL+P.
 nnoremap <silent> <C-p> :FZF -m<CR>
-
 " Map a few common things to do with FZF.
 nnoremap <silent> <Leader><Enter> :Buffers<CR>
 nnoremap <silent> <Leader>l :Lines<CR>
-
 " Allow passing optional flags into the Rg command.
 "   Example: :Rg myterm -g '*.md'
 command! -bang -nargs=* Rg
 \call fzf#vim#grep(
 \   "rg --column --line-number --no-heading --color=always --smart-case " .
 \   <q-args>, 1, fzf#vim#with_preview(), <bang>0)
-
 " . = location of current file
 nnoremap '.  :exe ":FZF " . expand("%:h")<CR>
 " / = /
@@ -397,38 +364,31 @@ nnoremap '.  :exe ":FZF " . expand("%:h")<CR>
 "nnoremap 'v  :e $MYVIMRC<cr>
 " toggle last buffer
 "nnoremap ''  :b#<cr>
-
 " Enable per-command history.
 " CTRL-N and CTRL-P will be automatically bound to next-history and
 " previous-history instead of down and up. If you don't like the change,
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 let g:fzf_buffers_jump = 1
-
 " map <C-f> :Files<CR>
 " map <leader>b :Buffers<CR>
 " nnoremap <leader>g :Rg<CR>
 " nnoremap <leader>t :Tags<CR>
 " nnoremap <leader>m :Marks<CR>
-
 let g:fzf_tags_command = 'ctags -R'
 " Border color
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
-
 let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
 let $FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/**'"
 "-g '!{node_modules,.git}'
-
 "Get Files
 command! -bang -nargs=? -complete=dir Files
 \     call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--inline-info']}), <bang>0)
-
 
 " Get text in files with Rg
 " command! -bang -nargs=* Rg
 "   \ call fzf#vim#grep(
 "   \   "rg --column --line-number --no-heading --color=always --smart-case --glob '!.git/**' ".shellescape(<q-args>), 1,
-
 " Make Ripgrep ONLY search file contents and not filenames
 command! -bang -nargs=* Rg
 \     call fzf#vim#grep(
@@ -436,7 +396,6 @@ command! -bang -nargs=* Rg
 \       <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
 \               : fzf#vim#with_preview({'options': '--delimiter : --nth 4.. -e'}, 'right:50%', '?'),
 \       <bang>0)
-
 " Ripgrep advanced
 function! RipgrepFzf(query, fullscreen)
     let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
@@ -445,15 +404,12 @@ function! RipgrepFzf(query, fullscreen)
     let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
     call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
-
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-
 " Git grep
 command! -bang -nargs=* GGrep
 \     call fzf#vim#grep(
 \       'git grep --line-number '.shellescape(<q-args>), 0,
 \       fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  sneak
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -465,7 +421,6 @@ map gs <Plug>Sneak_;
 highlight Sneak guifg=black guibg=#00C7DF ctermfg=black ctermbg=cyan
 highlight SneakScope guifg=red guibg=yellow ctermfg=red ctermbg=yellow
 let g:sneak#prompt = '🔎 '
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  quickscope
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -473,14 +428,12 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 highlight QuickScopePrimary guifg='#00C7DF' gui=underline ctermfg=155 cterm=underline
 highlight QuickScopeSecondary guifg='#eF5F70' gui=underline ctermfg=81 cterm=underline
 let g:qs_max_chars=150
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  rainbow
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 let g:rainbow_conf = {'guis': ['bold']}
 let g:rainbow_active = 1 " set to 0 if you want to enable it later via :RainbowToggle
-
 " \ 'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
 let g:rainbow_conf = {
 \   'guifgs': ['#858580', '#8FBCBB', '#D08770', '#A3BE8C', '#EBCB8B', '#B48EAD', '#80a880', '#887070'],
@@ -515,7 +468,6 @@ let g:rainbow_conf = {
 \       'css': 0,
 \   }
 \}
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Copy selected text to system clipboard (requires gvim/nvim/vim-x11 installed):
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -527,23 +479,19 @@ imap <C-v> <ESC>+pa
 map <leader>c +y
 map <leader>v +p
 vnoremap <C-C> :w !putclip<CR><CR>
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => When shortcut files are updated, renew bash and vifm configs with new material:
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd BufWritePost ~/.config/bmdirs,~/.config/bmfiles !shortcuts
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Disables automatic commenting on newline:
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Run xrdb whenever Xdefaults or Xresources are updated.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Markdown
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -564,7 +512,6 @@ augroup markdown
     autocmd Filetype rmd inoremap ,p ```{python}<CR>```<CR><CR><esc>2kO
     autocmd Filetype rmd inoremap ,c ```<cr>```<cr><cr><esc>2kO
 augroup END
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim Markdown
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -573,7 +520,6 @@ let g:vim_markdown_override_foldtext = 0
 let g:vim_markdown_toml_frontmatter = 1
 let g:vim_markdown_json_frontmatter = 1
 let g:vim_markdown_follow_anchor = 1
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim devicons
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -594,7 +540,6 @@ let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
 let g:webdevicons_enable_denite = 1
 let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = 'ƛ'
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM-MULTIPLE-CURSORS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -608,10 +553,22 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 "let g:multi_cursor_skip_key            = '<C-x>'
 "let g:multi_cursor_quit_key            = '<Esc>'
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vim ale
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if (has('prettier') || has('eslint'))
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
+highlight ALEErrorSign ctermbg=NONE ctermfg=red
+highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
+let g:ale_fixers = { 'javascript': ['eslint'], }
+let g:ale_fix_on_save = 1
+endif
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim-prettier
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:prettier#config#bracket_spacing = 'true'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if (has('prettier') || has('eslint'))
+let g:prettier#config#bracket_spacing = 'true'
 "let g:prettier#config#jsx_bracket_same_line = 'false'
 "let g:prettier#autoformat = 1
 "let g:prettier#config#end_of_line = get(g:, 'prettier#config#end_of_line', 'lf')
@@ -624,14 +581,13 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 "let g:prettier#config#tab_width = 'auto'
 "let g:prettier#config#print_width = 'auto'
 "autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
-
+endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => go to last known place
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has("autocmd")
     au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vimwiki
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -639,7 +595,6 @@ let g:vimwiki_nested_syntaxes = {'ruby': 'ruby', 'python': 'python', 'c++': 'cpp
 let g:vimwiki_list = [{'path': '~/.local/share/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
 let g:vimwiki_global_ext = 0
 let g:vimwiki_hl_headers = 1
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim-jekyll : Blogging from the command line
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -648,20 +603,17 @@ let g:jekyll_post_filetype = 'markdown'
 let g:jekyll_post_dirs = ['_posts']
 let g:jekyll_site_dir = '_site'
 let g:jekyll_build_command = 'jekyll --no-auto --no-server'
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => editorconfig
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:EditorConfig_max_line_indicator = "exceeding"
 let g:EditorConfig_exclude_patterns = ['fugitive://.*','scp://.*']
 let g:EditorConfig_preserve_formatoptions = 1
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => tasklist
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <leader>tl <Plug>TaskList
 let g:tlTokenList = ['FIXME', 'TODO', 'XXX', 'HACK', 'WIP']
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Autoformat configuration
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -673,17 +625,14 @@ autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4 textwidth=
 autocmd FileType html,htmldjango,xhtml,haml setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=0
 autocmd FileType sass,scss,css setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-
 "let blacklist = ['xml', 'conf']
 "autocmd FileType vim,tex,xml let b:autoformat_autoindent=0
 "autocmd BufWritePre * if index(blacklist, &ft) < 0 | :Autoformat
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Custom command for expanding templates
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "let noTemplateExpand = [ '' ]
 "autocmd BufWritePre * if index(noTemplateExpand, &ft) < 0 | :TemplateExpand
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Ensure files are read as what I want:
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -701,7 +650,6 @@ autocmd BufRead,BufNewFile,FileType vimwiki set syntax=markdown
 autocmd BufRead,BufNewFile,FileType *scratch* set filetype=text syntax=text
 autocmd BufRead,BufNewFile,FileType /tmp/calcurse*,~/.local/share/editors/calcurse/* set filetype=markdown syntax=markdown
 autocmd BufEnter * if &filetype == "" | setlocal ft=text | endif
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim Shebang lines
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -710,29 +658,24 @@ augroup shebanglines
     autocmd BufNewFile *.rb 0put =\"#!/usr/bin/env ruby\<nl># -*- coding: None -*-\<nl>\"|$
     autocmd BufNewFile *.js 0put =\"#!/usr/bin/env nodejs\<nl>\"|$
 augroup END
-
 AddShebangPattern! shell ^#!.*\s\+sh\>
 AddShebangPattern! shell ^#!.*\s\+bash\>
 AddShebangPattern! javascript ^#!.*\s\+node\>
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => spell
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set spelllang=en_us
 set complete+=kspell
 map <F7> :setlocal spell! spelllang=en_us<CR>
-
 "vim -c ":mkspell! ~/.config/vim/spell/en.utf-8.add" -c q  # run from shell
 ":mkspell! ~/.config/vim/spell/en.utf-8.add                # run from vim
 if filereadable(glob("~/.config/vim/spell/en.utf-8.add"))
     set spellfile=~/.config/vim/spell/en.utf-8.add
 endif
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Save as root
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => create directory on save
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -748,7 +691,6 @@ augroup BWCCreateDir
     autocmd!
     autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
 augroup END
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => remove whitespaces on save
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -763,7 +705,6 @@ endfunction
 
 let noStripWhiteSpaceTypes = ['markdown', 'notes', 'vimwiki', '*.md']
 autocmd BufWritePre * if index(noStripWhiteSpaceTypes, &ft) < 0 | call StripTrailingWhitespace() | endif
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => useful functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -771,7 +712,6 @@ autocmd InsertEnter * set colorcolumn=160
 autocmd InsertLeave * set colorcolumn=""
 autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
 autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  tmuxline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -789,11 +729,9 @@ if exists("$TMUX")
     endfunction
     autocmd BufEnter * call BroadcastTmuxCwd()
 endif
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Powerline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 set laststatus=2
 set t_Co=256
 let g:rehash256 = 1
@@ -830,7 +768,6 @@ function! ActiveStatus()
   set statusline.="%#warningmsg#"
   set statusline.="%{SyntasticStatuslineFlag()}"
   set statusline.="%*"
-
   return statusline
 endfunction
 
@@ -852,7 +789,6 @@ function! InactiveStatus()
   set statusline.="%#warningmsg#"
   set statusline.="%{SyntasticStatuslineFlag()}"
   set statusline.="%*"
-
   return statusline
 endfunction
 
@@ -875,7 +811,6 @@ augroup status
   autocmd ColorScheme dark if(&background=="light") | hi User3 guibg=#707070 guifg=#005f00 | endif
   autocmd ColorScheme dark if(&background=="light") | hi User4 guibg=#707070 guifg=#d0d0d0 | endif
 augroup END
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => snipmate : Specify this in your ~/.config/local/vimrc.local file
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -886,7 +821,6 @@ let g:snips_author = expand($USER_FULLNAME)
 let g:snips_email = expand($USER_EMAIL)
 let g:snips_github = expand($USER_GITHUB)
 nn <Leader>rs <esc>:exec ReloadAllSnippets()<cr>
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => bash-support.vim : Specify this in your ~/.config/local/vimrc.local file
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -897,7 +831,6 @@ let g:BASH_InsertFileHeader  = 'no'
 "let g:BASH_AuthorRef    = 'Initials'
 "let g:BASH_Email        = 'E-mail'
 "let g:BASH_Company      = 'Company'
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim-header : Specify this in your ~/.config/local/vimrc.local file
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -909,7 +842,6 @@ let g:header_auto_add_header = 0
 "let g:header_field_author = 'Your Name'
 "let g:header_field_author_email = 'your@mail'
 "let g:header_field_copyright = ''
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim-templates : Specify this in your ~/.config/local/vimrc.local file
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -924,7 +856,6 @@ let g_tmpl_version         = 'strftime("%Y%m%d%H%M")'
 "let g:tmpl_company         = ''
 "let g:tmpl_author_hostname = ''
 "let g:tmpl_copyright       = ''
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => overwrite
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -938,3 +869,4 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => end vimrc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
