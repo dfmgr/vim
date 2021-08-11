@@ -119,7 +119,7 @@ if [ -d "$APPDIR" ]; then
   execute "backupapp $APPDIR $APPNAME" "Backing up $APPDIR"
 fi
 # Main progam
-if __am_i_online; then
+if am_i_online; then
   if [ -d "$INSTDIR/.git" ]; then
     execute "git_update $INSTDIR" "Updating $APPNAME configurations"
   else
@@ -130,7 +130,7 @@ if __am_i_online; then
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Plugins
-if __am_i_online; then
+if am_i_online; then
   if [ "$PLUGNAMES" != "" ]; then
     if [ -d "$PLUGDIR/Vundle.vim/.git" ]; then
       execute "git_update $PLUGDIR/Vundle.vim" "Updating plugin Vundle.vim"
@@ -163,7 +163,7 @@ run_postinst() {
   if [ ! -L "$HOME/.vimrc" ]; then
     ln_sf "$APPDIR/vimrc" "$HOME/.vimrc"
   fi
-  if __am_i_online; then
+  if am_i_online; then
     vim -u "$APPDIR/plugins.vimrc" -c ":BundleInstall" +qall </dev/null &>/dev/null
     vim -u "$APPDIR/plugins.vimrc" -c ":PluginInstall" +qall </dev/null &>/dev/null
     vim -u "$APPDIR/plugins.vimrc" -c ":PluginClean" +qall </dev/null &>/dev/null || true
