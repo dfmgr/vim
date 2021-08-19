@@ -133,6 +133,7 @@ Plugin 'unblevable/quick-scope'             "
 Plugin 'dracula/vim', { 'name': 'dracula'  } " Dracula theme
 Plugin 'wakatime/vim-wakatime'              " plugin for productivity metrics
 Plugin 'w0rp/ale'                           " ALE is an engine for running linters
+Plugin 'ervandew/supertab'                  " Supertab is a vim plugin which allows you to use <Tab> 
 Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }  "asynchronous completion framework
 
 if (has('python') || has('python3'))
