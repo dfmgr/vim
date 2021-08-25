@@ -30,11 +30,11 @@ __list_array() { echo "$ARRAY" | tr ',' ' ' | tr ' ' '\n'; }
 __sed_remove_empty() { sed '/^\#/d;/^$/d;s#^ ##g'; }
 __sed_head() { sed -E 's/^.*#//g;s#^ ##g;s/^@//g'; }
 __grep_head() {
-    grep -sE '[".#]?@[A-Z]' "$(type -P "${2:-$PROG}")" | grep "${1:-}" | __sed_head | __sed_remove_empty | grep '^' || return 1
+  grep -sE '[".#]?@[A-Z]' "$(type -p "${2:-$PROG}")" | grep "${1:-}" | __sed_head | __sed_remove_empty | grep '^' || return 1
 }
 __printf_help() {
-  local color="$1" && shift 1
-  local msg="$*"
+  color="$1" && shift 1
+  msg="$*"
   shift
   __printf_color "\t\t$msg\n" "$color"
 }
@@ -56,13 +56,13 @@ PROG_ENV_NAME_CONFIG_FILE="settings.conf"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Argument/Option settings
 SETARGS="${*}"
-SHORTOPTS="c,v,h"
+SHORTOPTS=""
 LONGOPTS="options,config,version,help"
 ARRAY=""
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Setup application options
 setopts=$(getopt -o "$SHORTOPTS" --long "$LONGOPTS" -n "$APPNAME" -- "$@" 2>/dev/null)
-eval set -- "${setopts[@]}" 2>/dev/null
+eval set -- "$setopts" 2>/dev/null
 while :; do
   case $1 in
   --options)
@@ -70,15 +70,15 @@ while :; do
     __list_options
     __list_array
     ;;
-  -v | --version)
+  --version)
     shift 1
     __version
     ;;
-  -h | --help)
+  --help)
     shift 1
     __help
     ;;
-  -c | --config)
+  --config)
     shift 1
     __gen_config
     ;;
@@ -93,7 +93,7 @@ done
 # Main application
 case $1 in
 *)
-  echo -e "$PROG: ${*}"
+  printf '%s\n' "$PROG: ${*}"
   ;;
 esac
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -101,4 +101,3 @@ esac
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # lets exit with code
 exit "${exitCode:-$?}"
-
