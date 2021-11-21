@@ -294,14 +294,14 @@ autocmd FileType javascript.jsx setlocal commentstring={/*\ %s\ */}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  commentary
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! Comment()
-    if (mode() == "n" )
-        execute "Commentary"
-    else
-        execute "'<,'>Commentary"
-    endif
-endfunction
-vnoremap <silent> <space>/ :call Comment()
+" function! Comment()
+"     if (mode() == "n" )
+"         execute "Commentary"
+"     else
+"         execute "'<,'>Commentary"
+"     endif
+" endfunction
+" vnoremap <silent> <space>/ :call Comment()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  vim-rooter
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -656,7 +656,7 @@ autocmd BufEnter * if &filetype == "" | setlocal ft=text | endif
 augroup shebanglines
     autocmd BufNewFile *.tex 0put =\"%&plain\<nl>\"|$
     autocmd BufNewFile *.rb 0put =\"#!/usr/bin/env ruby\<nl># -*- coding: None -*-\<nl>\"|$
-    autocmd BufNewFile *.js 0put =\"#!/usr/bin/env nodejs\<nl>\"|$
+    autocmd BufNewFile *.js 0put =\"#!/usr/bin/env node\<nl>\"|$
 augroup END
 AddShebangPattern! shell ^#!.*\s\+sh\>
 AddShebangPattern! shell ^#!.*\s\+bash\>
