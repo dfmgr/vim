@@ -120,8 +120,8 @@ Plugin 'tmux-plugins/vim-tmux-focus-events'                      "
 Plugin 'tomlion/vim-solidity'                                    "
 Plugin 'tpope/vim-fugitive'                                      "
 Plugin 'tpope/vim-surround'                                      "
-Plugin 'tpope/vim-commentary'                                    " Rainbow Parentheses Improved
-Plugin 'luochen1990/rainbow'                                     "
+Plugin 'tpope/vim-commentary'                                    "
+Plugin 'luochen1990/rainbow'                                     " Rainbow Parentheses Improved
 Plugin 'vim-airline/vim-airline'                                 "
 Plugin 'vim-airline/vim-airline-themes'                          "
 Plugin 'vim-python/python-syntax'                                "
