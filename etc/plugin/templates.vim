@@ -66,8 +66,6 @@ function <SID>ExpandTimestampTemplates()
     call <SID>ExpandTemplate('TIME_12', l:time_12)
     call <SID>ExpandTemplate('TIMESTAMP', l:timestamp)
     call <SID>ExpandTemplate('SETVER', l:setversion)
-    call <SID>ExpandTemplate('VERSION', l:setversion)
-    call <SID>ExpandTemplate('NOWDATE', l:setnowdate)
 endfunction
 
 function <SID>ExpandAuthoringTemplates()
