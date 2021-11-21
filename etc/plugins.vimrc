@@ -163,3 +163,5 @@ if (has('python3') || has('python'))
 endif
 
 call vundle#end()
+
+let g:snipMate = { 'snippet_version' : 1 }
