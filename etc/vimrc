@@ -48,25 +48,19 @@ endif
 " => Defaults
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set runtimepath+=~/.config/vim/
-set undodir=~/.config/vim/.undo//
-set backupdir=~/.config/vim/.backup//
-set directory=~/.config/vim/.swp//
+set undodir=~/.config/vim/.undo/
+set backupdir=~/.config/vim/.backup/
+set directory=~/.config/vim/.swp/
 set viminfo+=n~/.config/vim/.info/viminfo
 set term=xterm-256color
 
-if has('unix')
-    if filereadable(glob("/usr/bin/bash"))
+if (has('unix') || has('darwin'))
+    if filereadable(glob("/usr/local/bin/bash"))
+        set shell=/usr/local/bin/bash
+    elseif filereadable(glob("/usr/bin/bash"))
         set shell=/usr/bin/bash
     elseif filereadable(glob("/bin/bash"))
         set shell=/bin/bash
-    endif
-elseif has('darwin')
-    if filereadable(glob("/usr/local/bin/bash"))
-        set shell=/usr/local/bin/bash
-    elseif filereadable(glob("/bin/bash"))
-        set shell=/bin/bash
-    elseif filereadable(glob("/bin/zsh"))
-        set shell=/bin/zsh
     endif
 endif
 
@@ -114,7 +108,7 @@ au BufWritePre * let &bex = '-' . strftime("%Y%m%d-%H%M%S") . '.vimbackup'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Set font according to system
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if has("mac") || has("macunix")
+if (has("mac") || has("macunix"))
     set gfn=IBM\ Plex\ Mono:h14,Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
 elseif has("win16") || has("win32")
     set gfn=IBM\ Plex\ Mono:h14,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
@@ -242,7 +236,6 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Syntastic configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -252,6 +245,7 @@ let g:syntastic_javascript_checkers = [ 'jshint' ]
 let g:syntastic_ocaml_checkers = ['merlin']
 let g:syntastic_python_checkers = ['pylint']
 let g:syntastic_shell_checkers = ['shellcheck']
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 let g:syntastic_sh_shellcheck_args="-e SC2059,SC2148,SC2027,SC2034,SC2086"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NERDTree

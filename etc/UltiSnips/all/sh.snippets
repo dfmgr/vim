@@ -11,12 +11,16 @@ endsnippet
 
 # While
 snippet while_do
-while :; do ${1} ${2}; done
+  while $1; do
+    ${2} ${3}
+  done
 endsnippet
 
 #
 snippet for_loop
-for ${1} in ${2}; ${3}
+  for ${1} in ${2}; do
+    ${3}
+  done
 endsnippet
 
 snippet case_add
@@ -29,7 +33,7 @@ endsnippet
 snippet bash.script "shell"
 #!/usr/bin/env bash
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-PROG="$(basename "$\0")"
+PROG="$(basename "\$0")"
 USER="${SUDO_USER:-${USER}}"
 HOME="${USER_HOME:-${HOME}}"
 SRC_DIR="${BASH_SOURCE%/*}"
