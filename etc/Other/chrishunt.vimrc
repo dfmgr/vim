@@ -2,7 +2,7 @@
 set encoding=utf-8
 
 " Load up all our plugins with vim-plugged
-call plug#begin('~/.config/vim/plugged')
+call plug#begin('~/.vim/plugged')
   Plug 'ap/vim-css-color'     " highlight hex values with their color
   Plug 'godlygeek/tabular'    " align stuff... like these vim comments
   Plug 'janko/vim-test'       " run tests inside vim
