@@ -48,19 +48,25 @@ endif
 " => Defaults
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set runtimepath+=~/.config/vim/
-set undodir=~/.config/vim/.undo/
-set backupdir=~/.config/vim/.backup/
-set directory=~/.config/vim/.swp/
+set undodir=~/.config/vim/.undo//
+set backupdir=~/.config/vim/.backup//
+set directory=~/.config/vim/.swp//
 set viminfo+=n~/.config/vim/.info/viminfo
 set term=xterm-256color
 
-if (has('unix') || has('darwin'))
-    if filereadable(glob("/usr/local/bin/bash"))
-        set shell=/usr/local/bin/bash
-    elseif filereadable(glob("/usr/bin/bash"))
+if has('unix')
+    if filereadable(glob("/usr/bin/bash"))
         set shell=/usr/bin/bash
     elseif filereadable(glob("/bin/bash"))
         set shell=/bin/bash
+    endif
+elseif has('darwin')
+    if filereadable(glob("/usr/local/bin/bash"))
+        set shell=/usr/local/bin/bash
+    elseif filereadable(glob("/bin/bash"))
+        set shell=/bin/bash
+    elseif filereadable(glob("/bin/zsh"))
+        set shell=/bin/zsh
     endif
 endif
 
@@ -96,31 +102,14 @@ set softtabstop=2
 set swapfile
 set t_Co=256
 set tabstop=2
-set textwidth=160
+set textwidth=120
 set title
 set undofile
 set wildmenu
 set wildmode=longest,list,full
 set cryptmethod=blowfish2
 set eol
-set backspace=indent,eol,start
-set fixdel
 au BufWritePre * let &bex = '-' . strftime("%Y%m%d-%H%M%S") . '.vimbackup'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Set font according to system
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if (has("mac") || has("macunix"))
-    set gfn=Hack\ Nerd\ Font\ 10,IBM\ Plex\ Mono:h14,Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
-elseif has("win16") || has("win32")
-    set gfn=Hack\ Nerd\ Font\ 10,IBM\ Plex\ Mono:h14,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
-elseif has("gui_gtk2")
-    set gfn=Hack\ Nerd\ Font\ 10,IBM\ Plex\ Mono\ 14,:Hack\ 14,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
-elseif has("linux")
-    set gfn=Hack\ Nerd\ Font\ 10,IBM\ Plex\ Mono\ 14,:Hack\ 14,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
-elseif has("unix")
-    set gfn=Monospace\ 11
-endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -238,6 +227,7 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Syntastic configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -247,7 +237,6 @@ let g:syntastic_javascript_checkers = [ 'jshint' ]
 let g:syntastic_ocaml_checkers = ['merlin']
 let g:syntastic_python_checkers = ['pylint']
 let g:syntastic_shell_checkers = ['shellcheck']
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 let g:syntastic_sh_shellcheck_args="-e SC2059,SC2148,SC2027,SC2034,SC2086"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NERDTree
