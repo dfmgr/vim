@@ -137,8 +137,6 @@ Plugin 'lifepillar/vim-colortemplate'                            " color templat
 Plugin 'MarcWeber/vim-addon-mw-utils'                            " interpret a file by function
 Plugin 'dbeniamine/cheat.sh-vim'                                 " access cheat.sh sheets
 Plugin 'honza/vim-snippets'                                      " snippets
-Plugin 'roxma/nvim-yarp'                                         " required for deoplete
-Plugin 'roxma/vim-hug-neovim-rpc'                                " required for deoplete
 Plugin 'vitalk/vim-shebang'                                      " set shebang line
 Plugin 'chrisbra/unicode.vim'                                    " Unicode glyphs
 Plugin 'ryanoasis/vim-devicons'                                  " Adds file type icons to Vim plugins
@@ -150,9 +148,11 @@ Plugin 'dracula/vim', { 'name': 'dracula'  }                     " Dracula theme
 Plugin 'wakatime/vim-wakatime'                                   " plugin for productivity metrics
 Plugin 'w0rp/ale'                                                " ALE is an engine for running linters
 Plugin 'ervandew/supertab'                                       " Supertab is a vim plugin which allows you to use <Tab>
-Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }  " asynchronous completion framework
+Plugin 'Shougo/deoplete.nvim'                                    " asynchronous completion framework
+Plugin 'roxma/nvim-yarp'                                         " required for deoplete
+Plugin 'roxma/vim-hug-neovim-rpc'                                " required for deoplete
 Plugin 'garbas/vim-snipmate'                                     " snippets
-Plugin 'tomtom/tlib_vim'                                         " required for snipmate
+Plugin 'tomtom/tlib_vim'                                         " required for vim-snipmate
 
 if (has('python3') || has('python'))
     Plugin 'sirver/ultisnips'               "
