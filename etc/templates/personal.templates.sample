@@ -1,16 +1,4 @@
 § =============================================================
-§  Personal Information
-§ =============================================================
-SetMacro( 'VERSION',       '|VERSION|-git' )
-SetMacro( 'AUTHOR',       'YourName' )
-SetMacro( 'AUTHORREF',    'YouInitials' )
-SetMacro( 'EMAIL',        'YourEmail' )
-SetMacro( 'TODAY',        '|NOWDATE|' )
-SetMacro( 'ORGANIZATION', 'YourOrg' )
-SetMacro( 'COMPANY',      'YourCompany' )
-SetMacro( 'COPYRIGHT',    'Copyright (c) |YEAR|, |AUTHOR|' )
-SetMacro( 'LICENSE',      'LicenseType' )
-§ =============================================================
 §  Date and Time Format
 § =============================================================
 SetFormat( 'NOWDATE', '%m/%d/%Y %H:%M' )
@@ -19,3 +7,15 @@ SetFormat( 'DATE', '%A, %b %d, %Y %H:%M %Z' )
 SetFormat( 'TIME', '%H:%M' )
 SetFormat( 'YEAR', '%Y' )
 SetFormat( 'VERSION', '%Y%m%d%H%M' )
+§ =============================================================
+§  Personal Information
+§ =============================================================
+SetMacro( 'VERSION',      '|VERSION|-git' )
+SetMacro( 'AUTHOR',       'YourName' )
+SetMacro( 'AUTHORREF',    'YouInitials' )
+SetMacro( 'EMAIL',        'YourEmail' )
+SetMacro( 'TODAY',        '|NOWDATE|' )
+SetMacro( 'ORGANIZATION', 'YourOrg' )
+SetMacro( 'COMPANY',      'YourCompany' )
+SetMacro( 'COPYRIGHT',    'Copyright (c) |YEAR|, |AUTHOR|' )
+SetMacro( 'LICENSE',      'LicenseType' )
