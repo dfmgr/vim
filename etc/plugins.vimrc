@@ -55,25 +55,25 @@ endif
 " => Check plugins and install if needed
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if ! filereadable(expand('~/.local/share/vim/bundle/Vundle.vim/.gitignore'))
-    echo "Downloading Vundle to manage plugins..."
+    echoe "Downloading Vundle to manage plugins..."
     silent !git clone -q "https://github.com/VundleVim/Vundle.vim" ~/.local/share/vim/bundle/Vundle.vim
     silent !vim +PluginInstall +qall
 endif
 
 if ! filereadable(expand('~/.local/share/vim/bundle/vim-fugitive/.gitignore'))
-    echo "installing vim-fugitive..."
+    echoe "installing vim-fugitive..."
     silent !git clone -q "https://github.com/tpope/vim-fugitive" ~/.local/share/vim/bundle/vim-fugitive
     silent !vim +PluginInstall +qall
 endif
 
 if ! filereadable(expand('~/.local/share/vim/bundle/vim-airline/.gitignore'))
-    echo "installing vim-airline..."
+    echoe "installing vim-airline..."
     silent !git clone -q "https://github.com/vim-airline/vim-airline" ~/.local/share/vim/bundle/vim-airline
     silent !vim +PluginInstall +qall
 endif
 
 if ! filereadable(expand('~/.local/share/vim/bundle/vim-airline-themes/.gitignore'))
-    echo "installing vim-airline-themes..."
+    echoe "installing vim-airline-themes..."
     silent !git clone -q "https://github.com/vim-airline/vim-airline-themes" ~/.local/share/vim/bundle/vim-airline-themes
     silent !vim +PluginInstall +qall
 endif
