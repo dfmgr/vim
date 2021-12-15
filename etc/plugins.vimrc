@@ -148,12 +148,13 @@ Plugin 'dracula/vim', { 'name': 'dracula'  }                     " Dracula theme
 Plugin 'wakatime/vim-wakatime'                                   " plugin for productivity metrics
 Plugin 'w0rp/ale'                                                " ALE is an engine for running linters
 Plugin 'ervandew/supertab'                                       " Supertab is a vim plugin which allows you to use <Tab>
-Plugin 'Shougo/ddc.vim'                                          " asynchronous completion framework
+"Plugin 'Shougo/ddc.vim'                                          " asynchronous completion framework
+Plugin 'Shougo/deoplete.nvim'                                    " asynchronous completion framework
 Plugin 'roxma/nvim-yarp'                                         " required for deoplete
 Plugin 'roxma/vim-hug-neovim-rpc'                                " required for deoplete
 Plugin 'garbas/vim-snipmate'                                     " snippets
 Plugin 'tomtom/tlib_vim'                                         " required for vim-snipmate
-Plugin 'davidhalter/jedi-vim'                                   " awesome Python autocompletion
+Plugin 'davidhalter/jedi-vim'                                    " awesome Python autocompletion
 Plugin 'ekalinin/Dockerfile.vim'                                 " Docker snippets
 
 if (has('python3') || has('python'))
@@ -167,3 +168,4 @@ endif
 call vundle#end()
 
 let g:snipMate = { 'snippet_version' : 1 }
+
