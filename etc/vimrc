@@ -258,8 +258,10 @@ let g:snipMate = { 'snippet_version' : 1 }
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => deoplete
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if (has('python3') || has('pythonx'))
+if has('python3')
     let g:deoplete#enable_at_startup = 1
+elseif has('pythonx')
+    let g:deoplete#enable_at_startup = 0
 elseif has('python')
     let g:deoplete#enable_at_startup = 0
 endif
