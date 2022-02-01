@@ -2,3 +2,5 @@
 ignoredirmessage
 
 bundle
+# ignore commit message
+.gitcommit
