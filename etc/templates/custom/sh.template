@@ -1,103 +1,120 @@
 #!/usr/bin/env sh
+# shellcheck shell=sh
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-PROG="$(basename "$0")"
-USER="${SUDO_USER:-${USER}}"
-HOME="${USER_HOME:-${HOME}}"
+##@Version           :  {{CURSOR}}
+# @Author            :  {{NAME}}
+# @Contact           :  {{EMAIL}}
+# @License           :  {{LICENSE}}
+# @ReadME            :  {{FILE}} --help
+# @Copyright         :  {{COPYRIGHT}} {{YEAR}}, {{COMPANY}}
+# @Created           :  {{TIMESTAMP}}
+# @File              :  {{FILE}}
+# @@Description      :
+# @@Changelog        :
+# @@TODO             :
+# @@Other            :
+# @@Resource         :
+# @@Terminal App     :  no
+# @@sudo/root        :  no
+# @@Template         :  shell/sh
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-#set opts
-PROG_ENV_NAME="$(echo "$PROG" | tr '[a-z]' '[A-Z]')"
+HOME="${USER_HOME:-$HOME}"
+USER="${SUDO_USER:-$USER}"
+RUN_USER="${SUDO_USER:-$USER}"
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Set sh options
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-##@Version       : {{CURSOR}}
-# @Author        : {{NAME}}
-# @Contact       : {{EMAIL}}
-# @License       : {{LICENSE}}
-# @ReadME        : {{FILE}} --help
-# @Copyright     : {{COPYRIGHT}} {{YEAR}}, {{NAME}}, {{COMPANY}}
-# @Created       : {{TIMESTAMP}}
-# @File          : {{FILE}}
-# @Description   :
-# @TODO          :
-# @Other         :
-# @Resource      :
+# colorization
+if [ "$SHOW_RAW" = "true" ]; then
+  __printf_color() { printf '%b' "$1\n" | tr -d '\t' | sed '/^%b$/d;s,\x1B\[ 0-9;]*[a-zA-Z],,g'; }
+else
+  __printf_color() { printf "%b" "$(tput setaf "${2:-7}" 2>/dev/null)" "$1\n" "$(tput sgr0 2>/dev/null)"; }
+fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Set functions
-__version() { __grep_head 'Version' "$PROG" | __sed_head | head -n1 | grep '^'; }
-__printf_color() { printf "%b" "$(tput setaf "${2:-2}" 2>/dev/null)" "$1" "$(tput sgr0 2>/dev/null)"; }
-__printf_head() { __printf_color "\n\t\t$__heading\n\t\t$2\n\t\t$__heading\n" "$1"; }
-__list_options() { echo -n "-$SHORTOPTS " | sed 's#:##g;s#,# -#g' && echo "--$LONGOPTS " | sed 's#:##g;s#,# --#g' && exit; }
-__list_array() { echo "$ARRAY" | tr ',' ' ' | tr ' ' '\n'; }
-__sed_remove_empty() { sed '/^\#/d;/^$/d;s#^ ##g'; }
-__sed_head() { sed -E 's/^.*#//g;s#^ ##g;s/^@//g'; }
-__grep_head() {
-  grep -sE '[".#]?@[A-Z]' "$(type -p "${2:-$PROG}")" | grep "${1:-}" | __sed_head | __sed_remove_empty | grep '^' || return 1
+# Additional printf_ colors
+__printf_head() { __printf_color "$1" "5"; }
+__printf_opts() { __printf_color "$1" "6"; }
+__printf_line() { __printf_color "$1" "4"; }
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# output version
+__version() {
+  echo "GEN_SCRIPT_REPLACE_VERSION"
 }
-__printf_help() {
-  color="$1" && shift 1
-  msg="$*"
-  shift
-  __printf_color "\t\t$msg\n" "$color"
-}
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Help function - Align to 50
 __help() {
-  printf '\n'
-  __printf_head "5" "$PROG: $(__grep_head "Description" "$PROG" | __sed_head)"
-  __printf_help "6" "Usage: $PROG "
-  __printf_help "4" ""
-  printf '\n'
+  __printf_head "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+  __printf_opts "GEN_SCRIPT_REPLACE_FILENAME: GEN_SCRIPT_REPLACE_DESC - GEN_SCRIPT_REPLACE_VERSION"
+  __printf_head "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+  __printf_line "Usage: GEN_SCRIPT_REPLACE_FILENAME [options] [commands]"
+  __printf_line " - "
+  __printf_head "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+  __printf_opts "Other Options"
+  __printf_head "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+  __printf_line "--help             - Shows this message"
+  __printf_line "--config           - Generate user config file"
+  __printf_line "--version          - Show script version"
+  __printf_line "--options          - Shows all available options"
+  __printf_line "--debug            - Enables script debugging"
+  __printf_line "--raw              - Removes all formatting on output"
+  __printf_head "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 }
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Set additional variables
-exitCode=""
-PROG_ENV_NAME_ARRAY_DIR="$HOME/.config/$PROG/array"
-PROG_ENV_NAME_CONFIG_DIR="$HOME/.config/$PROG"
-PROG_ENV_NAME_CONFIG_FILE="settings.conf"
-[ -f "$PROG_ENV_NAME_CONFIG_DIR/$PROG_ENV_NAME_CONFIG_FILE" ] && . "$PROG_ENV_NAME_CONFIG_DIR/$PROG_ENV_NAME_CONFIG_FILE"
+# Additional functions
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Argument/Option settings
-SETARGS="${*}"
-SHORTOPTS=""
-LONGOPTS="options,config,version,help"
-ARRAY=""
+# Set variables
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Setup application options
-setopts=$(getopt -o "$SHORTOPTS" --long "$LONGOPTS" -n "$APPNAME" -- "$@" 2>/dev/null)
-eval set -- "$setopts" 2>/dev/null
+# Create directories
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# if needed add getopts here
+LONGOPTS="debug,help,raw,version"
+SHORTOPTS=""
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# execute options
+setopts=$(getopt -o "$SHORTOPTS" --long "$LONGOPTS" -a -n "GEN_SCRIPT_REPLACE_FILENAME" -- "$@" 2>/dev/null)
+eval set -- "${setopts}" #2>/dev/null
 while :; do
-  case $1 in
-  --options)
+  case "$1" in
+  --raw)
     shift 1
-    __list_options
-    __list_array
+    export SHOW_RAW="true"
+    __printf_color() { printf '%b' "$1\n" | tr -d '\t' | sed '/^%b$/d;s,\x1B\[ 0-9;]*[a-zA-Z],,g'; }
     ;;
-  --version)
+  --debug)
     shift 1
-    __version
+    set -x
+    export SCRIPT_OPTS="--debug"
+    export _DEBUG="on"
     ;;
   --help)
     shift 1
     __help
+    exit
     ;;
-  --config)
+  --version)
     shift 1
-    __gen_config
+    __version
+    exit
     ;;
   --)
-    shift 1
+    shift
     break
     ;;
   esac
 done
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Main application
-case $1 in
+case "$1" in
 *)
-  printf '%s\n' "$PROG: ${*}"
+  __printf_color "Name: GEN_SCRIPT_REPLACE_FILENAME" "2"
+  __printf_color "Version $(__version)" "4"
+  __help
   ;;
 esac
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # End application
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# lets exit with code
-exit "${exitCode:-$?}"

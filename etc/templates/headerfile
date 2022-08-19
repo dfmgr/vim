@@ -1,14 +1,18 @@
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-##@Version       : `strftime("%m%d%Y%H%M")`-git
-# @Author        : {{NAME}}
-# @Contact       : {{EMAIL}}
-# @License       : {{LICENSE}}
-# @ReadME        : {{FILE}} --help
-# @Copyright     : {{COPYRIGHT}} {{YEAR}}, {{COMPANY}}
-# @Created       : {{TIMESTAMP}}
-# @File          : {{FILE}}
-# @Description   : {{CURSOR}}
-# @TODO          :
-# @Other         :
-# @Resource      :
+##@Version           :  `strftime("%m%d%Y%H%M")`-git
+# @@Author           :  {{NAME}}
+# @@Contact          :  {{EMAIL}}
+# @@License          :  {{LICENSE}}
+# @@ReadME           :  {{FILE}} --help
+# @@Copyright        :  {{COPYRIGHT}} {{COMPANY}}
+# @@Created          :  {{TIMESTAMP}}
+# @@File             :  {{FILE}}
+# @@Description      :  {{CURSOR}}
+# @@Changelog        :
+# @@TODO             :
+# @@Other            :
+# @@Resource         :
+# @@Terminal App     :  no
+# @@sudo/root        :  no
+# @@Template         :
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
