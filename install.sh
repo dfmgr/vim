@@ -135,7 +135,7 @@ if am_i_online; then
     if [ -d "$PLUGDIR/Vundle.vim/.git" ]; then
       execute "git_update $PLUGDIR/Vundle.vim" "Updating plugin Vundle.vim"
     else
-      execute "git_clone https://github.com/VundleVim/Vundle.vim.git $PLUGDIR/Vundle.vim" "Installing plugin Vundle.vim"
+      execute "git_clone https://github.com/dfvim/Vundle.vim $PLUGDIR/Vundle.vim" "Installing plugin Vundle.vim"
     fi
     if [ -d "$PLUGDIR/vim-fugitive/.git" ]; then
       execute "git_update $PLUGDIR/vim-fugitive" "Updating vim-fugitive"

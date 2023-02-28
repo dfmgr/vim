@@ -56,7 +56,7 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if ! filereadable(expand('~/.local/share/vim/bundle/Vundle.vim/.gitignore'))
     echoe "Downloading Vundle to manage plugins..."
-    silent !git clone -q "https://github.com/VundleVim/Vundle.vim" ~/.local/share/vim/bundle/Vundle.vim
+    silent !git clone -q "https://github.com/dfvim/Vundle.vim" ~/.local/share/vim/bundle/Vundle.vim
     silent !vim +PluginInstall +qall
 endif
 
@@ -81,7 +81,7 @@ endif
 " => Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call vundle#begin('~/.local/share/vim/bundle')
-Plugin 'VundleVim/Vundle.vim'                                    " plugin manager
+Plugin 'dfvim/Vundle.vim'                                        " plugin manager
 Plugin 'airblade/vim-gitgutter'                                  " shows a git diff in the gutter
 Plugin 'airblade/vim-rooter'                                     " Changes working directory to project root
 Plugin 'alpertuna/vim-header'                                    " Easily adds brief author info and license headers
@@ -164,4 +164,3 @@ endif
 call vundle#end()
 
 let g:snipMate = { 'snippet_version' : 1 }
-
