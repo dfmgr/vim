@@ -26,15 +26,15 @@
     <meta name="Keywords" content="Casjay, CasjaysDev, Jason M. Hempstead, Website, About Me" />
     <meta name="Description" content="Created By Casjays Developments" />
     <meta name="generator" content="CasjaysDev" />
-    <link rel="shortcut icon" href="https://static.casjay.net/favicon.ico" />
-    <link rel="stylesheet" href="https://static.casjay.net/default-css/casjaysdev.css" />
-    <link rel="stylesheet" href="https://static.casjay.net/default-css/github-ribbon.css" />
+    <link rel="shortcut icon" href="https://casjaysdev-sites.github.io/static/favicon.ico" />
+    <link rel="stylesheet" href="https://casjaysdev-sites.github.io/static/default-css/casjaysdev.css" />
+    <link rel="stylesheet" href="https://casjaysdev-sites.github.io/static/default-css/github-ribbon.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5/dist/darkly/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
-    <script src="https://static.casjay.net/default-js/errorpages/isup.js" async defer></script>
-    <script src="https://static.casjay.net/default-js/errorpages/homepage.js" async defer></script>
-    <script src="https://static.casjay.net/default-js/errorpages/loaddomain.js" async defer></script>
+    <script src="https://casjaysdev-sites.github.io/static/default-js/errorpages/isup.js" async defer></script>
+    <script src="https://casjaysdev-sites.github.io/static/default-js/errorpages/homepage.js" async defer></script>
+    <script src="https://casjaysdev-sites.github.io/static/default-js/errorpages/loaddomain.js" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.bundle.min.js" async defer></script>
     <link rel="stylesheet" type="text/css" href="https:///static.casjay.net/default-css/casjaysdev.css" />
@@ -68,10 +68,10 @@
       <!-- Social Links -->
       <div class="share-buttons text-center">
         <a href="/rss.xml "
-          ><img alt="RSS Feed" src="https://static.casjay.net/default-icons/social/rss-48x48.png"
+          ><img alt="RSS Feed" src="https://casjaysdev-sites.github.io/static/default-icons/social/rss-48x48.png"
         /></a>
         <a href="https://github.com/casjay" target="_blank" title="Github"
-          ><img alt="GitHub Link" src="https://static.casjay.net/default-icons/social/github-48x48.png" /></a
+          ><img alt="GitHub Link" src="https://casjaysdev-sites.github.io/static/default-icons/social/github-48x48.png" /></a
         ><br /><br />
         <!-- ShareThis BEGIN -->
         <div
