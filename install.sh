@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # shellcheck shell=bash
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-##@Version           :  202304271936-git
+##@Version           :  202304302240-git
 # @@Author           :  Jason Hempstead
 # @@Contact          :  jason@casjaysdev.com
-# @@License          :  LICENSE.md
+# @@License          :  WTFPL
 # @@ReadME           :  install.sh --help
 # @@Copyright        :  Copyright: (c) 2023 Jason Hempstead, Casjays Developments
-# @@Created          :  Saturday, Apr 29, 2023 01:33 EDT
+# @@Created          :  Sunday, Apr 30, 2023 22:40 EDT
 # @@File             :  install.sh
 # @@Description      :  Install configurations for vim
 # @@Changelog        :  New script
@@ -25,7 +25,7 @@
 # shellcheck disable=SC2199
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 APPNAME="vim"
-VERSION="202304271936-git"
+VERSION="202304302240-git"
 HOME="${USER_HOME:-$HOME}"
 USER="${SUDO_USER:-$USER}"
 RUN_USER="${SUDO_USER:-$USER}"
@@ -87,7 +87,7 @@ __failexitcode() { [ $1 -ne 0 ] && printf_red "😠 $2 😠" && exit ${1:-4}; }
 __get_exit_status() { s=$? && getRunStatus=$((s + ${getRunStatus:-0})) && return $s; }
 __service_is_running() { systemctl is-active $1 2>&1 | grep -qiw 'active' || return 1; }
 __service_is_active() { systemctl is-enabled $1 2>&1 | grep -qiw 'enabled' || return 1; }
-__get_version() { echo "$@" | awk -F '.' '{ printf("%d%03d%03d%03d\n", $1,$2,$3,$4) }'; }
+__get_version() { echo "$@" | awk -F '.' '{ printf("%d%d%d%d\n", $1,$2,$3,$4) }'; }
 __silent_start() { __cmd_exists $1 && (eval "$*" &>/dev/null &) && __app_is_running $1 || return 1; }
 __symlink() { { __rm_rf "$2" || true; } && ln_sf "$1" "$2" &>/dev/null || { [ -L "$2" ] || return 1; }; }
 __get_pid() { ps -aux | grep -v ' grep ' | grep "$1" | awk -F ' ' '{print $2}' | grep ${2:-[0-9]} || return 1; }
@@ -197,7 +197,9 @@ __run_prepost_install() {
 # run after primary post install function
 __run_post_install() {
   local getRunStatus=0
-  __symlink "$APPDIR/vimrc" "$HOME/.vimrc"
+  if [ ! -L "$HOME/.vimrc" ]; then
+    __symlink "$APPDIR/vimrc" "$HOME/.vimrc"
+  fi
   if __am_i_online; then
     vim -u "$APPDIR/plugins.vimrc" -c ":BundleInstall" +qall </dev/null &>/dev/null
     vim -u "$APPDIR/plugins.vimrc" -c ":PluginInstall" +qall </dev/null &>/dev/null
