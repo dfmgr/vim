@@ -175,6 +175,9 @@ RUBY_GEMS=""
 PYTHON_PIP="msgpack neovim pynvim wakatime"
 PHP_COMPOSER=""
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Run custom actions
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Show a custom message after install
 __run_post_message() {
   true
@@ -201,9 +204,9 @@ __run_post_install() {
     __symlink "$APPDIR/vimrc" "$HOME/.vimrc"
   fi
   if __am_i_online; then
-    vim -u "$APPDIR/plugins.vimrc" -c ":BundleInstall" +qall </dev/null &>/dev/null
-    vim -u "$APPDIR/plugins.vimrc" -c ":PluginInstall" +qall </dev/null &>/dev/null
-    vim -u "$APPDIR/plugins.vimrc" -c ":PluginClean" +qall </dev/null &>/dev/null || true
+    vim -u "$APPDIR/plugins.vimrc" -c ":BundleInstall +qall" </dev/null &>/dev/null
+    vim -u "$APPDIR/plugins.vimrc" -c ":PluginInstall +qall" </dev/null &>/dev/null
+    vim -u "$APPDIR/plugins.vimrc" -c ":PluginClean +qall" </dev/null &>/dev/null
   fi
   return $getRunStatus
 }
