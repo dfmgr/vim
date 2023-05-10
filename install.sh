@@ -207,9 +207,9 @@ __run_post_install() {
     __symlink "$APPDIR/vimrc" "$HOME/.vimrc"
   fi
   if __am_i_online; then
-    vim -u "$APPDIR/plugins.vimrc" -c ":BundleInstall +qall" </dev/null &>/dev/null
-    vim -u "$APPDIR/plugins.vimrc" -c ":PluginInstall +qall" </dev/null &>/dev/null
-    vim -u "$APPDIR/plugins.vimrc" -c ":PluginClean +qall" </dev/null &>/dev/null
+    vim -u "$APPDIR/plugins.vimrc" -c ":BundleInstall +qall"
+    vim -u "$APPDIR/plugins.vimrc" -c ":PluginInstall +qall"
+    vim -u "$APPDIR/plugins.vimrc" -c ":PluginClean +qall"
   fi
   return $getRunStatus
 }
