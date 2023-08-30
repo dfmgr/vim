@@ -18,25 +18,19 @@
 # @@sudo/root        :  no
 # @@Template         :  shell/sh
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# shellcheck disable=SC2016
+# shellcheck disable=SC2031
+# shellcheck disable=SC2120
+# shellcheck disable=SC2155
+# shellcheck disable=SC2199
+# shellcheck disable=SC2317
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 HOME="${USER_HOME:-$HOME}"
 USER="${SUDO_USER:-$USER}"
 RUN_USER="${SUDO_USER:-$USER}"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Set sh options
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# colorization
-if [ "$SHOW_RAW" = "true" ]; then
-  __printf_color() { printf '%b' "$1\n" | tr -d '\t' | sed '/^%b$/d;s,\x1B\[ 0-9;]*[a-zA-Z],,g'; }
-else
-  __printf_color() { printf "%b" "$(tput setaf "${2:-7}" 2>/dev/null)" "$1\n" "$(tput sgr0 2>/dev/null)"; }
-fi
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Additional printf_ colors
-__printf_head() { __printf_color "$1" "5"; }
-__printf_opts() { __printf_color "$1" "6"; }
-__printf_line() { __printf_color "$1" "4"; }
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # output version
 __version() {
@@ -45,21 +39,23 @@ __version() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Help function - Align to 50
 __help() {
-  __printf_head "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-  __printf_opts "GEN_SCRIPT_REPLACE_FILENAME: GEN_SCRIPT_REPLACE_DESC - GEN_SCRIPT_REPLACE_VERSION"
-  __printf_head "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-  __printf_line "Usage: GEN_SCRIPT_REPLACE_FILENAME [options] [commands]"
-  __printf_line " - "
-  __printf_head "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-  __printf_opts "Other Options"
-  __printf_head "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-  __printf_line "--help             - Shows this message"
-  __printf_line "--config           - Generate user config file"
-  __printf_line "--version          - Show script version"
-  __printf_line "--options          - Shows all available options"
-  __printf_line "--debug            - Enables script debugging"
-  __printf_line "--raw              - Removes all formatting on output"
-  __printf_head "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+  cat <<EOF
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+GEN_SCRIPT_REPLACE_FILENAME: GEN_SCRIPT_REPLACE_DESC - GEN_SCRIPT_REPLACE_VERSION
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Usage: GEN_SCRIPT_REPLACE_FILENAME [options] [commands]
+* -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Other Options
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+--help             - Shows this message
+--config           - Generate user config file
+--version          - Show script version
+--options          - Shows all available options
+--debug            - Enables script debugging
+--raw              - Removes all formatting on output
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+EOF
 }
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Additional functions
@@ -72,7 +68,7 @@ __help() {
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # if needed add getopts here
-LONGOPTS="debug,help,raw,version"
+LONGOPTS="debug,help,version"
 SHORTOPTS=""
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # execute options
@@ -80,11 +76,6 @@ setopts=$(getopt -o "$SHORTOPTS" --long "$LONGOPTS" -a -n "GEN_SCRIPT_REPLACE_FI
 eval set -- "${setopts}" #2>/dev/null
 while :; do
   case "$1" in
-  --raw)
-    shift 1
-    export SHOW_RAW="true"
-    __printf_color() { printf '%b' "$1\n" | tr -d '\t' | sed '/^%b$/d;s,\x1B\[ 0-9;]*[a-zA-Z],,g'; }
-    ;;
   --debug)
     shift 1
     set -x
@@ -111,8 +102,8 @@ done
 # Main application
 case "$1" in
 *)
-  __printf_color "Name: GEN_SCRIPT_REPLACE_FILENAME" "2"
-  __printf_color "Version $(__version)" "4"
+  printf '%s\n' "Name: GEN_SCRIPT_REPLACE_FILENAME"
+  printf '%s\n' "Version $(__version)"
   __help
   ;;
 esac
