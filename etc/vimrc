@@ -225,20 +225,6 @@ function! StartifyEntryFormat()
     return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
 endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Syntastic configuration
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers = [ 'jshint' ]
-let g:syntastic_ocaml_checkers = ['merlin']
-let g:syntastic_python_checkers = ['pylint']
-"let g:syntastic_shell_checkers = ['']
-"let g:syntastic_sh_shellcheck_args="-e SC1004,SC1017,SC1090,SC1091,SC1117,SC2002,SC2004,SC2005,SC2009,SC2010,SC2012,SC2015,SC2016,SC2021,SC2030,SC2031,SC2034,SC2039,SC2045,SC2046,SC2062,SC2086,SC2089,SC2116,SC2120,SC2129,SC2148,SC2153,SC2154,SC2155,SC2162,SC2181,SC2207,SC2231,SC2236,SC2242,SC2294,SC2126,SC2317"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NERDTree
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "autocmd vimenter * NERDTree       " I like Startupify
@@ -566,14 +552,12 @@ let g:ale_fix_on_save = 1
 if (has('prettier') || has('eslint'))
   let g:ale_fixers = { 'javascript': ['eslint'], }
 endif
-if (has('shellcheck'))
-  let g:ale_sh_shell_default_shell = 'bash'
-  let g:ale_sh_shellcheck_change_directory = 1
-  let g:ale_sh_shellcheck_dialect = 'auto'
-  let g:ale_sh_shellcheck_exclusions = ''
-  let g:ale_sh_shellcheck_executable = 'shellcheck'
-  let g:ale_sh_shellcheck_options = '-e SC1004,SC1017,SC1090,SC1091,SC1117,SC2002,SC2004,SC2005,SC2009,SC2010,SC2012,SC2015,SC2016,SC2021,SC2030,SC2031,SC2034,SC2039,SC2045,SC2046,SC2062,SC2086,SC2089,SC2116,SC2120,SC2129,SC2148,SC2153,SC2154,SC2155,SC2162,SC2181,SC2207,SC2231,SC2236,SC2242,SC2294,SC2126,SC2317'
-endif
+let g:ale_sh_shell_default_shell = 'bash'
+let g:ale_sh_shellcheck_change_directory = 1
+let g:ale_sh_shellcheck_dialect = 'auto'
+let g:ale_sh_shellcheck_exclusions = ''
+let g:ale_sh_shellcheck_executable = 'true'
+let g:ale_sh_shellcheck_options = '-e SC1004,SC1017,SC1090,SC1091,SC1117,SC2002,SC2004,SC2005,SC2009,SC2010,SC2012,SC2015,SC2016,SC2021,SC2030,SC2031,SC2034,SC2039,SC2045,SC2046,SC2062,SC2086,SC2089,SC2116,SC2120,SC2129,SC2148,SC2153,SC2154,SC2155,SC2162,SC2181,SC2207,SC2231,SC2236,SC2242,SC2294,SC2126,SC2317'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim-prettier
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

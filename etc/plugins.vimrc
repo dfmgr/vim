@@ -107,7 +107,6 @@ Plugin 'mileszs/ack.vim'                                         " Vim plugin fo
 Plugin 'plasticboy/vim-markdown'                                 " Syntax highlighting, matching rules and mappings
 Plugin 'prettier/vim-prettier'                                   " A vim plugin wrapper for prettier
 Plugin 'scrooloose/nerdtree'                                     " A tree explorer plugin for vim
-Plugin 'scrooloose/syntastic'                                    " Syntax checking hacks for vim
 Plugin 'chauncey-garrett/vim-tasklist'                           " based on the eclipse Task List
 Plugin 'scrooloose/nerdcommenter'                                "
 Plugin 'sheerun/vim-polyglot'                                    "
