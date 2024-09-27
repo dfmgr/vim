@@ -47,13 +47,6 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Defaults
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set runtimepath+=~/.config/vim/
-set undodir=~/.config/vim/.undo//
-set backupdir=~/.config/vim/.backup//
-set directory=~/.config/vim/.swp//
-set viminfo+=n~/.config/vim/.info/viminfo
-set term=xterm-256color
-
 if has('unix')
     if filereadable(glob("/usr/bin/bash"))
         set shell=/usr/bin/bash
@@ -109,7 +102,16 @@ set wildmenu
 set wildmode=longest,list,full
 set cryptmethod=blowfish2
 set eol
+set term=xterm-256color
 au BufWritePre * let &bex = '-' . strftime("%Y%m%d-%H%M%S") . '.vimbackup'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => file and folder settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set runtimepath+=~/.config/vim/
+set undodir=~/.config/vim/.undo//
+set backupdir=~/.config/vim/.backup//
+set directory=~/.config/vim/.swp//
+set viminfo+=n~/.config/vim/.info/viminfo
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
