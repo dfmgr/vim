@@ -33,13 +33,11 @@ SCRIPT_SRC_DIR="${BASH_SOURCE%/*}"
 export SCRIPTS_PREFIX="dfmgr"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 REPO_BRANCH="${GIT_REPO_BRANCH:-main}"
-PLUGIN_DIR="$HOME/.local/share/$APPNAME/plugins"
 REPO="https://github.com/$SCRIPTS_PREFIX/$APPNAME"
 INSTDIR="$HOME/.local/share/CasjaysDev/$SCRIPTS_PREFIX/$APPNAME"
 REPORAW="https://github.com/$SCRIPTS_PREFIX/$APPNAME/raw/$REPO_BRANCH"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 APPDIR="$HOME/.config/$APPNAME"
-PLUGIN_DIR="$HOME/.local/share/$APPNAME/plugins"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 BUILD_NAME="$APPNAME"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -142,7 +140,7 @@ APPVERSION="$(__appversion "https://github.com/$SCRIPTS_PREFIX/$APPNAME/raw/$REP
 BUILD_NAME="vim"
 BUILD_SCRIPT_REBUILD="false"
 BUILD_SRC_URL=""
-BUILD_SCRIPT_SRC_DIR="$PLUGIN_DIR/source"
+BUILD_SCRIPT_SRC_DIR=""
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Setup plugins
 PLUGIN_REPOS=""
@@ -337,6 +335,7 @@ exitC=0
 exitCodeP=0
 if __am_i_online; then
   if [ "$PLUGIN_REPOS" != "" ]; then
+    PLUGIN_DIR="$HOME/.local/share/$APPNAME/plugins"
     [ -d "$PLUGIN_DIR" ] || mkdir -p "$PLUGIN_DIR"
     for plugin in $PLUGIN_REPOS; do
       plugin_name="$(basename "$plugin")"
