@@ -15,6 +15,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set rtp+=~/.local/share/vim
 set rtp+=~/.local/share/vim/plugged
 set rtp+=~/.local/share/vim/bundle/powerline/powerline/bindings/vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
