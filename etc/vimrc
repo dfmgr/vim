@@ -81,7 +81,6 @@ set hlsearch
 set incsearch
 set magic
 set noconfirm
-set nopaste
 set number
 set path+=**
 set relativenumber
@@ -167,23 +166,45 @@ inoremap <expr> <Right> pumvisible() ? "<C-y>" : "<Right>"
 inoremap <expr> <CR> pumvisible() ? "<C-y>" :"<CR>"
 inoremap <expr> <Left> pumvisible() ? "<C-e>" : "<Left>"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Basic autocommands
+" => Bracketed Paste Mode - auto-detects paste from terminal
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Auto-resize splits when Vim gets resized.
-autocmd VimResized * wincmd =
-" Update a buffer's contents on focus if it changed outside of Vim.
-au FocusGained,BufEnter * :checktime
-" Unset paste on InsertLeave.
-autocmd InsertLeave * silent! set nopaste
-" Make sure all types of requirements.txt files get syntax highlighting.
-autocmd BufNewFile,BufRead requirements*.txt set syntax=python
-" Ensure tabs don't get converted to spaces in Makefiles.
-autocmd FileType make setlocal noexpandtab
-" Only show the cursor line in the active buffer.
-augroup CursorLine
-    au!
-    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-    au WinLeave * setlocal nocursorline
+if has('patch-8.0.0238') || has('nvim')
+    " Modern vim/neovim has built-in bracketed paste support
+    " Terminal sends special codes when pasting, vim auto-enables paste mode
+    set t_BE=
+endif
+
+" Alternative: Enable paste mode toggle with F2
+set pastetoggle=<F2>
+
+" Auto-detect paste in older vim versions
+if !has('patch-8.0.0238') && !has('nvim')
+    let &t_SI .= "\<Esc>[?2004h"
+    let &t_EI .= "\<Esc>[?2004l"
+    
+    function! XTermPasteBegin()
+        set pastetoggle=<Esc>[201~
+        set paste
+        return ""
+    endfunction
+    
+    inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Basic autocommands - grouped for performance
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup BasicSettings
+    autocmd!
+    autocmd VimResized * wincmd =
+    autocmd FocusGained,BufEnter * if mode() != 'c' | checktime | endif
+    autocmd BufNewFile,BufRead requirements*.txt set syntax=python
+    autocmd FileType make setlocal noexpandtab
+    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    autocmd WinLeave * setlocal nocursorline
+    autocmd InsertEnter * set colorcolumn=160
+    autocmd InsertLeave * set colorcolumn=""
+    autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Startupify configuration
@@ -244,14 +265,12 @@ let g:nerdtree_tabs_synchronize_view = 0
 "let g:snipMate = get(g:, 'snipMate', {})
 let g:snipMate = { 'snippet_version' : 1 }
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => deoplete
+" => deoplete - only enable with python3
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has('python3')
     let g:deoplete#enable_at_startup = 1
-elseif has('pythonx')
-    let g:deoplete#enable_at_startup = 0
-elseif has('python')
-    let g:deoplete#enable_at_startup = 0
+    call deoplete#custom#option('smart_case', v:true)
+    call deoplete#custom#option('auto_complete_delay', 100)
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  ultisnips
@@ -486,6 +505,7 @@ au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|
 " => Markdown
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup markdown
+    autocmd!
     autocmd Filetype markdown,rmd map <leader>w yiWi[<esc>Ea](<esc>pa)
     autocmd Filetype markdown,rmd inoremap ,n ---<Enter><Enter>
     autocmd Filetype markdown,rmd inoremap ,b ****<++><Esc>F*hi
@@ -624,26 +644,29 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 "let noTemplateExpand = [ '' ]
 "autocmd BufWritePre * if index(noTemplateExpand, &ft) < 0 | :TemplateExpand
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Ensure files are read as what I want:
+" => Ensure files are read as what I want - grouped for performance
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd BufRead,BufNewFile,FileType *.ms,*.me,*.mom,*.man set filetype=groff
-autocmd BufRead,BufNewFile,FileType *.tex set filetype=tex
-autocmd BufRead,BufNewFile,FileType *.md set filetype=markdown syntax=markdown
-autocmd BufRead,BufNewFile,FileType *.lua set filetype=lua
-autocmd BufRead,BufNewFile,FileType *.perl,*.pl,*.cgi set filetype=perl
-autocmd BufRead,BufNewFile,FileType *.py,*.pyc set filetype=python
-autocmd BufRead,BufNewFile,FileType *.php,*.php5,*.php7 set filetype=php
-autocmd BufRead,BufNewFile,FileType *.txt set filetype=text
-autocmd BufRead,BufNewFile,FileType *.cnf,*.conf,*.cfg set filetype=conf
-autocmd BufRead,BufNewFile,FileType notes set syntax=markdown
-autocmd BufRead,BufNewFile,FileType vimwiki set syntax=markdown
-autocmd BufRead,BufNewFile,FileType *scratch* set filetype=text syntax=text
-autocmd BufRead,BufNewFile,FileType /tmp/calcurse*,~/.local/share/editors/calcurse/* set filetype=markdown syntax=markdown
-autocmd BufEnter * if &filetype == "" | setlocal ft=text | endif
+augroup FileTypeDetection
+    autocmd!
+    autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man set filetype=groff
+    autocmd BufRead,BufNewFile *.tex set filetype=tex
+    autocmd BufRead,BufNewFile *.md set filetype=markdown
+    autocmd BufRead,BufNewFile *.lua set filetype=lua
+    autocmd BufRead,BufNewFile *.perl,*.pl,*.cgi set filetype=perl
+    autocmd BufRead,BufNewFile *.py,*.pyc set filetype=python
+    autocmd BufRead,BufNewFile *.php,*.php5,*.php7 set filetype=php
+    autocmd BufRead,BufNewFile *.txt set filetype=text
+    autocmd BufRead,BufNewFile *.cnf,*.conf,*.cfg set filetype=conf
+    autocmd BufRead,BufNewFile *scratch* set filetype=text
+    autocmd BufRead,BufNewFile /tmp/calcurse*,~/.local/share/editors/calcurse/* set filetype=markdown
+    autocmd FileType notes,vimwiki setlocal syntax=markdown
+    autocmd BufEnter * if &filetype == "" | setlocal ft=text | endif
+augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim Shebang lines
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup shebanglines
+    autocmd!
     autocmd BufNewFile *.tex 0put =\"%&plain\<nl>\"|$
     autocmd BufNewFile *.rb 0put =\"#!/usr/bin/env ruby\<nl># -*- coding: None -*-\<nl>\"|$
     autocmd BufNewFile *.js 0put =\"#!/usr/bin/env node\<nl>\"|$
@@ -669,7 +692,7 @@ command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => create directory on save
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function s:MkNonExDir(file, buf)
+function! s:MkNonExDir(file, buf) abort
     if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
         let dir=fnamemodify(a:file, ':h')
         if !isdirectory(dir)
@@ -679,29 +702,28 @@ function s:MkNonExDir(file, buf)
 endfunction
 augroup BWCCreateDir
     autocmd!
-    autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
+    autocmd BufWritePre * call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
 augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => remove whitespaces on save
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! StripTrailingWhitespace()
+let g:noStripWhiteSpaceTypes = ['markdown', 'notes', 'vimwiki']
+function! StripTrailingWhitespace() abort
+    if index(g:noStripWhiteSpaceTypes, &ft) >= 0
+        return
+    endif
     let _s=@/
     let l = line(".")
     let c = col(".")
-    %s/\s\+$//e
+    keeppatterns %s/\s\+$//e
     let @/=_s
     call cursor(l, c)
 endfunction
 
-let noStripWhiteSpaceTypes = ['markdown', 'notes', 'vimwiki', '*.md']
-autocmd BufWritePre * if index(noStripWhiteSpaceTypes, &ft) < 0 | call StripTrailingWhitespace() | endif
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => useful functions
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd InsertEnter * set colorcolumn=160
-autocmd InsertLeave * set colorcolumn=""
-autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
-autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+augroup StripWhitespace
+    autocmd!
+    autocmd BufWritePre * call StripTrailingWhitespace()
+augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  tmuxline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -719,9 +741,9 @@ if exists("$TMUX")
     endfunction
     autocmd BufEnter * call BroadcastTmuxCwd()
 endif
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Powerline
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Powerline - optimized, using airline instead of custom statusline
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set laststatus=2
 set t_Co=256
 let g:rehash256 = 1
@@ -729,78 +751,12 @@ let g:airline_theme='violet'
 let g:airline_section_c = '%F'
 let g:airline#extensions#tabline#formatter = 'default'
 let g:airline#extensions#tabline#enabled = 1
-
-function! ActiveStatus()
-  let statusline=""
-  let statusline.="%1*"
-  let statusline.="%(%{'help'!=&filetype?'\ \ '.bufnr('%'):''}\ %)"
-  let statusline.="%2*"
-  let statusline.=""
-  let statusline.="%{fugitive#head()!=''?'\ \ '.fugitive#head().'\ ':''}"
-  let statusline.="%3*"
-  let statusline.=""
-  let statusline.="%4*"
-  let statusline.="\ %<"
-  let statusline.="%F"
-  let statusline.="%{&modified?'\ \ +':''}"
-  let statusline.="%{&readonly?'\ \ ':''}"
-  let statusline.="%="
-  let statusline.="\ %{''!=#&filetype?&filetype:'none'}"
-  let statusline.="%(\ %{(&bomb\|\|'^$\|utf-8'!~#&fileencoding?'\ '.&fileencoding.(&bomb?'-bom':''):'').('unix'!=#&fileformat?'\ '.&fileformat:'')}%)"
-  let statusline.="%(\ \ %{&modifiable?(&expandtab?'et\ ':'noet\ ').&shiftwidth:''}%)"
-  let statusline.="%3*"
-  let statusline.="\ "
-  let statusline.="%2*"
-  let statusline.=""
-  let statusline.="%1*"
-  let statusline.="\ %2v"
-  let statusline.="\ %3p%%\ "
-  set statusline.="%#warningmsg#"
-  set statusline.="%{SyntasticStatuslineFlag()}"
-  set statusline.="%*"
-  return statusline
-endfunction
-
-function! InactiveStatus()
-  let statusline=""
-  let statusline.="%(%{'help'!=&filetype?'\ \ '.bufnr('%').'\ \ ':'\ '}%)"
-  let statusline.="%{fugitive#head()!=''?'\ \ '.fugitive#head().'\ ':'\ '}"
-  let statusline.="\ %<"
-  let statusline.="%F"
-  let statusline.="%{&modified?'\ \ +':''}"
-  let statusline.="%{&readonly?'\ \ ':''}"
-  let statusline.="%="
-  let statusline.="\ %{''!=#&filetype?&filetype:'none'}"
-  let statusline.="%(\ %{(&bomb\|\|'^$\|utf-8'!~#&fileencoding?'\ '.&fileencoding.(&bomb?'-bom':''):'').('unix'!=#&fileformat?'\ '.&fileformat:'')}%)"
-  let statusline.="%(\ \ %{&modifiable?(&expandtab?'et\ ':'noet\ ').&shiftwidth:''}%)"
-  let statusline.="\ \ "
-  let statusline.="\ %2v"
-  let statusline.="\ %3p%%\ "
-  set statusline.="%#warningmsg#"
-  set statusline.="%{SyntasticStatuslineFlag()}"
-  set statusline.="%*"
-  return statusline
-endfunction
-
-set statusline=%!ActiveStatus()
-hi User1 guibg=#afd700 guifg=#005f00
-hi User2 guibg=#005f00 guifg=#afd700
-hi User3 guibg=#222222 guifg=#005f00
-hi User4 guibg=#222222 guifg=#d0d0d0
-
-augroup status
-  autocmd!
-  autocmd WinEnter * setlocal statusline=%!ActiveStatus()
-  autocmd WinLeave * setlocal statusline=%!InactiveStatus()
-  autocmd ColorScheme dark if(&background=="dark") | hi User1 guibg=#afd700 guifg=#005f00 | endif
-  autocmd ColorScheme dark if(&background=="dark") | hi User2 guibg=#005f00 guifg=#afd700 | endif
-  autocmd ColorScheme dark if(&background=="dark") | hi User3 guibg=#222222 guifg=#005f00 | endif
-  autocmd ColorScheme dark if(&background=="dark") | hi User4 guibg=#222222 guifg=#d0d0d0 | endif
-  autocmd ColorScheme dark if(&background=="light") | hi User1 guibg=#afd700 guifg=#005f00 | endif
-  autocmd ColorScheme dark if(&background=="light") | hi User2 guibg=#005f00 guifg=#afd700 | endif
-  autocmd ColorScheme dark if(&background=="light") | hi User3 guibg=#707070 guifg=#005f00 | endif
-  autocmd ColorScheme dark if(&background=="light") | hi User4 guibg=#707070 guifg=#d0d0d0 | endif
-augroup END
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline_skip_empty_sections = 1
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#hunks#enabled = 1
+let g:airline#extensions#fugitiveline#enabled = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => snipmate : Specify this in your ~/.config/local/vimrc.local file
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -846,6 +802,100 @@ let g_tmpl_version         = 'strftime("%Y%m%d%H%M")'
 "let g:tmpl_company         = ''
 "let g:tmpl_author_hostname = ''
 "let g:tmpl_copyright       = ''
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Keybinds Help Display - Press <Leader>? to show
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! ShowKeybinds()
+    let help_text = [
+        \ '╔════════════════════════════════════════════════════════════════╗',
+        \ '║                     VIM KEYBINDS REFERENCE                     ║',
+        \ '╠════════════════════════════════════════════════════════════════╣',
+        \ '║ LEADER KEY: ,                                                  ║',
+        \ '╠════════════════════════════════════════════════════════════════╣',
+        \ '║ NAVIGATION & WINDOWS                                           ║',
+        \ '╠════════════════════════════════════════════════════════════════╣',
+        \ '║ <C-h/j/k/l>      Navigate between splits                       ║',
+        \ '║ <S-Tab>          Cycle through windows                         ║',
+        \ '║ <C-z>            Toggle NERDTree file explorer                 ║',
+        \ '╠════════════════════════════════════════════════════════════════╣',
+        \ '║ SEARCH & FIND                                                  ║',
+        \ '╠════════════════════════════════════════════════════════════════╣',
+        \ '║ <C-p>            FZF fuzzy file finder                         ║',
+        \ '║ <Leader><Enter>  Show open buffers                             ║',
+        \ '║ <Leader>l        Search lines in all open buffers             ║',
+        \ '║ ,r               Find and replace (:%s///g)                    ║',
+        \ '║ ,rc              Find and replace with confirm (:%s///gc)      ║',
+        \ '║ s*               Search word under cursor (then cgn to change) ║',
+        \ '╠════════════════════════════════════════════════════════════════╣',
+        \ '║ EDITING & TEXT MANIPULATION                                    ║',
+        \ '╠════════════════════════════════════════════════════════════════╣',
+        \ '║ <F2>             Toggle paste mode                             ║',
+        \ '║ <Leader>c        Copy to system clipboard                      ║',
+        \ '║ <Leader>v        Paste from system clipboard                   ║',
+        \ '║ <C-c>            Copy selection (visual mode)                  ║',
+        \ '║ <C-x>            Cut selection (visual mode)                   ║',
+        \ '║ <Space>/         Toggle comment (visual mode)                  ║',
+        \ '╠════════════════════════════════════════════════════════════════╣',
+        \ '║ SPELLING                                                       ║',
+        \ '╠════════════════════════════════════════════════════════════════╣',
+        \ '║ <F7>             Toggle spell check                            ║',
+        \ '║ ,sp              Fix spelling (nearest word)                   ║',
+        \ '║ z=               Show spelling suggestions                     ║',
+        \ '╠════════════════════════════════════════════════════════════════╣',
+        \ '║ TASKS & UTILITIES                                              ║',
+        \ '╠════════════════════════════════════════════════════════════════╣',
+        \ '║ ,tl              Show task list (TODO, FIXME, etc)             ║',
+        \ '║ ,rs              Reload all snippets                           ║',
+        \ '╠════════════════════════════════════════════════════════════════╣',
+        \ '║ MARKDOWN (in .md files)                                        ║',
+        \ '╠════════════════════════════════════════════════════════════════╣',
+        \ '║ ,w               Wrap word in markdown link []()               ║',
+        \ '║ ,n               Insert horizontal rule ---                    ║',
+        \ '║ ,b               Bold text ****                                ║',
+        \ '║ ,s               Strikethrough ~~~~                            ║',
+        \ '║ ,e               Italic text **                                ║',
+        \ '║ ,i               Insert image ![]()                            ║',
+        \ '║ ,a               Insert link []()                              ║',
+        \ '║ ,1/2/3           Insert heading # / ## / ###                   ║',
+        \ '║ ,r               Insert code block ```{r}                      ║',
+        \ '║ ,p               Insert python block ```{python}               ║',
+        \ '╠════════════════════════════════════════════════════════════════╣',
+        \ '║ MOTION PLUGINS                                                 ║',
+        \ '╠════════════════════════════════════════════════════════════════╣',
+        \ '║ s{char}{char}    Sneak: Jump to 2 characters                   ║',
+        \ '║ gs               Repeat sneak forward                          ║',
+        \ '║ gS               Repeat sneak backward                         ║',
+        \ '║ f/F/t/T          Quick-scope highlights f-key targets          ║',
+        \ '╠════════════════════════════════════════════════════════════════╣',
+        \ '║ COMPLETION (Insert Mode)                                       ║',
+        \ '╠════════════════════════════════════════════════════════════════╣',
+        \ '║ <Tab>            Trigger UltiSnips / Deoplete                  ║',
+        \ '║ <Up>/<Down>      Navigate completion menu                      ║',
+        \ '║ <CR>             Accept completion                             ║',
+        \ '║ <Right>          Accept and continue                           ║',
+        \ '║ <Left>           Cancel completion                             ║',
+        \ '╠════════════════════════════════════════════════════════════════╣',
+        \ '║ HELP                                                           ║',
+        \ '╠════════════════════════════════════════════════════════════════╣',
+        \ '║ <Leader>?        Show this help (you are here!)                ║',
+        \ '║ :h <topic>       Vim help on any topic                         ║',
+        \ '╚════════════════════════════════════════════════════════════════╝',
+        \ ]
+    
+    " Create new buffer for help
+    enew
+    setlocal buftype=nofile bufhidden=wipe noswapfile nowrap
+    setlocal nobuflisted
+    call setline(1, help_text)
+    setlocal nomodifiable
+    nnoremap <buffer> q :q<CR>
+    nnoremap <buffer> <Esc> :q<CR>
+    echo "Press 'q' or <Esc> to close this help"
+endfunction
+
+" Map Leader+? to show keybinds
+nnoremap <Leader>? :call ShowKeybinds()<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => overwrite
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

@@ -207,9 +207,13 @@ __run_post_install() {
     __symlink "$APPDIR/vimrc" "$HOME/.vimrc"
   fi
   if __am_i_online; then
-    vim --not-a-term -u "$APPDIR/plugins.vimrc" -c ":PluginInstall" "+qall"
-    vim --not-a-term -u "$APPDIR/plugins.vimrc" -c ":BundleInstall" "+qall"
-    vim --not-a-term -u "$APPDIR/plugins.vimrc" -c ":PluginClean" "+qall"
+    # Install vim-plug if not present
+    local vim_autoload="$HOME/.local/share/vim/autoload"
+    if [ ! -f "$vim_autoload/plug.vim" ]; then
+      execute "mkdir -p $vim_autoload && curl -fLo $vim_autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" "Installing vim-plug"
+    fi
+    # Install/Update plugins
+    execute "vim --not-a-term -u $APPDIR/plugins.vimrc +PlugInstall +PlugUpdate +qall" "Installing/updating vim plugins"
   fi
   return $getRunStatus
 }
@@ -217,27 +221,8 @@ __run_post_install() {
 # Custom plugin function
 __custom_plugin() {
   local getRunStatus=0
-  local bundle_dir="$HOME/.local/share/$APPNAME/bundle"
-  if [ -d "$bundle_dir/Vundle.vim/.git" ]; then
-    execute "git_update $bundle_dir/Vundle.vim" "Updating plugin Vundle.vim"
-  else
-    execute "git_clone https://github.com/dfvim/Vundle.vim $bundle_dir/Vundle.vim" "Installing plugin Vundle.vim"
-  fi
-  if [ -d "$bundle_dir/vim-fugitive/.git" ]; then
-    execute "git_update $bundle_dir/vim-fugitive" "Updating vim-fugitive"
-  else
-    execute "git_clone https://github.com/tpope/vim-fugitive $bundle_dir/vim-fugitive" "Installing vim-fugitive"
-  fi
-  if [ -d "$bundle_dir/vim-airline/.git" ]; then
-    execute "git_update $bundle_dir/vim-airline" "Updating vim-airline"
-  else
-    execute "git_clone https://github.com/vim-airline/vim-airline $bundle_dir/vim-airline" "Installing vim-airline"
-  fi
-  if [ -d "$bundle_dir/vim-airline-themes/.git" ]; then
-    execute "git_update $bundle_dir/vim-airline-themes" "Updating vim-airline-themes"
-  else
-    execute "git_clone https://github.com/vim-airline/vim-airline-themes $bundle_dir/vim-airline-themes" "Installing vim-airline-themes"
-  fi
+  # vim-plug handles all plugin management now
+  # This function is kept for compatibility but plugins are managed in plugins.vimrc
   return $getRunStatus
 }
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
