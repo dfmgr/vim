@@ -704,6 +704,7 @@ augroup END
 " =>  tmuxline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline#extensions#tmuxline#enabled = 0
+let g:airline#extensions#unicode#enabled = 0
 let g:tmuxline_preset = 'full'
 if exists("$TMUX")
     " Get the environment variable
