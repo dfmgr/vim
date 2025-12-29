@@ -296,6 +296,6 @@ endfunction
 " Autogroup commands
 au BufNewFile * TemplateAutoInit
 " Define commands
-command! -nargs=0 TemplateExpand         :call <SID>ExpandAllTemplates()
-command! -nargs=? TemplateInit           :call <SID>InitializeTemplate(<f-args>)
-command! -nargs=0 TemplateAutoInit       :call <SID>AutoInitializeTemplate()
+command -nargs=0 TemplateExpand         :call <SID>ExpandAllTemplates()
+command -nargs=? TemplateInit           :call <SID>InitializeTemplate(<f-args>)
+command -nargs=0 TemplateAutoInit       :call <SID>AutoInitializeTemplate()
