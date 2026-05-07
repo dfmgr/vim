@@ -137,7 +137,7 @@ __version() {
   grep -E '[".#]#@[A-Z]' "$command"
 }
 __help() {
-  printf_color "4" "$(grep ^"# @Description" "{{FILE}} | grep ' : " || {{FILE}} help)"
+  printf_color "4" "$(grep '^# @Description' '{{FILE}}' | grep ' : ' || {{FILE}} help)"
   printf_color "4" "usage: {{FILE}}  |  {{FILE}} --version"
   exit
 }

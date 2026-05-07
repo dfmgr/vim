@@ -13,7 +13,7 @@ endif
 let g:vim_bootstrap_langs = "c,elixir,elm,erlang,go,haskell,html,javascript,lisp,lua,ocaml,perl,php,python,ruby,rust,scala,typescript"
 let g:vim_bootstrap_editor = "vim"				" nvim or vim
 let g:vim_bootstrap_theme = "dracula"
-let g:vim_bootstrap_frams = "svelte,vuejs"
+let g:vim_bootstrap_frameworks = "svelte,vuejs"
 
 if !filereadable(vimplug_exists)
   if !executable(curl_exists)

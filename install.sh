@@ -205,13 +205,8 @@ __run_post_install() {
     __symlink "$APPDIR/vimrc" "$HOME/.vimrc"
   fi
   if __am_i_online; then
-    # Install vim-plug if not present
-    local vim_autoload="$HOME/.local/share/vim/autoload"
-    if [ ! -f "$vim_autoload/plug.vim" ]; then
-      execute "mkdir -p $vim_autoload && curl -fLo $vim_autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" "Installing vim-plug"
-    fi
-    # Install/Update plugins
-    execute "vim --not-a-term -u $APPDIR/plugins.vimrc +PlugInstall +PlugUpdate +qall" "Installing/updating vim plugins"
+    # Install/Update plugins (Vundle bootstraps itself from plugins.vimrc)
+    execute "vim --not-a-term -u $APPDIR/plugins.vimrc +PluginInstall +PluginUpdate +qall" "Installing/updating vim plugins"
   fi
   return $getRunStatus
 }
@@ -219,8 +214,7 @@ __run_post_install() {
 # Custom plugin function
 __custom_plugin() {
   local getRunStatus=0
-  # vim-plug handles all plugin management now
-  # This function is kept for compatibility but plugins are managed in plugins.vimrc
+  # Vundle handles all plugin management; plugins are declared in plugins.vimrc
   return $getRunStatus
 }
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

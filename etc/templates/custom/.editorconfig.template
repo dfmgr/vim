@@ -16,7 +16,7 @@
 # @@Template         :  editorconfig
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # This file is the top-most EditorConfig file
-root = false
+root = true
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # All Files

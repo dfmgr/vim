@@ -400,12 +400,12 @@ let g:rainbow_conf = {
 \}
 
 " --- Copy/paste ---
-vmap <C-c> +yi
-vmap <C-x> +c
-vmap <C-v> c<ESC>+p
-imap <C-v> <ESC>+pa
-map <leader>c +y
-map <leader>v +p
+vmap <C-c> "+yi
+vmap <C-x> "+c
+vmap <C-v> c<ESC>"+p
+imap <C-v> <ESC>"+pa
+map <leader>c "+y
+map <leader>v "+p
 vnoremap <C-C> :w !putclip<CR><CR>
 
 " --- File update hooks ---
@@ -491,7 +491,6 @@ nmap <leader>tl <Plug>TaskList
 let g:tlTokenList = ['FIXME', 'TODO', 'XXX', 'HACK', 'WIP']
 
 " --- Autoformat by filetype ---
-autocmd FileType php setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120
 autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120
 autocmd FileType php setlocal tabstop=4 shiftwidth=4 softtabstop=4 textwidth=120
 autocmd FileType coffee,javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120
@@ -615,9 +614,9 @@ function! ActiveStatus()
   let statusline.="%1*"
   let statusline.="\ %2v"
   let statusline.="\ %3p%%\ "
-  set statusline.="%#warningmsg#"
-  set statusline.="%{SyntasticStatuslineFlag()}"
-  set statusline.="%*"
+  let statusline.="%#warningmsg#"
+  let statusline.="%{SyntasticStatuslineFlag()}"
+  let statusline.="%*"
   return statusline
 endfunction
 
@@ -636,9 +635,9 @@ function! InactiveStatus()
   let statusline.="\ \ "
   let statusline.="\ %2v"
   let statusline.="\ %3p%%\ "
-  set statusline.="%#warningmsg#"
-  set statusline.="%{SyntasticStatuslineFlag()}"
-  set statusline.="%*"
+  let statusline.="%#warningmsg#"
+  let statusline.="%{SyntasticStatuslineFlag()}"
+  let statusline.="%*"
   return statusline
 endfunction
 
@@ -680,7 +679,7 @@ let g:header_auto_add_header = 0
 " --- vim-templates ---
 let g:tmpl_auto_initialize = 1
 let g:tmpl_search_paths    = [ '~/.config/vim/templates/custom' , '~/Templates' ]
-let g_tmpl_version         = 'strftime("%Y%m%d%H%M")'
+let g:tmpl_version         = 'strftime("%Y%m%d%H%M")'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => 7. LOCAL OVERRIDES

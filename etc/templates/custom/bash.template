@@ -15,9 +15,6 @@
 # @@Resource         :
 # @@Terminal App     :  no
 # @@sudo/root        :  no
-# @Resource          :
-# @@Terminal App     :
-# @@sudo/root        :
 # @@Template         :  shell/sh
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # shellcheck disable=SC2016

@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \"import json; json.load\\(open\\('/root/Projects/github/dfmgr/vim/etc/templates/custom/eslintrc.json.template'\\)\\)\")",
+      "Bash(vim --version)",
+      "Bash(vim -e -s -u NONE -i NONE -c 'try | source /root/Projects/github/dfmgr/vim/etc/vimrc | catch | echo \"ERROR: \" . v:exception | endtry | qall!')",
+      "Bash(vim -e -s -u NONE -i NONE -c 'silent! source /root/Projects/github/dfmgr/vim/etc/vimrc' -c 'redir > /tmp/vim_errors.txt' -c 'messages' -c 'redir END' -c 'qall!')",
+      "Read(//tmp/**)",
+      "Bash(vim -e -s -u NONE -i NONE -c 'silent! source /root/Projects/github/dfmgr/vim/etc/plugins.vimrc' -c 'redir > /tmp/vim_plug_errors.txt' -c 'messages' -c 'redir END' -c 'qall!')",
+      "Bash(bash -n /root/Projects/github/dfmgr/vim/install.sh)"
+    ]
+  }
+}

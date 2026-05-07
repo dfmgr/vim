@@ -32,9 +32,11 @@ set rtp+=~/.local/share/vim/bundle/powerline/powerline/bindings/vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Install Vundle if not present
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let s:vundle_just_installed = 0
 if ! filereadable(expand('~/.local/share/vim/bundle/Vundle.vim/.gitignore'))
     echom "Downloading Vundle to manage plugins..."
     silent !git clone -q "https://github.com/dfvim/Vundle.vim" ~/.local/share/vim/bundle/Vundle.vim
+    let s:vundle_just_installed = 1
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -146,6 +148,13 @@ if (has('python3') || has('python'))
 endif
 
 call vundle#end()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Auto-install plugins on first run (after Vundle was bootstrapped)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if s:vundle_just_installed
+    autocmd VimEnter * PluginInstall
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Post-plugin settings (minimal)
