@@ -13,7 +13,7 @@
 "# @Resource      :
 "# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 "
-" NOTE: This file is sourced from vimrc AFTER:
+" NOTE: This file is normally sourced from vimrc AFTER:
 "   - set nocompatible
 "   - filetype off
 "   - directory creation
@@ -22,6 +22,14 @@
 "   - syntax on
 "   - all other settings
 "
+" It is ALSO run standalone by install.sh ("vim -es -u plugins.vimrc"), and a
+" standalone Vim starts in 'compatible' mode. Under 'compatible' the default
+" 'cpoptions' disables leading-backslash line continuation, so plugins that
+" use it (vim-fugitive) fail with "E10: \ should be followed by /, ? or &".
+" nocompatible below is therefore required for the standalone path, and is a
+" no-op when vimrc has already set it.
+set nocompatible
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin directories
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
