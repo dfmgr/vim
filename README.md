@@ -108,8 +108,8 @@ rm -rf ~/.local/share/vim/plugged
 
 #### 2. Removed Duplicate/Competing Plugins
 - **30-40MB less memory usage**
-- Removed: neocomplete, supertab, ddc.vim, vim-multiple-cursors
-- Kept: deoplete (async completion), ultisnips (snippets), vim-airline
+- Removed: neocomplete, supertab, vim-multiple-cursors
+- Kept: deoplete (async completion), ddc.vim (fallback completion), ultisnips (snippets), vim-airline
 
 #### 3. Optimized Autocmds
 - **~200ms faster startup**

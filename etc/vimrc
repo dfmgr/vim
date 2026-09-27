@@ -247,20 +247,12 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 let NERDTreeShowLineNumbers=1
 let NERDTreeShowHidden=1
 let NERDTreeMinimalUI = 0
-let g:nerdtree_tabs_open_on_console_startup = 0
-let g:nerdtree_tabs_synchronize_view = 0
 
 " --- snipMate ---
 let g:snipMate = { 'snippet_version' : 1 }
 
-" --- deoplete ---
-if has('python3')
-    let g:deoplete#enable_at_startup = 1
-elseif has('pythonx')
-    let g:deoplete#enable_at_startup = 0
-elseif has('python')
-    let g:deoplete#enable_at_startup = 0
-endif
+" --- ddc.vim completion fallback (deprecated - deoplete was renamed) ---
+" ddc.vim provides completion; deoplete config removed as deoplete.nvim is frozen
 
 " --- ultisnips ---
 let g:UltiSnipsExpandTrigger = "<tab>"
@@ -474,21 +466,15 @@ let g:vimwiki_list = [{'path': '~/.local/share/vimwiki/', 'syntax': 'markdown', 
 let g:vimwiki_global_ext = 0
 let g:vimwiki_hl_headers = 1
 
-" --- vim-jekyll ---
-let g:jekyll_post_extension = '.md'
-let g:jekyll_post_filetype = 'markdown'
-let g:jekyll_post_dirs = ['_posts']
-let g:jekyll_site_dir = '_site'
-let g:jekyll_build_command = 'jekyll --no-auto --no-server'
-
 " --- editorconfig ---
 let g:EditorConfig_max_line_indicator = "exceeding"
 let g:EditorConfig_exclude_patterns = ['fugitive://.*','scp://.*']
 let g:EditorConfig_preserve_formatoptions = 1
 
-" --- tasklist ---
-nmap <leader>tl <Plug>TaskList
-let g:tlTokenList = ['FIXME', 'TODO', 'XXX', 'HACK', 'WIP']
+" --- todo tokens ---
+" TODO/FIXME highlighting without a plugin: match the common markers.
+syntax match TodoToken /\(FIXME\|TODO\|XXX\|HACK\|WIP\)\>/ contained containedin=ALLTEXT
+highlight default TodoToken ctermfg=196 gui=bold
 
 " --- Autoformat by filetype ---
 autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120

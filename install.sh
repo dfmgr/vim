@@ -205,8 +205,20 @@ __run_post_install() {
     __symlink "$APPDIR/vimrc" "$HOME/.vimrc"
   fi
   if __am_i_online; then
-    # Install/Update plugins (Vundle bootstraps itself from plugins.vimrc)
-    execute "vim --not-a-term -u $APPDIR/plugins.vimrc +PluginInstall +PluginUpdate +qall" "Installing/updating vim plugins"
+    # Install/update plugins (vim-plug bootstraps itself from plugins.vimrc)
+    # APPDIR is retargeted to INSTDIR on re-install, so fall back to the clone
+    # -es runs Vim in silent Ex mode; --not-a-term alone still emits terminal
+    # escape codes. PlugUpdate installs missing plugins as well, so PlugInstall
+    # on its own would fetch everything twice.
+    local plugins_vimrc="$APPDIR/plugins.vimrc"
+    [ -f "$plugins_vimrc" ] || plugins_vimrc="$INSTDIR/etc/plugins.vimrc"
+    if [ -f "$plugins_vimrc" ]; then
+      execute "vim -es -u $plugins_vimrc +PlugUpdate +qall" "Installing/updating vim plugins" ||
+        getRunStatus=$((getRunStatus + 1))
+    else
+      printf_red "😿 Could not find plugins.vimrc to install vim plugins 😿"
+      getRunStatus=$((getRunStatus + 1))
+    fi
   fi
   return $getRunStatus
 }
@@ -214,7 +226,7 @@ __run_post_install() {
 # Custom plugin function
 __custom_plugin() {
   local getRunStatus=0
-  # Vundle handles all plugin management; plugins are declared in plugins.vimrc
+  # vim-plug handles all plugin management; plugins are declared in plugins.vimrc
   return $getRunStatus
 }
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
