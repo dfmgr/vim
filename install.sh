@@ -43,14 +43,13 @@ BUILD_NAME="$APPNAME"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Set bash options
 trap 'retVal=$?;trap_exit' ERR EXIT SIGINT
-#if [ ! -t 0 ] && { [ "$1" = --term ] || [ $# = 0 ]; }; then { [ "$1" = --term ] && shift 1 || true; } && TERMINAL_APP="TRUE" myterminal -e "$APPNAME $*" && exit || exit 1; fi
 [ "$1" = "--debug" ] && set -x && export SCRIPT_OPTS="--debug" && export _DEBUG="on"
 [ "$1" = "--raw" ] && export SHOW_RAW="true"
 set -o pipefail
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 for app in curl wget git; do type -P "$app" >/dev/null 2>&1 || missing_app+=("$app"); done && [ -z "${missing_app[*]}" ] || { printf '%s\n' "${missing_app[*]}" && exit 1; }
-connect_test() { curl -q -ILSsf --retry 1 --max-time 2 "https://1.1.1.1" 2>&1 | grep -iq 'server:*.cloudflare' || return 1; }
-verify_url() { urlcheck "$1" &>/dev/null || { printf_red "😿 The URL $1 returned an error. 😿" && exit 1; }; }
+__connect_test() { curl -q -ILSsf --retry 1 --max-time 2 "https://1.1.1.1" 2>&1 | grep -iq -- 'server:*.cloudflare' || return 1; }
+__verify_url() { urlcheck "$1" &>/dev/null || { printf_red "😿 The URL $1 returned an error. 😿" && exit 1; }; }
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Import functions
 CASJAYSDEVDIR="${CASJAYSDEVDIR:-/usr/local/share/CasjaysDev/scripts}"
@@ -62,7 +61,7 @@ if [ -f "$PWD/$SCRIPTSFUNCTFILE" ]; then
   . "$PWD/$SCRIPTSFUNCTFILE"
 elif [ -f "$SCRIPTSFUNCTDIR/$SCRIPTSFUNCTFILE" ]; then
   . "$SCRIPTSFUNCTDIR/$SCRIPTSFUNCTFILE"
-elif connect_test; then
+elif __connect_test; then
   curl -q -LSsf "$SCRIPTSFUNCTURL/$SCRIPTSFUNCTFILE" -o "/tmp/$SCRIPTSFUNCTFILE" || exit 1
   . "/tmp/$SCRIPTSFUNCTFILE"
 else
@@ -71,7 +70,7 @@ else
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Define custom functions
-__am_i_online() { connect_test || return 1; }
+__am_i_online() { __connect_test || return 1; }
 __run_git_clone_pull() { git_update "$1" "$2"; }
 __cmd_exists() { builtin type -P $1 &>/dev/null; }
 __mkdir() { mkdir -p "$1" &>/dev/null || return 1; }
@@ -86,18 +85,22 @@ __download_file() { curl -q -LSsf "$1" -o "$2" 2>/dev/null || return 1; }
 __input_is_number() { test -n "$1" && test -z "${1//[0-9]/}" || return 1; }
 __failexitcode() { [ $1 -ne 0 ] && printf_red "😠 $2 😠" && exit ${1:-4}; }
 __get_exit_status() { s=$? && getRunStatus=$((s + ${getRunStatus:-0})) && return $s; }
-__service_is_running() { systemctl is-active $1 2>&1 | grep -qiw 'active' || return 1; }
-__service_is_active() { systemctl is-enabled $1 2>&1 | grep -qiw 'enabled' || return 1; }
+__service_is_running() { systemctl is-active "$1" 2>&1 | grep -qiw -- 'active' || return 1; }
+__service_is_active() { systemctl is-enabled "$1" 2>&1 | grep -qiw -- 'enabled' || return 1; }
 __get_version() { echo "$@" | awk -F '.' '{ printf("%d%d%d%d\n", $1,$2,$3,$4) }'; }
 __silent_start() { __cmd_exists $1 && (eval "$*" &>/dev/null &) && __app_is_running $1 || return 1; }
 __symlink() { { __rm_rf "$2" || true; } && ln_sf "$1" "$2" &>/dev/null || { [ -L "$2" ] || return 1; }; }
-__get_pid() { ps -aux | grep -v ' grep ' | grep "$1" | awk -F ' ' '{print $2}' | grep ${2:-[0-9]} || return 1; }
+__get_pid() { pgrep -f -- "$1" | grep -- "${2:-[0-9]}" || return 1; }
 __dir_count() { find -L "${1:-./}" -maxdepth "${2:-1}" -not -path "${1:-./}/.git/*" -type d 2>/dev/null | wc -l; }
 __file_count() { find -L "${1:-./}" -maxdepth "${2:-1}" -not -path "${1:-./}/.git/*" -type f 2>/dev/null | wc -l; }
 __kill_process_id() { __input_is_number $1 && pid=$1 && { [ -z "$pid" ] || kill -15 $pid &>/dev/null; } || return 1; }
 __kill() { __kill_process_id "$1" || __kill_process_name "$1" || { ! __app_is_running "$1" || kill -9 $pid &>/dev/null; } || return 1; }
 __replace_all() { [ -n "$3" ] && [ -e "$3" ] && find "$3" -not -path "$3/.git/*" -type f -exec $sed -i "s|$1|$2|g" {} \; >/dev/null 2>&1 || return 1; }
-__kill_process_name() { local pid="$(pidof "$1" 2>/dev/null)" && { [ -z "$pid" ] || { kill -19 $pid &>/dev/null && ! __app_is_running "$1" && return 0; } || kill -9 $pid &>/dev/null; } || return 1; }
+__kill_process_name() {
+  local pid="$(pidof "$1" 2>/dev/null)" &&
+    { [ -z "$pid" ] || { kill -19 $pid &>/dev/null && ! __app_is_running "$1" && return 0; } || kill -9 $pid &>/dev/null; } ||
+    return 1
+}
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 sed="$(builtin type -P gsed 2>/dev/null || builtin type -P sed 2>/dev/null || return)"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -105,7 +108,7 @@ sed="$(builtin type -P gsed 2>/dev/null || builtin type -P sed 2>/dev/null || re
 show_optvars "$@"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Verify repository exists
-verify_url "$REPO"
+__verify_url "$REPO"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # OS Support: supported_os unsupported_oses
 supported_os linux mac windows
@@ -113,9 +116,6 @@ unsupported_oses
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # get sudo credentials
 sudorun "true"
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Requires root - restarting with sudo
-#sudoreq "$0 *"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Make sure the scripts repo is installed
 scripts_check
@@ -128,9 +128,6 @@ trap_exit
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Initialize the installer
 dfmgr_run_init
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Do not update
-#installer_noupdate "$@"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Defaults
 APPNAME="vim"
@@ -344,7 +341,7 @@ if __am_i_online; then
     PLUGIN_DIR="$HOME/.local/share/$APPNAME/plugins"
     [ -d "$PLUGIN_DIR" ] || mkdir -p "$PLUGIN_DIR"
     for plugin in $PLUGIN_REPOS; do
-      plugin_name="$(basename "$plugin")"
+      plugin_name="${plugin##*/}"
       plugin_dir="$PLUGIN_DIR/$plugin_name"
       if [ -d "$plugin_dir/.git" ]; then
         execute "git_update $plugin_dir" "Updating plugin $plugin_name"
@@ -365,7 +362,7 @@ fi
 unset exitCodeP exitC
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # run post install scripts
-run_postinst() {
+__run_postinst() {
   local exitCodeP=0
   __run_prepost_install || exitCodeP=$((exitCodeP + 1))
   dfmgr_run_post || exitCodeP=$((exitCodeP + 1))
@@ -374,7 +371,7 @@ run_postinst() {
 }
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # run post install scripts
-execute "run_postinst" "Running post install scripts"
+execute "__run_postinst" "Running post install scripts"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # create version file
 dfmgr_install_version

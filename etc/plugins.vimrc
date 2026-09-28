@@ -182,7 +182,8 @@ Plug 'wakatime/vim-wakatime'
 
 " Tmux integration
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'edkolev/tmuxline.vim'
+" edkolev/tmuxline.vim is deliberately NOT installed. It hooks VimEnter and
+" rewrites the tmux status option, which stomps on a hand-rolled statusline.
 Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " Python-dependent plugins

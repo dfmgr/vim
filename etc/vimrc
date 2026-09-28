@@ -551,9 +551,12 @@ autocmd InsertLeave * set colorcolumn=""
 autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
 autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
-" --- tmuxline ---
+" --- tmux ---
+" edkolev/tmuxline.vim is intentionally not installed, so the tmux status
+" option is left exactly as the user's own config sets it. Only the cwd
+" broadcast below remains; it writes a TMUX_PWD_* global env var and does not
+" touch the statusline.
 let g:airline#extensions#tmuxline#enabled = 0
-let g:tmuxline_preset = 'full'
 if exists("$TMUX")
     let tmux_pane_name_cmd = 'tmux display -p \#D'
     let tmux_pane_name = substitute(system(g:tmux_pane_name_cmd), "\n", "", "")
